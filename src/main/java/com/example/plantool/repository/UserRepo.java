@@ -78,7 +78,6 @@ public class UserRepo {
         }catch (SQLException e){
             e.printStackTrace();
         }
-
     }
 
 }
