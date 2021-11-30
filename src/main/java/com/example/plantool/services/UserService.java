@@ -76,4 +76,11 @@ public class UserService {
         return validLogin;
     }
 
+    public void isLeaderBoolean(boolean isLeader, int userId){
+        try {
+            userRepo.isLeaderBoolean(isLeader, userId);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 }
