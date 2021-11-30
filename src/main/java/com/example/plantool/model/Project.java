@@ -16,7 +16,7 @@ public class Project {
     protected int hoursUsed;
     protected ArrayList<skill> skillsAllocated; // TODO: Change to String???
 
-    Project(int id, String name, Date startDate, Date endDate, Date deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, int hoursUsed, ArrayList<skill> skillsAllocated) {
+    public Project(int id, String name, Date startDate, Date endDate, Date deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, int hoursUsed, ArrayList<skill> skillsAllocated) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
