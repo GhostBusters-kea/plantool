@@ -2,13 +2,14 @@ package com.example.plantool.repository;
 
 
 import com.example.plantool.model.User;
+import com.example.plantool.utility.DatabaseConnector;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class userRepo {
+public class UserRepo {
 
     public void insertUserToDB (User user){
 
