@@ -28,6 +28,8 @@ public class Project {
         this.skillsAllocated = skillsAllocated;
     }
 
+    public Project(){}
+
     public int getId() {
         return id;
     }
