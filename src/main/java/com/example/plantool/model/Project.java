@@ -9,15 +9,15 @@ public class Project {
 
     protected int id;
     protected String name;
-    protected Time startDate;
-    protected Time endDate;
-    protected Time deadline;
+    protected Date startDate;
+    protected Date endDate;
+    protected Date deadline;
     protected ArrayList<ProjectMember> assignees;
     protected int hoursAllocated;
     protected int hoursUsed;
-    protected ArrayList<Skill> skillsAllocated; // TODO: Change to String???
+    protected ArrayList<String> skillsAllocated;
 
-    public Project(int id, String name, Time startDate, Time endDate, Time deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, int hoursUsed, ArrayList<Skill> skillsAllocated) {
+    public Project(int id, String name, Date startDate, Date endDate, Date deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, int hoursUsed, ArrayList<String> skillsAllocated) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -51,7 +51,7 @@ public class Project {
         return startDate;
     }
 
-    public void setStartDate(Time startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
@@ -59,7 +59,7 @@ public class Project {
         return endDate;
     }
 
-    public void setEndDate(Time endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -67,7 +67,7 @@ public class Project {
         return deadline;
     }
 
-    public void setDeadline(Time deadline) {
+    public void setDeadline(Date deadline) {
         this.deadline = deadline;
     }
 
@@ -95,11 +95,11 @@ public class Project {
         this.hoursUsed = hoursUsed;
     }
 
-    public ArrayList<Skill> getSkillsAllocated() {
+    public ArrayList<String> getSkillsAllocated() {
         return skillsAllocated;
     }
 
-    public void setSkillsAllocated(ArrayList<Skill> skillsAllocated) {
+    public void setSkillsAllocated(ArrayList<String> skillsAllocated) {
         this.skillsAllocated = skillsAllocated;
     }
 
