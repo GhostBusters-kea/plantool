@@ -14,9 +14,9 @@ public class Project {
     protected ArrayList<ProjectMember> assignees;
     protected int hoursAllocated;
     protected int hoursUsed;
-    protected ArrayList<skill> skillsAllocated; // TODO: Change to String???
+    protected ArrayList<Skill> skillsAllocated; // TODO: Change to String???
 
-    public Project(int id, String name, Date startDate, Date endDate, Date deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, int hoursUsed, ArrayList<skill> skillsAllocated) {
+    public Project(int id, String name, Date startDate, Date endDate, Date deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, int hoursUsed, ArrayList<Skill> skillsAllocated) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -94,11 +94,11 @@ public class Project {
         this.hoursUsed = hoursUsed;
     }
 
-    public ArrayList<skill> getSkillsAllocated() {
+    public ArrayList<Skill> getSkillsAllocated() {
         return skillsAllocated;
     }
 
-    public void setSkillsAllocated(ArrayList<skill> skillsAllocated) {
+    public void setSkillsAllocated(ArrayList<Skill> skillsAllocated) {
         this.skillsAllocated = skillsAllocated;
     }
 

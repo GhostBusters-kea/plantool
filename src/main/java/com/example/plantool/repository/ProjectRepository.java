@@ -9,6 +9,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProjectRepository {
+    public static void main(String[] args) {
+        ProjectRepository re = new ProjectRepository();
+
+        System.out.println(re.fetchSingleProject(3));
+
+
+    }
 
 
     public void writeProjectToDB(Project project) {
