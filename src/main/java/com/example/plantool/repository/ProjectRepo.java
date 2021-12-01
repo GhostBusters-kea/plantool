@@ -7,6 +7,7 @@ import com.mysql.cj.protocol.Resultset;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -18,11 +19,13 @@ public class ProjectRepo {
 
         Date date = new java.sql.Date(2021-1-12);
 
+        Time time = new Time(2021-1-11);
+
         Project project = new Project();
-        project.setName("Bygning");
-        project.setStartDate(date);
-        project.setEndDate(date);
-        project.setDeadline(date);
+        project.setName("Timetest");
+        project.setStartDate(time);
+        project.setEndDate(time);
+        project.setDeadline(time);
 
         repo.writeProjectToDB(project);
 
@@ -36,10 +39,12 @@ public class ProjectRepo {
                             "INSERT INTO project(projectname, projectstartdate, projectenddate, projectdeadline) VALUES(?,?,?,?)"
                     );
 
+            java.sql.Date sqldate= new java.sql.Date(project.getStartDate().getTime())
+
             stmt.setString(1, project.getName());
-            stmt.setDate(2, (java.sql.Date) project.getStartDate());
-            stmt.setDate(3, (java.sql.Date) project.getEndDate());
-            stmt.setDate(4, (java.sql.Date) project.getDeadline());
+            stmt.setTime(2, project.getStartDate());
+            stmt.setTime(3, project.getEndDate());
+            stmt.setTime(4, project.getDeadline());
             stmt.executeUpdate();
             System.out.println("Insert complete");
         } catch (SQLException e){
@@ -66,9 +71,9 @@ public class ProjectRepo {
             while (resultset.next()){
 
                 tmpProject.setName(resultset.getString(1));
-                tmpProject.setStartDate(resultset.getDate(2));
-                tmpProject.setEndDate(resultset.getDate(3));
-                tmpProject.setDeadline(resultset.getDate(4));
+                tmpProject.setStartDate(resultset.getTime(2));
+                tmpProject.setEndDate(resultset.getTime(3));
+                tmpProject.setDeadline(resultset.getTime(4));
             }
 
 
@@ -80,7 +85,17 @@ public class ProjectRepo {
 
     }
 
-    // TODO: delete project
+    public void deleteProject(int projectid){
+
+        try {
+            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
+                    "DELETE FROM project WHERE projectid="+projectid+""
+            );
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
 
     // TODO: update project
 

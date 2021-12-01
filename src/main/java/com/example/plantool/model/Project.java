@@ -1,5 +1,6 @@
 package com.example.plantool.model;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -8,15 +9,15 @@ public class Project {
 
     protected int id;
     protected String name;
-    protected Date startDate;
-    protected Date endDate;
-    protected Date deadline;
+    protected Time startDate;
+    protected Time endDate;
+    protected Time deadline;
     protected ArrayList<ProjectMember> assignees;
     protected int hoursAllocated;
     protected int hoursUsed;
     protected ArrayList<Skill> skillsAllocated; // TODO: Change to String???
 
-    public Project(int id, String name, Date startDate, Date endDate, Date deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, int hoursUsed, ArrayList<Skill> skillsAllocated) {
+    public Project(int id, String name, Time startDate, Time endDate, Time deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, int hoursUsed, ArrayList<Skill> skillsAllocated) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -50,7 +51,7 @@ public class Project {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Time startDate) {
         this.startDate = startDate;
     }
 
@@ -58,7 +59,7 @@ public class Project {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(Time endDate) {
         this.endDate = endDate;
     }
 
@@ -66,7 +67,7 @@ public class Project {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    public void setDeadline(Time deadline) {
         this.deadline = deadline;
     }
 
