@@ -16,8 +16,7 @@ public class ProjectRepo {
     public static void main(String[] args) {
         ProjectRepo repo = new ProjectRepo();
 
-        Date date = new java.sql.Date(2021-1-12
-        );
+        Date date = new java.sql.Date(2021-1-12);
 
         Project project = new Project();
         project.setName("Bygning");
@@ -25,10 +24,12 @@ public class ProjectRepo {
         project.setEndDate(date);
         project.setDeadline(date);
 
+        repo.writeProjectToDB(project);
+
     }
 
     public void writeProjectToDB(Project project){
-/*
+
         try{
             PreparedStatement stmt =
                     DatabaseConnector.getConnection().prepareStatement(
@@ -36,11 +37,16 @@ public class ProjectRepo {
                     );
 
             stmt.setString(1, project.getName());
-            stmt.setDate(2, project.getStartDate());
-            stmt.setDate(3, project.getName());
-            stmt.setString(1, project.getName());
+            stmt.setDate(2, (java.sql.Date) project.getStartDate());
+            stmt.setDate(3, (java.sql.Date) project.getEndDate());
+            stmt.setDate(4, (java.sql.Date) project.getDeadline());
+            stmt.executeUpdate();
+            System.out.println("Insert complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+
         }
-        */
+
 
     }
 
@@ -73,6 +79,10 @@ public class ProjectRepo {
         return tmpProject;
 
     }
+
+    // TODO: delete project
+
+    // TODO: update project
 
     public ArrayList<Project> fetchAllProjects(){
 
