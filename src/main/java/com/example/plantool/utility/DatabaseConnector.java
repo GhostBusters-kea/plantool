@@ -1,18 +1,23 @@
 package com.example.plantool.utility;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
 public class DatabaseConnector {
+
     private static String url;
     private static String username;
     private static String password;
     private static Connection conn;
 
     public static Connection getConnection() {
+
         if (conn != null) {
             return conn;
         }
@@ -22,6 +27,7 @@ public class DatabaseConnector {
         username = System.getenv("pt_username");
 
         try {
+
             conn = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
             e.printStackTrace();
