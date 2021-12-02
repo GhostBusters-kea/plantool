@@ -1,5 +1,6 @@
 package com.example.plantool.model;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -14,9 +15,9 @@ public class Project {
     protected ArrayList<ProjectMember> assignees;
     protected int hoursAllocated;
     protected int hoursUsed;
-    protected ArrayList<Skill> skillsAllocated; // TODO: Change to String???
+    protected ArrayList<String> skillsAllocated;
 
-    public Project(int id, String name, Date startDate, Date endDate, Date deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, int hoursUsed, ArrayList<Skill> skillsAllocated) {
+    public Project(int id, String name, Date startDate, Date endDate, Date deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, int hoursUsed, ArrayList<String> skillsAllocated) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -94,11 +95,11 @@ public class Project {
         this.hoursUsed = hoursUsed;
     }
 
-    public ArrayList<Skill> getSkillsAllocated() {
+    public ArrayList<String> getSkillsAllocated() {
         return skillsAllocated;
     }
 
-    public void setSkillsAllocated(ArrayList<Skill> skillsAllocated) {
+    public void setSkillsAllocated(ArrayList<String> skillsAllocated) {
         this.skillsAllocated = skillsAllocated;
     }
 
