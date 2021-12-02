@@ -7,6 +7,7 @@ import com.mysql.cj.protocol.Resultset;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,17 +15,17 @@ import java.util.Date;
 public class ProjectRepo {
 
     public static void main(String[] args) {
+
+        /*
         ProjectRepo repo = new ProjectRepo();
 
-        Date date = new java.sql.Date(2021-1-12);
-
         Project project = new Project();
-        project.setName("Bygning");
+        project.setName("Timetest");
         project.setStartDate(date);
         project.setEndDate(date);
         project.setDeadline(date);
 
-        repo.writeProjectToDB(project);
+        repo.writeProjectToDB(project);*/
 
     }
 
@@ -35,11 +36,11 @@ public class ProjectRepo {
                     DatabaseConnector.getConnection().prepareStatement(
                             "INSERT INTO project(projectname, projectstartdate, projectenddate, projectdeadline) VALUES(?,?,?,?)"
                     );
-
+/*
             stmt.setString(1, project.getName());
-            stmt.setDate(2, (java.sql.Date) project.getStartDate());
-            stmt.setDate(3, (java.sql.Date) project.getEndDate());
-            stmt.setDate(4, (java.sql.Date) project.getDeadline());
+            stmt.setDate(2, new java.sql.Date(project.getStartDate());
+            stmt.setDate(3, project.getEndDate());
+            stmt.setDate(4, project.getDeadline());*/
             stmt.executeUpdate();
             System.out.println("Insert complete");
         } catch (SQLException e){
@@ -80,7 +81,17 @@ public class ProjectRepo {
 
     }
 
-    // TODO: delete project
+    public void deleteProject(int projectid){
+
+        try {
+            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
+                    "DELETE FROM project WHERE projectid="+projectid+""
+            );
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
 
     // TODO: update project
 

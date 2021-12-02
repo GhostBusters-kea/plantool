@@ -93,11 +93,11 @@ public class Project {
         this.hoursUsed = hoursUsed;
     }
 
-    public ArrayList<Skill> getSkillsAllocated() {
+    public ArrayList<String> getSkillsAllocated() {
         return skillsAllocated;
     }
 
-    public void setSkillsAllocated(ArrayList<Skill> skillsAllocated) {
+    public void setSkillsAllocated(ArrayList<String> skillsAllocated) {
         this.skillsAllocated = skillsAllocated;
     }
 
