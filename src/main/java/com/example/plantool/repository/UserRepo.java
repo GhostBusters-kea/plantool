@@ -73,10 +73,10 @@ public class UserRepo {
         return tmpUser;
     }
 
-    public void isLeaderBoolean(boolean isLeader, int userId) throws SQLException {
+    public void isLeaderBoolean(boolean isLeader, String email){
         try{
             int leaderBoolean = isLeader ? 1 : 0;
-            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("UPDATE user SET projectleader="+ leaderBoolean + " WHERE userid =" + userId +"");
+            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("UPDATE user SET projectleader="+ leaderBoolean + " WHERE email ='" + email +"'");
             stmt.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
