@@ -15,10 +15,9 @@ import java.util.Date;
 public class ProjectRepo {
 
     public static void main(String[] args) {
+
+        /*
         ProjectRepo repo = new ProjectRepo();
-
-
-
 
         Project project = new Project();
         project.setName("Timetest");
@@ -26,7 +25,7 @@ public class ProjectRepo {
         project.setEndDate(date);
         project.setDeadline(date);
 
-        repo.writeProjectToDB(project);
+        repo.writeProjectToDB(project);*/
 
     }
 
@@ -37,11 +36,11 @@ public class ProjectRepo {
                     DatabaseConnector.getConnection().prepareStatement(
                             "INSERT INTO project(projectname, projectstartdate, projectenddate, projectdeadline) VALUES(?,?,?,?)"
                     );
-
+/*
             stmt.setString(1, project.getName());
             stmt.setDate(2, new java.sql.Date(project.getStartDate());
             stmt.setDate(3, project.getEndDate());
-            stmt.setDate(4, project.getDeadline());
+            stmt.setDate(4, project.getDeadline());*/
             stmt.executeUpdate();
             System.out.println("Insert complete");
         } catch (SQLException e){
