@@ -57,7 +57,8 @@ public class UserRepo {
     public User fetchUser(String email) throws SQLException {
         User tmpUser = new User(null,null, null);
 
-        PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT user.userid, name, email, password FROM user WHERE email ='" + email + "'");
+        PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
+                "SELECT user.userid, name, email, password FROM user WHERE email ='" + email + "'");
 
         ResultSet set = stmt.executeQuery();
         while(set.next()){
@@ -73,7 +74,8 @@ public class UserRepo {
     public void isLeaderBoolean(boolean isLeader, int userId) throws SQLException {
         try{
             int leaderBoolean = isLeader ? 1 : 0;
-            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("UPDATE user SET projectleader="+ leaderBoolean + " WHERE userid =" + userId +"");
+            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
+                    "UPDATE user SET projectleader="+ leaderBoolean + " WHERE userid =" + userId +"");
             stmt.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
