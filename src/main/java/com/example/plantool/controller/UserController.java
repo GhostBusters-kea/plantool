@@ -24,8 +24,8 @@ public class UserController {
         String checkForBoolean = wr.getParameter("check");
 
         userService.createUser(wr.getParameter("input-name"),
-                wr.getParameter(wr.getParameter("input-email")),
-                wr.getParameter(wr.getParameter("input-password")));
+                wr.getParameter("input-email"),
+                wr.getParameter("input-password"));
         userService.isLeaderBoolean(Boolean.parseBoolean(checkForBoolean), wr.getParameter("input-email"));
 
         return "redirect:/index";

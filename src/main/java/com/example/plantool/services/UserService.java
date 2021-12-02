@@ -12,7 +12,6 @@ public class UserService {
     public void createUser(String name,String email, String password){
         User user = new User(name,email,password);
 
-
         if (isEmailValid(email) == false){
             System.out.println("Email not valid");
         }
