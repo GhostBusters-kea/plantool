@@ -45,7 +45,8 @@ public class UserRepo {
                 User tmp = new User(
                         result.getString(2),
                         result.getString(3),
-                        result.getString(4));
+                        result.getString(4),
+                 result.getInt(5));
                 allUsers.add(tmp);
 
             }
@@ -58,9 +59,9 @@ public class UserRepo {
 
     //Fetches a single user from database
     public User fetchUser(String email) throws SQLException {
-        User tmpUser = new User(null,null, null);
+        User tmpUser = new User(null,null, null, 0);
 
-        PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT user.userid, name, email, password FROM user WHERE email ='" + email + "'");
+        PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT user.userid, name, email, password, projectleader FROM user WHERE email ='" + email + "'");
 
         ResultSet set = stmt.executeQuery();
         while(set.next()){
@@ -68,6 +69,7 @@ public class UserRepo {
             tmpUser.setName(set.getString(2));
             tmpUser.setEmail(set.getString(3));
             tmpUser.setPassword(set.getString(4));
+            tmpUser.setIsLeader(set.getInt(5));
         }
         System.out.println(tmpUser);
         return tmpUser;
