@@ -1,25 +1,19 @@
 package com.example.plantool.model;
 
+import java.util.ArrayList;
+
 public class User {
     private int userId;
     private String name;
     private String email;
     private String password;
+    private ArrayList<String> skills;
     private int isLeader;
 
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
     }
 
     public int getUserId() {
@@ -54,11 +48,24 @@ public class User {
         this.password = password;
     }
 
+    public ArrayList<String> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(ArrayList<String> skills) {
+        this.skills = skills;
+    }
+
     public int getIsLeader() {
         return isLeader;
     }
 
     public void setIsLeader(int isLeader) {
         this.isLeader = isLeader;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

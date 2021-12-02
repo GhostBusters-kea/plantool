@@ -14,10 +14,9 @@ public class Project {
     protected ArrayList<ProjectMember> assignees;
     protected int hoursAllocated;
     protected int hoursUsed;
-    protected ArrayList<Skill> skillsAllocated; // TODO: Change to String???
+    protected ArrayList<String> skillsAllocated;
 
-    public Project(int id, String name, Date startDate, Date endDate, Date deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, int hoursUsed, ArrayList<Skill> skillsAllocated) {
-        this.id = id;
+    public Project(String name, Date startDate, Date endDate, Date deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, int hoursUsed, ArrayList<String> skillsAllocated) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
