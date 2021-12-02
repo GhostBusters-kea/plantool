@@ -12,7 +12,6 @@ public class UserService {
     public void createUser(String name,String email, String password){
         User user = new User(name,email,password);
 
-
         if (isEmailValid(email) == false){
             System.out.println("Email not valid");
         }
@@ -76,11 +75,11 @@ public class UserService {
         return validLogin;
     }
 
-    public void isLeaderBoolean(boolean isLeader, int userId){
-        try {
-            userRepo.isLeaderBoolean(isLeader, userId);
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+    public User fetchUser(String email) throws SQLException {
+        return userRepo.fetchUser(email);
     }
+    public void isLeaderBoolean(boolean isLeader, String email){
+        userRepo.isLeaderBoolean(isLeader, email);
+    }
+
 }
