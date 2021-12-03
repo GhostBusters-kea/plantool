@@ -9,7 +9,7 @@ class DoesEmailExistTest {
     @Test
     void doesEmailExist() {
         //Arrange
-        UserService service = new UserService();
+        MemberService service = new MemberService();
         String email = "kevin@mail.com";
         String wrongMail = "wrong@mail.com";
 

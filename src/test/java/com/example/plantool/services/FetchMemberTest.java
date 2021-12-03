@@ -1,26 +1,26 @@
 package com.example.plantool.services;
 
-import com.example.plantool.model.User;
+import com.example.plantool.model.Member;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FetchUserTest {
+class FetchMemberTest {
     //Er i tvivl om det er rigtigt resultat
     @Test
-    void fetchUser() throws SQLException {
+    void findMember() throws SQLException {
         //Arrange
-        UserService service = new UserService();
+        MemberService service = new MemberService();
         String email = "kevin@mail.com";
         String emailWrong = "wrong@mail.com";
 
         //Act
-        User user = service.fetchUser(email);
-        User userWrong = service.fetchUser(emailWrong);
+        Member member = service.findMember(email);
+        Member memberWrong = service.findMember(emailWrong);
 
         //Assert
-        assertEquals(user, user);
+        assertEquals(member, member);
     }
 }
