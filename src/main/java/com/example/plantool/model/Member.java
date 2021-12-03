@@ -2,7 +2,7 @@ package com.example.plantool.model;
 
 import java.util.ArrayList;
 
-public class User {
+public class Member {
     private int userId;
     private String name;
     private String email;
@@ -10,13 +10,13 @@ public class User {
     private ArrayList<String> skills;
     private int isLeader;
 
-    public User(String name, String email, String password) {
+    public Member(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
-    public User(String name, String email, String password, int isLeader) {
+    public Member(String name, String email, String password, int isLeader) {
         this.name = name;
         this.email = email;
         this.password = password;

@@ -1,27 +1,26 @@
 package com.example.plantool.repository;
 
 
-import com.example.plantool.model.User;
+import com.example.plantool.model.Member;
 import com.example.plantool.utility.DatabaseConnector;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class UserRepo {
+public class MemberRepo {
 
 
 
-    public void insertUserToDB (User user){
+    public void insertMemberToDB (Member member){
 
         try{
             PreparedStatement stmt =
                     DatabaseConnector.getConnection().prepareStatement("INSERT INTO user(name, email, password) VALUES(?,?,?) ");
-            stmt.setString(1,user.getName());
-            stmt.setString(2,user.getEmail());
-            stmt.setString(3,user.getPassword());
+            stmt.setString(1, member.getName());
+            stmt.setString(2, member.getEmail());
+            stmt.setString(3, member.getPassword());
             stmt.executeUpdate();
             System.out.println("Insert complete");
         } catch (SQLException e){
@@ -31,9 +30,9 @@ public class UserRepo {
     }
 
     //Fetches all users from database
-    public ArrayList<User> fetchAllUser(){
+    public ArrayList<Member> findAllMembers (){
 
-        ArrayList<User> allUsers = new ArrayList<>();
+        ArrayList<Member> allMembers = new ArrayList<>();
 
         try{
             PreparedStatement stmt =
@@ -42,24 +41,24 @@ public class UserRepo {
             ResultSet result = stmt.executeQuery();
 
             while(result.next()){
-                User tmp = new User(
+                Member tmp = new Member(
                         result.getString(2),
                         result.getString(3),
                         result.getString(4),
                  result.getInt(5));
-                allUsers.add(tmp);
+                allMembers.add(tmp);
 
             }
         } catch (SQLException e){
             System.out.println("Something went wrong");
             e.printStackTrace();
         }
-        return allUsers;
+        return allMembers;
     }
 
     //Fetches a single user from database
-    public User fetchUser(String email) throws SQLException {
-        User tmpUser = new User(null,null, null, 0);
+    public Member findMember (String email) throws SQLException {
+        Member tmpMember = new Member(null,null, null, 0);
 
 
 
@@ -68,14 +67,14 @@ public class UserRepo {
 
         ResultSet set = stmt.executeQuery();
         while(set.next()){
-            tmpUser.setUserId(set.getInt(1));
-            tmpUser.setName(set.getString(2));
-            tmpUser.setEmail(set.getString(3));
-            tmpUser.setPassword(set.getString(4));
-            tmpUser.setIsLeader(set.getInt(5));
+            tmpMember.setUserId(set.getInt(1));
+            tmpMember.setName(set.getString(2));
+            tmpMember.setEmail(set.getString(3));
+            tmpMember.setPassword(set.getString(4));
+            tmpMember.setIsLeader(set.getInt(5));
         }
-        System.out.println(tmpUser);
-        return tmpUser;
+        System.out.println(tmpMember);
+        return tmpMember;
     }
 
     public void isLeaderBoolean(boolean isLeader, String email){
