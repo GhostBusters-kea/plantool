@@ -18,10 +18,17 @@ public class ProjectRepo {
 
     public static void main(String[] args) {
         ProjectRepo repo = new ProjectRepo();
-        System.out.println(repo.fetchSingleProject(13));
 
-        System.out.println(repo.fetchAllProjects());
+        Project project = new Project();
 
+        project.setName("PlanVærktøj");
+        project.setStartDate(LocalDate.now());
+        project.setStartDate(LocalDate.now());
+        project.setStartDate(LocalDate.now());
+        project.setHoursAllocated(100);
+        project.setHoursAllocated(20);
+
+        repo.writeProjectToDB(project);
 
     }
 
@@ -30,13 +37,15 @@ public class ProjectRepo {
         try{
             PreparedStatement stmt =
                     DatabaseConnector.getConnection().prepareStatement(
-                            "INSERT INTO project(projectname, projectstartdate, projectenddate, projectdeadline) VALUES(?,?,?,?)"
+                            "INSERT INTO project(project_name, project_startdate, project_enddate, project_deadline, project_hoursallo, project_hoursused) VALUES(?,?,?,?,?,?)"
                     );
 
             stmt.setString(1, project.getName());
             stmt.setObject(2, project.getStartDate());
             stmt.setObject(3, project.getEndDate());
             stmt.setObject(4, project.getDeadline());
+            stmt.setInt(5, project.getHoursAllocated());
+            stmt.setInt(6, project.getHoursUsed());
             stmt.executeUpdate();
             System.out.println("Insert complete");
         } catch (SQLException e){

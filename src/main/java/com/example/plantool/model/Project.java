@@ -106,6 +106,12 @@ public class Project {
         this.skillsAllocated = skillsAllocated;
     }
 
+
+    public void addSkillToProject(String skill){
+        skillsAllocated.add(skill);
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
