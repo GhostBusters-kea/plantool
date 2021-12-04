@@ -10,7 +10,7 @@ public class ProjectService {
     ProjectRepo repo = new ProjectRepo();
 
 
-    public void createProject(String projectName, LocalDate startDate, LocalDate endDate, LocalDate deadline, int hoursAllocated, int hoursUsed{
+    public void createProject(String projectName, LocalDate startDate, LocalDate endDate, LocalDate deadline, int hoursAllocated, int hoursUsed){
         Project project = new Project();
         project.setName(projectName);
         project.setStartDate(startDate);

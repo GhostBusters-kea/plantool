@@ -2,35 +2,18 @@ package com.example.plantool.repository;
 
 import com.example.plantool.model.Project;
 import com.example.plantool.utility.DatabaseConnector;
-import com.mysql.cj.protocol.Resultset;
+
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 
 public class ProjectRepo {
 
-    public static void main(String[] args) {
-        ProjectRepo repo = new ProjectRepo();
-
-        Project project = new Project();
-
-        project.setName("PlanVærktøj");
-        project.setStartDate(LocalDate.now());
-        project.setStartDate(LocalDate.now());
-        project.setStartDate(LocalDate.now());
-        project.setHoursAllocated(100);
-        project.setHoursAllocated(20);
-
-        repo.writeProjectToDB(project);
-
-    }
 
     public void writeProjectToDB(Project project){
 
