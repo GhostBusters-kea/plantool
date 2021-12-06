@@ -1,24 +1,23 @@
 package com.example.plantool.services;
 
-import com.example.plantool.model.User;
-import com.example.plantool.repository.UserRepo;
+import com.example.plantool.model.Member;
+import com.example.plantool.repository.MemberRepo;
 
 import java.sql.SQLException;
 
-public class UserService {
-    UserRepo userRepo = new UserRepo();
+public class MemberService {
+    MemberRepo memberRepo = new MemberRepo();
 
     // new instance of user
-    public void createUser(String name,String email, String password){
-        User user = new User(name,email,password);
+    public void createMember(String name,String email, String password){
+        Member member = new Member(name,email,password);
 
-
-        if (isEmailValid(email) == false){
+        if (emailValidation(email) == false){
             System.out.println("Email not valid");
         }
 
         else if (doesEmailExist(email) == false){
-            userRepo.insertUserToDB(user);
+            memberRepo.insertMemberToDB(member);
         }
         else {
             System.out.println("Emailen already exists");
@@ -29,8 +28,8 @@ public class UserService {
     // checks if the email is already registered
     public boolean doesEmailExist(String email){
 
-        for(int i = 0; i < userRepo.fetchAllUser().size(); i++){
-            if(userRepo.fetchAllUser().get(i).getEmail().equals(email)){
+        for(int i = 0; i < memberRepo.findAllMembers().size(); i++){
+            if(memberRepo.findAllMembers().get(i).getEmail().equals(email)){
                 return true;
             }
         }
@@ -39,7 +38,7 @@ public class UserService {
     }
 
     // email validation
-    public boolean isEmailValid(String email){
+    public boolean emailValidation (String email){
         if(email.contains(".") && email.contains("@")){
             return true;
         } else
@@ -47,10 +46,10 @@ public class UserService {
     }
 
     // checks password
-    public boolean isPassValid(User user, String userInput){
+    public boolean passwordValidation (Member member, String userInput){
         boolean passIsValid = false;
 
-        if(userInput.equals(user.getPassword())){
+        if(userInput.equals(member.getPassword())){
             passIsValid = true;
         }
 
@@ -62,7 +61,7 @@ public class UserService {
         boolean validLogin = false;
 
         if(doesEmailExist(email)){
-            if(isPassValid(userRepo.fetchUser(email), password)){
+            if(passwordValidation(memberRepo.findMember(email), password)){
                 validLogin = true;
             }
             else{
@@ -76,11 +75,11 @@ public class UserService {
         return validLogin;
     }
 
-    public void isLeaderBoolean(boolean isLeader, int userId){
-        try {
-            userRepo.isLeaderBoolean(isLeader, userId);
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+    public Member findMember (String email) throws SQLException {
+        return memberRepo.findMember(email);
     }
+    public void isLeaderBoolean(boolean isLeader, String email){
+        memberRepo.isLeaderBoolean(isLeader, email);
+    }
+
 }

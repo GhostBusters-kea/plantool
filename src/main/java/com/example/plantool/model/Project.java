@@ -1,22 +1,27 @@
 package com.example.plantool.model;
 
+import org.springframework.cglib.core.Local;
+
+import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Objects;
+
 
 public class Project {
 
     protected int id;
     protected String name;
-    protected Date startDate;
-    protected Date endDate;
-    protected Date deadline;
+    protected LocalDate startDate;
+    protected LocalDate endDate;
+    protected LocalDate deadline;
     protected ArrayList<ProjectMember> assignees;
     protected int hoursAllocated;
     protected int hoursUsed;
     protected ArrayList<String> skillsAllocated;
 
-    public Project(String name, Date startDate, Date endDate, Date deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, int hoursUsed, ArrayList<String> skillsAllocated) {
+    public Project(int id, String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, int hoursUsed, ArrayList<String> skillsAllocated) {
+        this.id = id;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -45,27 +50,27 @@ public class Project {
         this.name = name;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
-    public Date getDeadline() {
+    public LocalDate getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
     }
 
@@ -99,6 +104,12 @@ public class Project {
 
     public void setSkillsAllocated(ArrayList<String> skillsAllocated) {
         this.skillsAllocated = skillsAllocated;
+    }
+
+
+    public void addSkillToProject(String skill){
+        skillsAllocated.add(skill);
+
     }
 
     @Override
