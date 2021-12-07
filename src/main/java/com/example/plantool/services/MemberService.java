@@ -9,7 +9,7 @@ public class MemberService {
     MemberRepo memberRepo = new MemberRepo();
 
     // new instance of user
-    public void createMember(String name,String email, String password){
+    public void createMember(   String name,String email, String password){
         Member member = new Member(name,email,password);
 
         if (emailValidation(email) == false){
