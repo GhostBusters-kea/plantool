@@ -23,6 +23,16 @@ public class ProjectService {
     }
 
 */
+
+    // TODO: opret projekt med pARAM,ET
+
+    // HENTE ENKELT PROJEKT OG ALLE ALLE PROJEKTER
+
+    // ÆNDRE PROJEKTER
+
+    // SUMMERING AF TIDSFORBRUG PÅ PROJEKTER OG DEL PROJEKTER
+
+
     public Project createNewProject(){
         Project project = new Project();
         return project;
@@ -35,7 +45,6 @@ public class ProjectService {
     public void addProjectDates(Project project, LocalDate startDate, LocalDate endDate){
         project.setStartDate(startDate);
         project.setEndDate(endDate);
-
     }
 
     public void addProjectDeadline(Project project, LocalDate deadline){

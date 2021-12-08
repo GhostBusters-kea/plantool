@@ -20,7 +20,7 @@ public class Project {
     protected int hoursUsed;
     protected ArrayList<String> skillsAllocated;
 
-    public Project(int id, String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, int hoursUsed, ArrayList<String> skillsAllocated) {
+    public Project(int id, String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, ArrayList<String> skillsAllocated) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -28,7 +28,6 @@ public class Project {
         this.deadline = deadline;
         this.assignees = assignees;
         this.hoursAllocated = hoursAllocated;
-        this.hoursUsed = hoursUsed;
         this.skillsAllocated = skillsAllocated;
     }
 
@@ -109,7 +108,6 @@ public class Project {
 
     public void addSkillToProject(String skill){
         skillsAllocated.add(skill);
-
     }
 
     @Override
