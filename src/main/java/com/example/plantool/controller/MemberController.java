@@ -17,7 +17,6 @@ public class MemberController {
     public String createMemberGetMap() {
         return "createmember";
     }
-
     @PostMapping("/createmember")
     public String createMemberPostMap(WebRequest wr) {
 
@@ -59,15 +58,15 @@ public class MemberController {
 
     // Måde at håndtere om man er member eller leader.
     // Vi returnere en html side til projektlederen og en anden html til member. Html siderne er ikke lavet.
-    @GetMapping("/forside")
+    @GetMapping("/index")
     public String index(HttpSession session) {
         int memberLead = (Integer) session.getAttribute("boolean-leader");
         String userId = (String) session.getAttribute("userid");
         if (memberLead == 1 && userId instanceof String) {
-            return "project-leader";
+            return "index";
         }
         if (memberLead == 0) {
-            return "project-member";
+            return "index2";
         }
         return "redirect:/login";
     }
