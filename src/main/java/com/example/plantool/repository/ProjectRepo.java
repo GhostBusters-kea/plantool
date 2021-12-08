@@ -20,7 +20,7 @@ public class ProjectRepo {
         try{
             PreparedStatement stmt =
                     DatabaseConnector.getConnection().prepareStatement(
-                            "INSERT INTO project(project_name, project_startdate, project_enddate, project_deadline, project_hoursallo, project_hoursused) VALUES(?,?,?,?,?,?)"
+                            "INSERT INTO project(projectname, projectstartdate, projectenddate, projectdeadline, projecthoursallo, projecthoursused) VALUES(?,?,?,?,?,?)"
                     );
 
             stmt.setString(1, project.getName());
@@ -46,7 +46,8 @@ public class ProjectRepo {
         try{
 
             PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
-            "SELECT project.projectname, projectstartdate, projectenddate, projectdeadline FROM project WHERE projectid="+projectid+"");
+            "SELECT project.projectname, projectstartdate, projectenddate, " +
+                    "projectdeadline FROM project WHERE projectid="+projectid+"");
 
 
             ResultSet resultset = stmt.executeQuery();

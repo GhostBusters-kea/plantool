@@ -8,23 +8,23 @@ import java.util.ArrayList;
 
 public class ProjectService {
     ProjectRepo repo = new ProjectRepo();
-/*
+
     public static void main(String[] args) {
-        ProjectService ps = new ProjectService();
-        Project p = new Project();
+        ProjectService service = new ProjectService();
 
-        ps.addProjectHours(p,100,20);
-        ps.addProjectName(p,"Test300");
+        service.createNewProject("Mobiltelefon", LocalDate.of(2021,12,8),
+                LocalDate.of(2021,12,31),LocalDate.of(2021,12,
+                        31),200);
 
-        System.out.println(p);
-        System.out.println(p.getSkillsAllocated());
-        ps.writeProjectToDB(p);
+
+
+
+
+
 
     }
 
-*/
 
-    // TODO: opret projekt med pARAM,ET
 
     // HENTE ENKELT PROJEKT OG ALLE ALLE PROJEKTER
 
@@ -32,10 +32,16 @@ public class ProjectService {
 
     // SUMMERING AF TIDSFORBRUG PÅ PROJEKTER OG DEL PROJEKTER
 
-
-    public Project createNewProject(){
+    public void createNewProject(String projectName, LocalDate startDate,
+                                 LocalDate endDate, LocalDate deadline, int hoursAllocated){
         Project project = new Project();
-        return project;
+        project.setName(projectName);
+        project.setStartDate(startDate);
+        project.setEndDate(endDate);
+        project.setDeadline(deadline);
+        project.setHoursAllocated(hoursAllocated);
+        repo.writeProjectToDB(project);
+
     }
 
     public void addProjectName(Project project, String name){
