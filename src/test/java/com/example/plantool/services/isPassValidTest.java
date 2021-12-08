@@ -1,7 +1,7 @@
 package com.example.plantool.services;
 
 import com.example.plantool.model.Member;
-import com.example.plantool.model.Member;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
