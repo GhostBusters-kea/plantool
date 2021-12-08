@@ -55,16 +55,21 @@
 
 <div>
     <h1>Login</h1>
-    <div>
+    <div class="container col-8">
         <form id="login-form" method="POST" action="/login">
+        <div class="form-floating mb-3">
+           <input class="form-control" name="input-email" id="floatingEmail" type="text" placeholder="email">
+            <label for="floatingEmail">E-mail</label>
+        </div>
 
-            <label for="email">E-mail</label>
-            <input name="input-email" id="email" type="text">
 
-            <label for="password">Password</label>
-            <input name="input-password" id="password" type="text">
+        <div class="form-floating mb-3">
+            <input class="form-control" name="input-password" id="floatingPassword" type="text" placeholder="password">
+            <label for="floatingPassword">Password</label>
+        </div>
 
-            <button type="submit">Login</button>
+
+            <button  class="btn btn-primary mb-3" type="submit">Login</button>
         </form>
     </div>
 </div>
