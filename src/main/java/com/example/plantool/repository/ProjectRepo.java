@@ -20,9 +20,8 @@ public class ProjectRepo {
         try{
             PreparedStatement stmt =
                     DatabaseConnector.getConnection().prepareStatement(
-                            "INSERT INTO project(project_name, project_startdate, project_enddate, project_deadline, project_hoursallo, project_hoursused) VALUES(?,?,?,?,?,?)"
+                            "INSERT INTO project(projectname, projectstartdate, projectenddate, projectdeadline, projecthoursallo, projecthoursused) VALUES(?,?,?,?,?,?)"
                     );
-
             stmt.setString(1, project.getName());
             stmt.setObject(2, project.getStartDate());
             stmt.setObject(3, project.getEndDate());
@@ -33,11 +32,8 @@ public class ProjectRepo {
             System.out.println("Insert complete");
         } catch (SQLException e){
             e.printStackTrace();
-
         }
-
     }
-
 
     public Project fetchSingleProject(int projectid){
 
@@ -46,7 +42,8 @@ public class ProjectRepo {
         try{
 
             PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
-            "SELECT project.projectname, projectstartdate, projectenddate, projectdeadline FROM project WHERE projectid="+projectid+"");
+            "SELECT project.projectname, projectstartdate, projectenddate, " +
+                    "projectdeadline FROM project WHERE projectid="+projectid+"");
 
 
             ResultSet resultset = stmt.executeQuery();
@@ -71,8 +68,9 @@ public class ProjectRepo {
 
         try {
             PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
-                    "DELETE FROM project WHERE projectid="+projectid+""
-            );
+                    "DELETE FROM project WHERE projectid="+projectid+"");
+            stmt.executeUpdate();
+            System.out.println("Delete complete");
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -94,11 +92,11 @@ public class ProjectRepo {
             while (resultSet.next()){
                 Project tmpProject = new Project();
 
-
                 tmpProject.setName(resultSet.getString(2));
                 tmpProject.setStartDate(resultSet.getDate(3).toLocalDate());
                 tmpProject.setEndDate(resultSet.getDate(4).toLocalDate());
                 tmpProject.setDeadline(resultSet.getDate(5).toLocalDate());
+                tmpProject.setHoursAllocated(resultSet.getInt(6));
 
                 allProjects.add(tmpProject);
             }
@@ -107,7 +105,5 @@ public class ProjectRepo {
             e.printStackTrace();
         }
         return allProjects;
-
     }
-
 }

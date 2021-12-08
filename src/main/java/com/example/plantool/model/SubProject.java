@@ -6,8 +6,8 @@ import java.util.Date;
 
 public class SubProject extends Project {
 
-    SubProject(int id, String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, int hoursUsed, ArrayList<String> skillsAllocated) {
-        super(id, name, startDate, endDate, deadline, assignees, hoursAllocated, hoursUsed, skillsAllocated);
+    SubProject(int id, String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, ArrayList<ProjectMember> assignees, int hoursAllocated,  ArrayList<String> skillsAllocated) {
+        super(id, name, startDate, endDate, deadline, assignees, hoursAllocated, skillsAllocated);
 
  
     }
