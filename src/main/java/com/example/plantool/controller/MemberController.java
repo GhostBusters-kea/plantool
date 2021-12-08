@@ -17,7 +17,6 @@ public class MemberController {
     public String createMemberGetMap() {
         return "createmember";
     }
-
     @PostMapping("/createmember")
     public String createMemberPostMap(WebRequest wr) {
 
