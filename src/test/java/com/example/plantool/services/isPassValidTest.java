@@ -1,6 +1,6 @@
 package com.example.plantool.services;
 
-import com.example.plantool.model.User;
+import com.example.plantool.model.Member;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,15 +11,15 @@ class isPassValidTest {
     void isPassValid() {
 
         //Arrange
-        UserService service = new UserService();
+        MemberService service = new MemberService();
         String password = "666";
         String wrongPassword = "123";
 
-        User tmp = new User("jesper", "jesper@mail.com", password);
+        Member tmp = new Member("jesper", "jesper@mail.com", password);
         //Act
 
-        boolean isValid = service.isPassValid(tmp, password);
-        boolean isValidWrong = service.isPassValid(tmp, wrongPassword);
+        boolean isValid = service.passwordValidation(tmp, password);
+        boolean isValidWrong = service.passwordValidation(tmp, wrongPassword);
 
         //Assert
 
