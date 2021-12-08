@@ -10,27 +10,9 @@ public class ProjectService {
     ProjectRepo repo = new ProjectRepo();
 
     public static void main(String[] args) {
-        ProjectService service = new ProjectService();
-
-        service.createNewProject("Mobiltelefon", LocalDate.of(2021,12,8),
-                LocalDate.of(2021,12,31),LocalDate.of(2021,12,
-                        31),200);
-
-
-
-
-
-
-
+        ProjectService er = new ProjectService();
+        er.deleteProject(14);
     }
-
-
-
-    // HENTE ENKELT PROJEKT OG ALLE ALLE PROJEKTER
-
-    // ÆNDRE PROJEKTER
-
-    // SUMMERING AF TIDSFORBRUG PÅ PROJEKTER OG DEL PROJEKTER
 
     public void createNewProject(String projectName, LocalDate startDate,
                                  LocalDate endDate, LocalDate deadline, int hoursAllocated){
@@ -41,8 +23,17 @@ public class ProjectService {
         project.setDeadline(deadline);
         project.setHoursAllocated(hoursAllocated);
         repo.writeProjectToDB(project);
-
     }
+
+    public Project fetchSingleProject(int projectID){
+        return repo.fetchSingleProject(projectID);
+    }
+
+    public ArrayList<Project> fetchAllProjects(){
+        return repo.fetchAllProjects();
+    }
+
+    // TODO: SUMMERING AF TIDSFORBRUG PÅ PROJEKTER OG DELPROJEKTER
 
     public void addProjectName(Project project, String name){
         project.setName(name);
@@ -71,8 +62,7 @@ public class ProjectService {
     }
 
     public void deleteProject(int projectID){
-
+        repo.deleteProject(projectID);
     }
-
 
 }
