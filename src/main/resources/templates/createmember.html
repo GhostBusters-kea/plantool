@@ -54,22 +54,30 @@
 
     <div>
         <h1>Opret ny bruger</h1>
-        <div>
+        <div class="container col-8">
             <form id="create-form" method="POST" action="/createmember">
+                <div class="form-floating mb-3">
+                    <input class="form-control" name="input-name" id="floatingNavn" type="text" placeholder="navn">
+                    <label for="floatingNavn">Brugernavn</label>
+                </div>
 
-                <label for="brugernavn">Brugernavn</label>
-                <input name="input-name" id="brugernavn" type="text">
+                <div class="form-floating mb-3">
+                    <input class="form-control" name="input-email" id="floatingEmail" type="text" placeholder="email">
+                    <label for="floatingEmail">E-mail</label>
 
-                <label for="email">E-mail</label>
-                <input name="input-email" id="email" type="text">
+                </div>
 
-                <label for="password">Password</label>
-                <input name="input-password" id="password" type="text">
+                <div class="form-floating mb-3">
+                    <input class="form-control" name="input-password" id="floatingPassword" type="text" placeholder="password">
+                    <label for="floatingPassword">Password</label>
+
+                </div>
+
 
                 <label for="checkbox">Er du leder?</label>
                 <input type="checkbox" name="check" value="true" id="checkbox">
 
-                <button type="submit">Opret bruger</button>
+                <button class="btn btn-primary mb-3" type="submit">Opret bruger</button>
             </form>
         </div>
     </div>
