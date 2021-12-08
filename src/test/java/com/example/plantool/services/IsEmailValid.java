@@ -1,6 +1,5 @@
 package com.example.plantool.services;
 
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,14 +10,14 @@ class IsEmailValid {
     void isEmailValid() {
 /*
         //Arrange
-        UserService service = new UserService();
+        MemberService service = new MemberService();
         String email = "peter@mail.com";
         String wrongEmail = "peter.com";
 
 
         //Act
-        boolean isEmailValid = service.isEmailValid(email);
-        boolean isEmailNotValid = service.isEmailValid(wrongEmail);
+        boolean isEmailValid = service.emailValidation(email);
+        boolean isEmailNotValid = service.emailValidation(wrongEmail);
 
         //Assert
 
