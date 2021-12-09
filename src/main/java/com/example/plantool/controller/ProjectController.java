@@ -27,10 +27,16 @@ public class ProjectController {
 
             ArrayList<Member> memberList = memberService.getAllMembers();
 
+            for(int i = 0; i < memberList.size(); i ++){
+                System.out.println(memberList.get(i));
+            }
+
+            model.addAttribute("members", memberList);
+
             return "createproject";
         }
         else {
-            return "redirect:/loginpage"; // TODO: Create "must be leader message page"
+            return "redirect:/index"; // TODO: Create "must be leader" message page
         }
 
     }
