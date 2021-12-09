@@ -46,4 +46,11 @@ public class ProjectController {
 
         return "redirect:/manage-project";
     }
+
+    @GetMapping("/viewproject")
+    public String projectOverview(){
+        return "viewproject";
+    }
+
+
 }
