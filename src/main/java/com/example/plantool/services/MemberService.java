@@ -4,6 +4,7 @@ import com.example.plantool.model.Member;
 import com.example.plantool.repository.MemberRepo;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MemberService {
     MemberRepo memberRepo = new MemberRepo();
@@ -73,6 +74,12 @@ public class MemberService {
 
         }
         return validLogin;
+    }
+
+    public ArrayList<Member> getAllMembers(){
+
+        ArrayList<Member> members = memberRepo.findAllMembers();
+        return members;
     }
 
     public Member findMember (String email) throws SQLException {
