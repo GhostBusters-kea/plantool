@@ -50,9 +50,11 @@
                     <td th:text="${project.whoIsLeader}"></td> <!-- TODO: change to leader name -->
                     <td th:text="${project.projectDescription}"></td>
                     <td >
-                        <ul th:each="member : ${members}">
-                            <li th:text="${member.name}"></li>
-                        </ul>
+                        <div>
+                            <ul class="list-group" th:each="member : ${members}">
+                                <li class="list-group-item" th:text="${member.name}"></li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
