@@ -14,13 +14,50 @@ import java.util.ArrayList;
 
 public class ProjectRepo {
 
+    public void writeSkillToDB(String skill, int projectid){
+
+        try{
+            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("" +
+                    "INSERT INTO skill(skillname, projectid) VALUES(?,?)");
+
+            stmt.setString(1,skill);
+            stmt.setInt(2,projectid);
+            stmt.executeUpdate();
+            System.out.println("Insert complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public static ArrayList<String> fetchSkills(int projectid){
+        ArrayList<String> skills = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement(
+                            "SELECT skill.skillname FROM skill WHERE projectid="+projectid+"");
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()){
+                skills.add(resultSet.getString(1));
+            }
+
+
+            } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return skills;
+    }
 
     public void writeProjectToDB(Project project){
 
         try{
             PreparedStatement stmt =
                     DatabaseConnector.getConnection().prepareStatement(
-                            "INSERT INTO project(projectname, projectstartdate, projectenddate, projectdeadline, projecthoursallo, projecthoursused) VALUES(?,?,?,?,?,?)"
+                            "INSERT INTO project(projectname, projectstartdate, projectenddate, projectdeadline, " +
+                                    "projecthoursallo, projecthoursused, projectleader, projectdescrip) VALUES(?,?,?,?,?,?,?,?)"
                     );
             stmt.setString(1, project.getName());
             stmt.setObject(2, project.getStartDate());
@@ -28,6 +65,8 @@ public class ProjectRepo {
             stmt.setObject(4, project.getDeadline());
             stmt.setInt(5, project.getHoursAllocated());
             stmt.setInt(6, project.getHoursUsed());
+            stmt.setString(7, project.getWhoIsLeader());
+            stmt.setString(8, project.getProjectDescription());
             stmt.executeUpdate();
             System.out.println("Insert complete");
         } catch (SQLException e){
@@ -40,20 +79,24 @@ public class ProjectRepo {
         Project tmpProject = new Project();
 
         try{
-
             PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
-            "SELECT project.projectname, projectstartdate, projectenddate, projectdeadline, projecthoursallo FROM project WHERE projectid="+projectid+"");
+            "SELECT project.projectid, projectname, projectstartdate, projectenddate, projectdeadline, projecthoursallo, projectleader, projectdescrip FROM project WHERE projectid="+projectid+"");
 
 
             ResultSet resultset = stmt.executeQuery();
 
             while (resultset.next()){
-                tmpProject.setName(resultset.getString(1));
-                tmpProject.setStartDate(resultset.getDate(2).toLocalDate());
-                tmpProject.setEndDate(resultset.getDate(3).toLocalDate());
-                tmpProject.setDeadline(resultset.getDate(4).toLocalDate());
-                tmpProject.setHoursAllocated(resultset.getInt(5));
+                tmpProject.setId(resultset.getInt(1));
+                tmpProject.setName(resultset.getString(2));
+                tmpProject.setStartDate(resultset.getDate(3).toLocalDate());
+                tmpProject.setEndDate(resultset.getDate(4).toLocalDate());
+                tmpProject.setDeadline(resultset.getDate(5).toLocalDate());
+                tmpProject.setHoursAllocated(resultset.getInt(6));
+                tmpProject.setWhoIsLeader(resultset.getString(7));
+                tmpProject.setProjectDescription(resultset.getString(8));
             }
+
+            tmpProject.setSkillsAllocated(fetchSkills(tmpProject.getId()));
 
 
         } catch (SQLException e){
