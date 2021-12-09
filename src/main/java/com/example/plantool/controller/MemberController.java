@@ -15,8 +15,8 @@ public class MemberController {
     MemberService memberService = new MemberService();
 
     @GetMapping("/createmember")
-    public String createMemberGetMap(Model model, HttpSession session) throws SQLException {
-        memberService.navbarName(model, session);
+    public String createMemberGetMap() throws SQLException {
+
         return "createmember";
     }
     @PostMapping("/createmember")
@@ -57,23 +57,6 @@ public class MemberController {
         } else {
             return "login";
         }
-    }
-
-    // Måde at håndtere om man er member eller leader.
-    // Vi returnere en html side til projektlederen og en anden html til member. Html siderne er ikke lavet.
-    @GetMapping("/index")
-    public String index(Model model, HttpSession session) throws SQLException {
-        memberService.navbarName(model, session);
-
-        int memberLead = (Integer) session.getAttribute("boolean-leader");
-        String userId = (String) session.getAttribute("userid");
-        if (memberLead == 1 && userId instanceof String) {
-            return "index";
-        }
-        if (memberLead == 0) {
-            return "index2";
-        }
-        return "redirect:/login";
     }
 }
 
