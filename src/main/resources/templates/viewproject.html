@@ -20,8 +20,48 @@
     <div th:replace="fragments/navbar"></div>
 </div>
 
-<h2 class="m-5">Project name</h2>
+<h2 class="m-5">Projects</h2>
 
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+            <table id="example" class="table table-bordered" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Kick-off Date</th>
+                    <th>DeadLine</th>
+                    <th>Allocated Hours</th>
+                    <th>Used Hours</th>
+                    <th>Project Leader</th>
+                    <th>Description</th>
+                    <th>Assigned Members</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="project : ${projects}">
+                    <td th:text="${project.id}"></td>
+                    <td th:text="${project.name}"></td>
+                    <td th:text="${project.startDate}"></td>
+                    <td th:text="${project.deadline}"></td>
+                    <td th:text="${project.hoursAllocated}"></td>
+                    <td th:text="${project.hoursUsed}"></td>
+                    <td th:text="${project.whoIsLeader}"></td> <!-- TODO: change to leader name -->
+                    <td th:text="${project.projectDescription}"></td>
+                    <td >
+                        <ul th:each="member : ${members}">
+                            <li th:text="${member.name}"></li>
+                        </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--
 <div class="container">
     <div class="row">
         <div class="col">
@@ -70,7 +110,7 @@
     </div>
 </div>
 
-
+-->
 
 
 

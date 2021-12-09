@@ -65,7 +65,7 @@ public class ProjectRepo {
             stmt.setObject(4, project.getDeadline());
             stmt.setInt(5, project.getHoursAllocated());
             stmt.setInt(6, project.getHoursUsed());
-            stmt.setString(7, project.getWhoIsLeader());
+            stmt.setInt(7, project.getWhoIsLeader());
             stmt.setString(8, project.getProjectDescription());
             stmt.executeUpdate();
             System.out.println("Insert complete");
@@ -83,17 +83,18 @@ public class ProjectRepo {
             "SELECT project.projectid, projectname, projectstartdate, projectenddate, projectdeadline, projecthoursallo, projectleader, projectdescrip FROM project WHERE projectid="+projectid+"");
 
 
-            ResultSet resultset = stmt.executeQuery();
+            ResultSet resultSet = stmt.executeQuery();
 
-            while (resultset.next()){
-                tmpProject.setId(resultset.getInt(1));
-                tmpProject.setName(resultset.getString(2));
-                tmpProject.setStartDate(resultset.getDate(3).toLocalDate());
-                tmpProject.setEndDate(resultset.getDate(4).toLocalDate());
-                tmpProject.setDeadline(resultset.getDate(5).toLocalDate());
-                tmpProject.setHoursAllocated(resultset.getInt(6));
-                tmpProject.setWhoIsLeader(resultset.getString(7));
-                tmpProject.setProjectDescription(resultset.getString(8));
+            while (resultSet.next()){
+                tmpProject.setId(resultSet.getInt(1));
+                tmpProject.setName(resultSet.getString(2));
+                tmpProject.setStartDate(resultSet.getDate(3).toLocalDate());
+                tmpProject.setEndDate(resultSet.getDate(4).toLocalDate());
+                tmpProject.setDeadline(resultSet.getDate(5).toLocalDate());
+                tmpProject.setHoursAllocated(resultSet.getInt(6));
+                tmpProject.setHoursUsed(resultSet.getInt(7));
+                tmpProject.setWhoIsLeader(resultSet.getInt(8));
+                tmpProject.setProjectDescription(resultSet.getString(9));
             }
 
             tmpProject.setSkillsAllocated(fetchSkills(tmpProject.getId()));
@@ -135,11 +136,15 @@ public class ProjectRepo {
             while (resultSet.next()){
                 Project tmpProject = new Project();
 
+                tmpProject.setId(resultSet.getInt(1));
                 tmpProject.setName(resultSet.getString(2));
                 tmpProject.setStartDate(resultSet.getDate(3).toLocalDate());
                 tmpProject.setEndDate(resultSet.getDate(4).toLocalDate());
                 tmpProject.setDeadline(resultSet.getDate(5).toLocalDate());
                 tmpProject.setHoursAllocated(resultSet.getInt(6));
+                tmpProject.setHoursUsed(resultSet.getInt(7));
+                tmpProject.setWhoIsLeader(resultSet.getInt(8));
+                tmpProject.setProjectDescription(resultSet.getString(9));
 
                 allProjects.add(tmpProject);
             }

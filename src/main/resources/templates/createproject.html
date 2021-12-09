@@ -23,30 +23,30 @@
     <h2 class="m-5">Create a new project</h2>
 
     <div class="container col-8">
-        <form method="post" >
+        <form action="/createproject"  method="post">
             <div class="mb-3">
                 <label for="projectNameInput" class="form-label">Project name</label>
-                <input type="text" class="form-control" id="projectNameInput" placeholder="Type the name of your project here...">
+                <input type="text" class="form-control" id="projectNameInput" name="name" placeholder="Type the name of your project here...">
             </div>
 
             <div class="mb-3">
                 <label for="projectDescriptionTextarea" class="form-label">Project description</label>
-                <textarea class="form-control" id="projectDescriptionTextarea" rows="2" placeholder="Type in a few words about your project.."></textarea>
+                <textarea class="form-control" id="projectDescriptionTextarea" type="text" name="description" rows="2" placeholder="Type in a few words about your project.."></textarea>
             </div>
 
             <div class="md-form mb-3">
                 <label for="KickOffInput">Choose kick-off date</label>
-                <input class="form-control" type="date" id="KickOffInput">
+                <input class="form-control" type="date" name="startDate" id="KickOffInput">
             </div>
 
             <div class="md-form mb-3">
                 <label for="DeadlineInput">Choose deadline</label>
-                <input class="form-control" type="date" id="DeadlineInput">
+                <input class="form-control" type="date" name="deadline" id="DeadlineInput">
             </div>
 
             <div class="mb-3">
                 <label for="projectHoursInput" class="form-label">Allocated hours</label>
-                <input type="number" class="form-control" id="projectHoursInput" placeholder="Type the number of allocated hours for this project here...">
+                <input type="number" class="form-control" id="projectHoursInput" name="hoursAllocated" placeholder="Type the number of allocated hours for this project here...">
             </div>
 
             <!--
@@ -67,7 +67,7 @@
                 <label for="member">Select which members to assign this project</label>
                     <ul class="list-group" th:each="member : ${members}">
                         <li class="list-group-item" id="member">
-                                <input class="form-check-input me-1" type="checkbox" th:value="${member}"
+                                <input class="form-check-input me-1" type="checkbox" name="members" value="members"
                                 th:text="${member.name}"/>
                         </li>
                     </ul>
@@ -77,7 +77,7 @@
 
             <hr>
 
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" value="Submit" class="btn btn-primary">Create</button>
 
         </form>
 

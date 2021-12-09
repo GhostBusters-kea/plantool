@@ -29,17 +29,22 @@ public class ProjectService {
 
 
     // opret nyt projekt
-    public void createNewProject(String projectName, LocalDate startDate,
-                                 LocalDate endDate, LocalDate deadline,
-                                 int hoursAllocated, String whoIsLeader, String description){
+    public Project createNewProject(String projectName, LocalDate startDate, LocalDate endDate, LocalDate deadline,
+                                 int hoursAllocated, int whoIsLeader, String description){
         Project project = new Project();
         project.setName(projectName);
         project.setStartDate(startDate);
-        project.setEndDate(endDate);
+        project.setStartDate(endDate);
         project.setDeadline(deadline);
         project.setHoursAllocated(hoursAllocated);
         project.setWhoIsLeader(whoIsLeader);
         project.setProjectDescription(description);
+
+        return project;
+
+    }
+
+    public void addProjectToDb(Project project){
         repo.writeProjectToDB(project);
     }
 
@@ -84,10 +89,10 @@ public class ProjectService {
     }
 
     // tilknyt deltager til projekt
-    public void addMemberToProject(Member member, Project project){
-        project.addMemberToProject(member);
-
-    }
+//    public void addMemberToProject(Member member, Project project){
+//        project.addMemberToProject(member);
+//
+//    }
 
 
     // metoder til af ændre projekter
@@ -109,9 +114,9 @@ public class ProjectService {
         project.setHoursUsed(hoursUsed);
     }
 
-    public void addSkillToProject(Project project, String skill){
-        project.addSkillToProject(skill);
-    }
+//     public void addSkillToProject(Project project, String skill){
+//        project.addSkillToProject(skill);
+//    }
 
     public void writeProjectToDB(Project project){
         repo.writeProjectToDB(project);

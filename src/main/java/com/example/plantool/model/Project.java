@@ -14,41 +14,25 @@ public class Project {
     protected LocalDate endDate;
     protected LocalDate deadline;
     protected ArrayList<Member> assignees;
-    protected String whoIsLeader;
+    protected int whoIsLeader;
     protected int hoursAllocated;
     protected int hoursUsed;
     protected ArrayList<String> skillsAllocated;
     protected String projectDescription;
 
-    public String getWhoIsLeader() {
-        return whoIsLeader;
-    }
 
-    public void setWhoIsLeader(String whoIsLeader) {
-        this.whoIsLeader = whoIsLeader;
-    }
-
-    public String getProjectDescription() {
-        return projectDescription;
-    }
-
-    public void setProjectDescription(String projectDescription) {
-        this.projectDescription = projectDescription;
-    }
-
-    public Project(int id, String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, ArrayList<Member> assignees, int hoursAllocated, int hoursUsed, ArrayList<String> skillsAllocated) {
-
-        this.id = id;
+    public Project(String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, int whoIsLeader, int hoursAllocated, String projectDescription) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.deadline = deadline;
-        this.assignees = assignees;
+        this.whoIsLeader = whoIsLeader;
         this.hoursAllocated = hoursAllocated;
-        this.skillsAllocated = skillsAllocated;
+        this.projectDescription = projectDescription;
     }
 
-    public Project(){}
+    public Project() {
+    }
 
     public int getId() {
         return id;
@@ -98,6 +82,14 @@ public class Project {
         this.assignees = assignees;
     }
 
+    public int getWhoIsLeader() {
+        return whoIsLeader;
+    }
+
+    public void setWhoIsLeader(int whoIsLeader) {
+        this.whoIsLeader = whoIsLeader;
+    }
+
     public int getHoursAllocated() {
         return hoursAllocated;
     }
@@ -122,27 +114,12 @@ public class Project {
         this.skillsAllocated = skillsAllocated;
     }
 
-    // hvorfor virker dette ikke?
-    public void addSkillToProject(String skill){
-        skillsAllocated.add(skill);
+    public String getProjectDescription() {
+        return projectDescription;
     }
 
-    public void addMemberToProject(Member member){
-        assignees.add(member);
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Project)) return false;
-        Project project = (Project) o;
-        return id == project.id && hoursAllocated == project.hoursAllocated && hoursUsed == project.hoursUsed && name.equals(project.name) && startDate.equals(project.startDate) && endDate.equals(project.endDate) && deadline.equals(project.deadline) && assignees.equals(project.assignees) && skillsAllocated.equals(project.skillsAllocated);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, startDate, endDate, deadline, assignees, hoursAllocated, hoursUsed, skillsAllocated);
+    public void setProjectDescription(String projectDescription) {
+        this.projectDescription = projectDescription;
     }
 
     @Override

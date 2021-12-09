@@ -88,24 +88,29 @@ public class MemberService {
     }
 
     public Member memberById(int id) throws SQLException {
-
         return memberRepo.findMemberById(id);
     }
+
+    public Member memberByName(String name) throws SQLException {
+        return memberRepo.findMemberByName(name);
+    }
+
     public void isLeaderBoolean(boolean isLeader, String email){
         memberRepo.isLeaderBoolean(isLeader, email);
     }
 
     public void navbarName(Model model, HttpSession session) throws SQLException {
-        String userId = session.getAttribute("userid").toString();
+        Object sess = session.getAttribute("userid");
 
-        if(userId instanceof String) {
+        if(sess != null) {
+            String userId = sess.toString();
             int memberId = Integer.parseInt(userId);
 
             model.addAttribute("memberName", memberById(memberId).getName());
         }
         else{
-            String Login = "Click to login";
-            model.addAttribute("memberName", Login);
+
+            model.addAttribute("memberName", "Member");
         }
     }
 
