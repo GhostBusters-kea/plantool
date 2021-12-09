@@ -1,6 +1,7 @@
 package com.example.plantool.model;
 import java.security.ProtectionDomain;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -20,6 +21,7 @@ public class Project {
     protected String projectDescription;
 
     public Project(int id, String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, ArrayList<Member> assignees, int hoursAllocated, int hoursUsed, ArrayList<String> skillsAllocated) {
+
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -27,7 +29,6 @@ public class Project {
         this.deadline = deadline;
         this.assignees = assignees;
         this.hoursAllocated = hoursAllocated;
-        this.hoursUsed = hoursUsed;
         this.skillsAllocated = skillsAllocated;
     }
 
@@ -108,8 +109,8 @@ public class Project {
 
     public void addSkillToProject(String skill){
         skillsAllocated.add(skill);
-
     }
+
 
     @Override
     public boolean equals(Object o) {
