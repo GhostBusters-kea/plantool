@@ -42,8 +42,7 @@ public class ProjectRepo {
         try{
 
             PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
-            "SELECT project.projectname, projectstartdate, projectenddate, " +
-                    "projectdeadline FROM project WHERE projectid="+projectid+"");
+            "SELECT project.projectname, projectstartdate, projectenddate, projectdeadline, projecthoursallo FROM project WHERE projectid="+projectid+"");
 
 
             ResultSet resultset = stmt.executeQuery();
@@ -53,6 +52,7 @@ public class ProjectRepo {
                 tmpProject.setStartDate(resultset.getDate(2).toLocalDate());
                 tmpProject.setEndDate(resultset.getDate(3).toLocalDate());
                 tmpProject.setDeadline(resultset.getDate(4).toLocalDate());
+                tmpProject.setHoursAllocated(resultset.getInt(5));
             }
 
 

@@ -4,6 +4,7 @@ import org.springframework.cglib.core.Local;
 
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -109,6 +110,7 @@ public class Project {
     public void addSkillToProject(String skill){
         skillsAllocated.add(skill);
     }
+
 
     @Override
     public boolean equals(Object o) {
