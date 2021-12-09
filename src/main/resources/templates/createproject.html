@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/custom.css"/>
+
+
+    <title>Create Project</title>
+</head>
+<body>
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html"><span class="logo-span">Plan</span>Tool</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="createproject.html">Create Project</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Manage Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Calendar</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            ??????
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <h2 class="m-5">Create a new project</h2>
+
+    <div class="container col-8">
+        <form method="post" >
+            <div class="mb-3">
+                <label for="projectNameInput" class="form-label">Project name</label>
+                <input type="text" class="form-control" id="projectNameInput" placeholder="Type the name of your project here...">
+            </div>
+
+            <div class="mb-3">
+                <label for="projectDescriptionTextarea" class="form-label">Project description</label>
+                <textarea class="form-control" id="projectDescriptionTextarea" rows="2" placeholder="Type in a few words about your project.."></textarea>
+            </div>
+
+            <div class="md-form mb-3">
+                <label for="KickOffInput">Choose kick-off date</label>
+                <input class="form-control" type="date" id="KickOffInput">
+            </div>
+
+            <div class="md-form mb-3">
+                <label for="DeadlineInput">Choose deadline</label>
+                <input class="form-control" type="date" id="DeadlineInput">
+            </div>
+
+            <div class="mb-3">
+                <label for="projectHoursInput" class="form-label">Allocated hours</label>
+                <input type="number" class="form-control" id="projectHoursInput" placeholder="Type the number of allocated hours for this project here...">
+            </div>
+
+            <!--
+            <div class="mb-form mb-3">
+                <label for="skill">Select which skills are needed in this project</label>
+                <ul class="list-group">
+                    <li class="list-group-item" th:field="*{skill}" id="skill">
+                        <input class="form-check-input me-1" type="checkbox"
+                        th:each="skill : ${T(path.to.skill).values()}"
+                        th:value="${skill}"
+                        th:text="${skill}">
+                    </li>
+                </ul>
+            </div>
+            -->
+
+            <div class="mb-form mb-3">
+                <label for="member">Select which members to assign this project</label>
+                    <ul class="list-group" th:each="member : ${members}">
+                        <li class="list-group-item" id="member">
+                                <input class="form-check-input me-1" type="checkbox" th:value="${member}"
+                                th:text="${member.name}"/>
+                        </li>
+                    </ul>
+            </div>
+
+
+
+            <hr>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+    <!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,8 +1,5 @@
 package com.example.plantool.model;
-
-import org.springframework.cglib.core.Local;
-
-import java.sql.Time;
+import java.security.ProtectionDomain;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -16,12 +13,15 @@ public class Project {
     protected LocalDate startDate;
     protected LocalDate endDate;
     protected LocalDate deadline;
-    protected ArrayList<ProjectMember> assignees;
+    protected ArrayList<Member> assignees;
+    protected String whoIsLeader;
     protected int hoursAllocated;
     protected int hoursUsed;
     protected ArrayList<String> skillsAllocated;
+    protected String projectDescription;
 
-    public Project(int id, String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, ArrayList<ProjectMember> assignees, int hoursAllocated, ArrayList<String> skillsAllocated) {
+    public Project(int id, String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, ArrayList<Member> assignees, int hoursAllocated, int hoursUsed, ArrayList<String> skillsAllocated) {
+
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -74,11 +74,11 @@ public class Project {
         this.deadline = deadline;
     }
 
-    public ArrayList<ProjectMember> getAssignees() {
+    public ArrayList<Member> getAssignees() {
         return assignees;
     }
 
-    public void setAssignees(ArrayList<ProjectMember> assignees) {
+    public void setAssignees(ArrayList<Member> assignees) {
         this.assignees = assignees;
     }
 
