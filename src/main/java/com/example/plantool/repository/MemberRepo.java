@@ -77,6 +77,26 @@ public class MemberRepo {
         return tmpMember;
     }
 
+    public Member findMemberById (int id) throws SQLException {
+        Member tmpMember = new Member(null,null, null, 0);
+
+
+
+        PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT user.userid, name, email, password, projectleader FROM user WHERE userid ='" + id + "'");
+
+
+        ResultSet set = stmt.executeQuery();
+        while(set.next()){
+            tmpMember.setUserId(set.getInt(1));
+            tmpMember.setName(set.getString(2));
+            tmpMember.setEmail(set.getString(3));
+            tmpMember.setPassword(set.getString(4));
+            tmpMember.setIsLeader(set.getInt(5));
+        }
+        System.out.println(tmpMember);
+        return tmpMember;
+    }
+
     public void isLeaderBoolean(boolean isLeader, String email){
         try{
             int leaderBoolean = isLeader ? 1 : 0;
