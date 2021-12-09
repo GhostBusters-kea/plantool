@@ -36,7 +36,6 @@ public class MemberService {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -84,7 +83,7 @@ public class MemberService {
         return members;
     }
 
-    public Member findMember (String email) throws SQLException {
+    public Member findMember(String email) throws SQLException {
         return memberRepo.findMember(email);
     }
 

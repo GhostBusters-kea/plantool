@@ -1,8 +1,10 @@
 package com.example.plantool.services;
 
+import com.example.plantool.model.Member;
 import com.example.plantool.model.Project;
 import com.example.plantool.repository.ProjectRepo;
 
+import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.temporal.ChronoUnit;
 
@@ -12,15 +14,32 @@ import java.util.ArrayList;
 public class ProjectService {
     ProjectRepo repo = new ProjectRepo();
 
+    public static void main(String[] args) {
+
+        ProjectService ps = new ProjectService();
+
+        System.out.println(ps.fetchSingleProject(19));
+
+
+    }
+
+    public void createSkill(String skill, int projectid){
+        repo.writeSkillToDB(skill, projectid);
+    }
+
+
     // opret nyt projekt
     public void createNewProject(String projectName, LocalDate startDate,
-                                 LocalDate endDate, LocalDate deadline, int hoursAllocated){
+                                 LocalDate endDate, LocalDate deadline,
+                                 int hoursAllocated, String whoIsLeader, String description){
         Project project = new Project();
         project.setName(projectName);
         project.setStartDate(startDate);
         project.setEndDate(endDate);
         project.setDeadline(deadline);
         project.setHoursAllocated(hoursAllocated);
+        project.setWhoIsLeader(whoIsLeader);
+        project.setProjectDescription(description);
         repo.writeProjectToDB(project);
     }
 
@@ -62,6 +81,12 @@ public class ProjectService {
     public long calculateHoursPrDay(Project project){
         long result = project.getHoursAllocated() / calculateBusinessDays(project);
         return result;
+    }
+
+    // tilknyt deltager til projekt
+    public void addMemberToProject(Member member, Project project){
+        project.addMemberToProject(member);
+
     }
 
 

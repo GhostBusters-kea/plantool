@@ -20,6 +20,22 @@ public class Project {
     protected ArrayList<String> skillsAllocated;
     protected String projectDescription;
 
+    public String getWhoIsLeader() {
+        return whoIsLeader;
+    }
+
+    public void setWhoIsLeader(String whoIsLeader) {
+        this.whoIsLeader = whoIsLeader;
+    }
+
+    public String getProjectDescription() {
+        return projectDescription;
+    }
+
+    public void setProjectDescription(String projectDescription) {
+        this.projectDescription = projectDescription;
+    }
+
     public Project(int id, String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, ArrayList<Member> assignees, int hoursAllocated, int hoursUsed, ArrayList<String> skillsAllocated) {
 
         this.id = id;
@@ -106,9 +122,13 @@ public class Project {
         this.skillsAllocated = skillsAllocated;
     }
 
-
+    // hvorfor virker dette ikke?
     public void addSkillToProject(String skill){
         skillsAllocated.add(skill);
+    }
+
+    public void addMemberToProject(Member member){
+        assignees.add(member);
     }
 
 
@@ -128,15 +148,17 @@ public class Project {
     @Override
     public String toString() {
         return "Project{" +
-                "projectId=" + id +
-                ", projectName='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", deadline=" + deadline +
                 ", assignees=" + assignees +
+                ", whoIsLeader='" + whoIsLeader + '\'' +
                 ", hoursAllocated=" + hoursAllocated +
                 ", hoursUsed=" + hoursUsed +
                 ", skillsAllocated=" + skillsAllocated +
+                ", projectDescription='" + projectDescription + '\'' +
                 '}';
     }
 }
