@@ -34,7 +34,7 @@ public class ProjectController {
             return "createproject";
         }
         else {
-            return "redirect:/index"; // TODO: Create "must be leader" message page
+            return "redirect:/"; // TODO: Create "must be leader" message page
         }
 
     }

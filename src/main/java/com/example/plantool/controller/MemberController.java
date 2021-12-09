@@ -2,6 +2,7 @@ package com.example.plantool.controller;
 
 import com.example.plantool.services.MemberService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
@@ -14,7 +15,8 @@ public class MemberController {
     MemberService memberService = new MemberService();
 
     @GetMapping("/createmember")
-    public String createMemberGetMap() {
+    public String createMemberGetMap(Model model, HttpSession session) throws SQLException {
+        memberService.navbarName(model, session);
         return "createmember";
     }
     @PostMapping("/createmember")
@@ -31,8 +33,9 @@ public class MemberController {
     }
 
     @GetMapping("/login")
-    public String login() {
-        return "loginpage";
+    public String login() throws SQLException {
+
+        return "login";
     }
 
     @PostMapping("/login")
@@ -52,14 +55,16 @@ public class MemberController {
 
             return "redirect:/index";
         } else {
-            return "loginpage";
+            return "login";
         }
     }
 
     // Måde at håndtere om man er member eller leader.
     // Vi returnere en html side til projektlederen og en anden html til member. Html siderne er ikke lavet.
     @GetMapping("/index")
-    public String index(HttpSession session) {
+    public String index(Model model, HttpSession session) throws SQLException {
+        memberService.navbarName(model, session);
+
         int memberLead = (Integer) session.getAttribute("boolean-leader");
         String userId = (String) session.getAttribute("userid");
         if (memberLead == 1 && userId instanceof String) {
