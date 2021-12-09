@@ -20,23 +20,21 @@ public class ProjectController {
 
 
     @GetMapping("/createproject")
-    public String createProjectGetMap(HttpSession session, Model model) {
+    public String createProjectGetMap(HttpSession session, Model model) throws SQLException {
         int isLeader = (Integer) session.getAttribute("boolean-leader");
+
+        memberService.navbarName(model, session);
 
         if(isLeader == 1){
 
             ArrayList<Member> memberList = memberService.getAllMembers();
-
-            for(int i = 0; i < memberList.size(); i ++){
-                System.out.println(memberList.get(i));
-            }
-
             model.addAttribute("members", memberList);
+
 
             return "createproject";
         }
         else {
-            return "redirect:/index"; // TODO: Create "must be leader" message page
+            return "redirect:/"; // TODO: Create "must be leader" message page
         }
 
     }
@@ -44,7 +42,7 @@ public class ProjectController {
     @PostMapping("/createproject")
     public String createProjectPostMap(){
 
-        return "redirect:/manage-project";
+        return "redirect:/viewproject";
     }
 
     @GetMapping("/viewproject")

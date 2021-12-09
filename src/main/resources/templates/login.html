@@ -12,8 +12,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/custom.css}"/>
 
 
-
-    <title>Index</title>
+    <title>Login</title>
 </head>
 <body>
 
@@ -21,6 +20,26 @@
 
     <div th:replace="fragments/navbar"></div>
 
+    <div>
+    <h1>Login</h1>
+    <div class="container col-8">
+        <form id="login-form" method="POST" action="/login">
+        <div class="form-floating mb-3">
+           <input class="form-control" name="input-email" id="floatingEmail" type="text" placeholder="email">
+            <label for="floatingEmail">E-mail</label>
+        </div>
+
+
+        <div class="form-floating mb-3">
+            <input class="form-control" name="input-password" id="floatingPassword" type="text" placeholder="password">
+            <label for="floatingPassword">Password</label>
+        </div>
+
+
+            <button  class="btn btn-primary mb-3" type="submit">Login</button>
+        </form>
+    </div>
+</div>
 
 </div>
 

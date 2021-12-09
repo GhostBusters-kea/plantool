@@ -2,7 +2,9 @@ package com.example.plantool.services;
 
 import com.example.plantool.model.Member;
 import com.example.plantool.repository.MemberRepo;
+import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -10,8 +12,8 @@ public class MemberService {
     MemberRepo memberRepo = new MemberRepo();
 
     // new instance of user
-    public void createMember(   String name,String email, String password){
-        Member member = new Member(name,email,password);
+    public void createMember(String name, String email, String password){
+        Member member = new Member(name, email, password);
 
         if (emailValidation(email) == false){
             System.out.println("Email not valid");
@@ -84,8 +86,27 @@ public class MemberService {
     public Member findMember(String email) throws SQLException {
         return memberRepo.findMember(email);
     }
+
+    public Member memberById(int id) throws SQLException {
+
+        return memberRepo.findMemberById(id);
+    }
     public void isLeaderBoolean(boolean isLeader, String email){
         memberRepo.isLeaderBoolean(isLeader, email);
+    }
+
+    public void navbarName(Model model, HttpSession session) throws SQLException {
+        String userId = session.getAttribute("userid").toString();
+
+        if(userId instanceof String) {
+            int memberId = Integer.parseInt(userId);
+
+            model.addAttribute("memberName", memberById(memberId).getName());
+        }
+        else{
+            String Login = "Click to login";
+            model.addAttribute("memberName", Login);
+        }
     }
 
 }
