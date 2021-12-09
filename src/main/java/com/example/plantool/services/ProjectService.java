@@ -35,7 +35,7 @@ public class ProjectService {
     }
 
     // metode til udregning af arbejdsdage
-    // TODO: Matematikkundig person skal kigge på denne metode
+    // TODO: Matematikkyndig person skal kigge på denne metode
     public static long calculateBusinessDays(Project project){
         int first = project.getStartDate().getDayOfWeek().getValue();
         int last = project.getEndDate().getDayOfWeek().getValue();
