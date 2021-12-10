@@ -31,6 +31,9 @@ public class Project {
         this.projectDescription = projectDescription;
     }
 
+    public Project(String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, int hoursAllocated, String projectDescription) {
+    }
+
     public Project() {
     }
 

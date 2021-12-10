@@ -4,7 +4,6 @@ import com.example.plantool.model.Member;
 import com.example.plantool.model.Project;
 import com.example.plantool.services.MemberService;
 import com.example.plantool.services.ProjectService;
-import com.mysql.cj.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +13,6 @@ import org.springframework.web.context.request.WebRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 @Controller
@@ -25,19 +23,20 @@ public class ProjectController {
 
     @GetMapping("/createproject")
     public String createProjectGet(HttpSession session, Model model) throws SQLException {
-        memberService.navbarName(model, session);
-        int isLeader = (Integer) session.getAttribute("boolean-leader");
+        String mapping = memberService.inSession(model, session, "createproject");
+        int isLeader = memberService.isLeaderSession(session);
 
         if(isLeader == 1){
 
             ArrayList<Member> memberList = memberService.getAllMembers();
             model.addAttribute("members", memberList);
 
+            // TODO: model for skills
 
-            return "createproject";
+            return mapping;
         }
         else {
-            return "redirect:/"; // TODO: Create "must be leader" message page
+            return mapping; // TODO: Create "must be leader" message page
         }
 
     }
@@ -74,13 +73,13 @@ public class ProjectController {
 
     @GetMapping("/viewproject")
     public String projectOverview(Model model, HttpSession session) throws SQLException {
-        memberService.navbarName(model, session);
+        String mapping = memberService.inSession(model, session, "viewproject");
 
         ArrayList<Project> projects = projectService.fetchAllProjects();
         ArrayList<Member> members = memberService.getAllMembers();
         model.addAttribute("projects", projects);
         model.addAttribute("members", members);
 
-        return "viewproject";
+        return mapping;
     }
 }
