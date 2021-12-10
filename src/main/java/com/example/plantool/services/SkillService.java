@@ -39,8 +39,7 @@ public class SkillService {
 
     public void createSkill(String skillName){
 
-
-        if (doesSkillExist(skillName) == false){
+        if (!doesSkillExist(skillName)){
             System.out.println("Skill already exists");
         }
 
@@ -50,15 +49,23 @@ public class SkillService {
     }
 
     public void assignSkillToMember(int memberId, int skillId){
+        if (memberHasSkill(memberId, skillId)){
+            System.out.println("Skill already exists");
+        }
 
-
-
+        else {
+            skillRepo.assignSkillToMember(memberId, skillId);
+        }
     }
 
     public void assignSkillToProject(int projectId, int skillId){
+        if (projectHasSkill(projectId, skillId)){
+            System.out.println("Skill already exists");
+        }
 
-
-
+        else {
+            skillRepo.assignSkillToProject(projectId, skillId);
+        }
     }
 
     public ArrayList<String> fetchAllSkills(){
