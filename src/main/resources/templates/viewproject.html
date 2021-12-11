@@ -51,7 +51,7 @@
                     <td th:text="${project.projectDescription}"></td>
                     <td >
                         <div>
-                            <ul class="list-group" th:each="member : ${members}">
+                            <ul class="list-group" th:each="member : ${project.assignees}">
                                 <li class="list-group-item" th:text="${member.name}"></li>
                             </ul>
                         </div>

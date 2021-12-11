@@ -2,9 +2,10 @@ package com.example.plantool.controller;
 
 import com.example.plantool.model.Member;
 import com.example.plantool.model.Project;
+import com.example.plantool.model.Skill;
 import com.example.plantool.services.MemberService;
 import com.example.plantool.services.ProjectService;
-import com.mysql.cj.Session;
+import com.example.plantool.services.SkillService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,30 +15,32 @@ import org.springframework.web.context.request.WebRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 @Controller
 public class ProjectController {
     MemberService memberService = new MemberService();
     ProjectService projectService = new ProjectService();
+    SkillService skillService = new SkillService();
 
 
     @GetMapping("/createproject")
     public String createProjectGet(HttpSession session, Model model) throws SQLException {
-        memberService.navbarName(model, session);
-        int isLeader = (Integer) session.getAttribute("boolean-leader");
+        String mapping = memberService.inSession(model, session, "createproject");
+        int isLeader = memberService.isLeaderSession(session);
 
         if(isLeader == 1){
+
+            ArrayList<Skill> skillList = skillService.fetchAllSkills();
+            model.addAttribute("skills", skillList);
 
             ArrayList<Member> memberList = memberService.getAllMembers();
             model.addAttribute("members", memberList);
 
-
-            return "createproject";
+            return mapping;
         }
         else {
-            return "redirect:/"; // TODO: Create "must be leader" message page
+            return mapping; // TODO: Create "must be leader" message page
         }
 
     }
@@ -45,42 +48,48 @@ public class ProjectController {
     @PostMapping("/createproject")
     public String createProjectPost(HttpSession session, WebRequest wr) throws SQLException {
         int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
-
         String name = wr.getParameter("name");
         LocalDate startDate = LocalDate.parse(wr.getParameter("startDate"));
         LocalDate deadline = LocalDate.parse(wr.getParameter("startDate"));
-
         int hoursAllocated = Integer.parseInt(wr.getParameter("hoursAllocated"));
         String projectDescription = wr.getParameter("description");
 
         Project newProject = new Project(name, startDate, deadline, deadline, leaderId, hoursAllocated, projectDescription);
-        //String[] skillsAllocated = wr.getParameterValues("skills");
+        projectService.addProjectToDb(newProject);
+
+        String[] skillsAllocated = wr.getParameterValues("skills");
+
+        for(int i = 0; i < skillsAllocated.length; i++){
+            skillService.assignSkillToProject(newProject.getId(), skillService.fetchSkillByName(skillsAllocated[i]).getSkillId());
+        }
+
+
         String[] assignees = wr.getParameterValues("members");
 
-//        for(int i = 0; i < skillsAllocated.length; i++){
-//            newProject.getSkillsAllocated().add(skillsAllocated[i]);
-//        }
-
-        ArrayList<Member> tempAss = new ArrayList<>();
         for(int i = 0; i < assignees.length; i++){
-            tempAss.add(memberService.memberByName(assignees[i]));
+            projectService.assignMemberToProject(newProject.getId(), memberService.memberByName(assignees[i]).getMemberId());
         }
-        newProject.setAssignees(tempAss);
-
-        projectService.addProjectToDb(newProject);
 
         return "redirect:/viewproject";
     }
 
     @GetMapping("/viewproject")
     public String projectOverview(Model model, HttpSession session) throws SQLException {
-        memberService.navbarName(model, session);
+        String mapping = memberService.inSession(model, session, "viewproject");
 
         ArrayList<Project> projects = projectService.fetchAllProjects();
-        ArrayList<Member> members = memberService.getAllMembers();
-        model.addAttribute("projects", projects);
-        model.addAttribute("members", members);
 
-        return "viewproject";
+        for(int i = 0; i > projects.size(); i++){
+
+            ArrayList<Member> tempAss = new ArrayList<>();
+            for(int j = 0; j < projectService.membersInProject(projects.get(i).getId()).size(); j++){
+                tempAss.add(memberService.memberById(projectService.membersInProject(projects.get(i).getId()).get(j)));
+            }
+
+            projects.get(i).setAssignees(tempAss);
+        }
+        model.addAttribute("projects", projects);
+
+        return mapping;
     }
 }
