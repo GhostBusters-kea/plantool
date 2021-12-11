@@ -20,7 +20,7 @@ public class MemberRepo {
             stmt.setString(2, member.getEmail());
             stmt.setString(3, member.getPassword());
             stmt.executeUpdate();
-            System.out.println("Insert complete");
+            System.out.println("Member Insert complete");
         } catch (SQLException e){
             System.out.println("Something went wrong");
             e.printStackTrace();

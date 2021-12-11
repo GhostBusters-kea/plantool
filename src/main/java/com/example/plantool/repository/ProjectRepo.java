@@ -69,7 +69,7 @@ public class ProjectRepo {
             stmt.setInt(7, project.getWhoIsLeader());
             stmt.setString(8, project.getProjectDescription());
             stmt.executeUpdate();
-            System.out.println("Insert complete");
+            System.out.println("Project Insert complete");
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -81,7 +81,7 @@ public class ProjectRepo {
 
         try{
             PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
-            "SELECT project.projectid, projectname, projectstartdate, projectenddate, projectdeadline, projecthoursallo, projectleader, projectdescrip FROM project WHERE projectid="+projectid+"");
+            "SELECT project.projectid, projectname, projectstartdate, projectenddate, projectdeadline, projecthoursallo, projecthoursused, projectleader, projectdescrip FROM project WHERE projectid="+projectid+"");
 
 
             ResultSet resultSet = stmt.executeQuery();
@@ -135,7 +135,7 @@ public class ProjectRepo {
             stmt.setInt(1, projectId);
             stmt.setInt(2, memberId);
             stmt.executeUpdate();
-            System.out.println("Insert complete");
+            System.out.println("Project Members Insert complete");
         } catch (SQLException e){
             System.out.println("Something went wrong");
             e.printStackTrace();

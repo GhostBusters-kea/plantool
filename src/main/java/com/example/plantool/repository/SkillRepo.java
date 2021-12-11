@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class SkillRepo {
 
+
     public void insertSkillToDB (String skillName){
 
         try{
@@ -16,7 +17,7 @@ public class SkillRepo {
                     DatabaseConnector.getConnection().prepareStatement("INSERT INTO skill(skillname) VALUES(?) ");
             stmt.setString(1, skillName);
             stmt.executeUpdate();
-            System.out.println("Insert complete");
+            System.out.println("Skill Insert complete");
         } catch (SQLException e){
             System.out.println("Something went wrong");
             e.printStackTrace();
@@ -31,7 +32,7 @@ public class SkillRepo {
             stmt.setInt(1, memberId);
             stmt.setInt(2, skillId);
             stmt.executeUpdate();
-            System.out.println("Insert complete");
+            System.out.println("Skill to Member Insert complete");
         } catch (SQLException e){
             System.out.println("Something went wrong");
             e.printStackTrace();
@@ -131,7 +132,7 @@ public class SkillRepo {
 
         try{
             PreparedStatement stmt =
-                    DatabaseConnector.getConnection().prepareStatement("SELECT projectskills.skillid, skillname FROM projectskills WHERE projectid ='" + projectId + "'");
+                    DatabaseConnector.getConnection().prepareStatement("SELECT projectskills.skillid, skillid FROM projectskills WHERE projectid ='" + projectId + "'");
 
             ResultSet result = stmt.executeQuery();
 
