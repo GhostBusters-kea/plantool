@@ -1,5 +1,6 @@
 package com.example.plantool.repository;
 
+import com.example.plantool.model.Skill;
 import com.example.plantool.utility.DatabaseConnector;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,9 +53,9 @@ public class SkillRepo {
         }
     }
 
-    public ArrayList<String> findAllSkills (){
+    public ArrayList<Skill> findAllSkills (){
 
-        ArrayList<String> skills = new ArrayList<>();
+        ArrayList<Skill> skills = new ArrayList<>();
 
         try{
             PreparedStatement stmt =
@@ -63,8 +64,8 @@ public class SkillRepo {
             ResultSet result = stmt.executeQuery();
 
             while(result.next()){
-                String tmp = result.getString(2);
-                skills.add(tmp);
+                Skill tmpSkill = new Skill(result.getInt(1), result.getString(2));
+                skills.add(tmpSkill);
 
             }
         } catch (SQLException e){
@@ -74,33 +75,47 @@ public class SkillRepo {
         return skills;
     }
 
-    public String findSkill(int skillId) throws SQLException {
+    public Skill findSkillById(int skillId) throws SQLException {
 
-        PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT skills.skillname, FROM skills WHERE skillid ='" + skillId + "'");
-        String skillName = "";
+        PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT skills.skillid, skillname FROM skills WHERE skillid ='" + skillId + "'");
+        Skill skill = new Skill();
 
         ResultSet set = stmt.executeQuery();
         while(set.next()){
-            skillName = set.getString(2);
+            skill.setSkillId(set.getInt(1));
+            skill.setSkillName(set.getString(2));
 
         }
-        return skillName;
+        return skill;
     }
 
-    public ArrayList<Integer> findMemberSkills(int id){
+    public Skill findSkillByName(String skillName) throws SQLException {
 
-        ArrayList<Integer> memberSkills = new ArrayList<>();
+        PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT skills.skillid, skillname FROM skills WHERE skillname ='" + skillName + "'");
+        Skill skill = new Skill();
+
+        ResultSet set = stmt.executeQuery();
+        while(set.next()){
+            skill.setSkillId(set.getInt(1));
+            skill.setSkillName(set.getString(2));
+
+        }
+        return skill;
+    }
+
+    public ArrayList<Skill> findMemberSkills(int memberId){
+
+        ArrayList<Skill> memberSkills = new ArrayList<>();
 
         try{
             PreparedStatement stmt =
-                    DatabaseConnector.getConnection().prepareStatement("SELECT userskills.skillid, FROM userskills WHERE userid ='" + id + "'");
+                    DatabaseConnector.getConnection().prepareStatement("SELECT userskills.skillid, skillname FROM userskills WHERE userid ='" + memberId + "'");
 
             ResultSet result = stmt.executeQuery();
 
             while(result.next()){
-                int tmpSkillId = result.getInt(2);
-
-                memberSkills.add(tmpSkillId);
+                Skill tmpSkill = new Skill(result.getInt(1), result.getString(2));
+                memberSkills.add(tmpSkill);
 
             }
         } catch (SQLException e){
@@ -110,20 +125,19 @@ public class SkillRepo {
         return memberSkills;
     }
 
-    public ArrayList<Integer> findProjectSkills(int id){
+    public ArrayList<Skill> findProjectSkills(int projectId){
 
-        ArrayList<Integer> projectSkills = new ArrayList<>();
+        ArrayList<Skill> projectSkills = new ArrayList<>();
 
         try{
             PreparedStatement stmt =
-                    DatabaseConnector.getConnection().prepareStatement("SELECT projectskills.skillid, FROM projectskills WHERE projectid ='" + id + "'");
+                    DatabaseConnector.getConnection().prepareStatement("SELECT projectskills.skillid, skillname FROM projectskills WHERE projectid ='" + projectId + "'");
 
             ResultSet result = stmt.executeQuery();
 
             while(result.next()){
-                int tmpSkillId = result.getInt(2);
-
-                projectSkills.add(tmpSkillId);
+                Skill tmpSkill = new Skill(result.getInt(1), result.getString(2));
+                projectSkills.add(tmpSkill);
 
             }
         } catch (SQLException e){

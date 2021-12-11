@@ -23,11 +23,11 @@ public class Member {
         this.isLeader = isLeader;
     }
 
-    public int getUserId() {
+    public int getMemberId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setMemberId(int userId) {
         this.userId = userId;
     }
 

@@ -1,5 +1,6 @@
 package com.example.plantool.repository;
 
+import com.example.plantool.model.Member;
 import com.example.plantool.model.Project;
 import com.example.plantool.utility.DatabaseConnector;
 
@@ -14,42 +15,42 @@ import java.util.ArrayList;
 
 public class ProjectRepo {
 
-    public void writeSkillToDB(String skill, int projectid){
-
-        try{
-            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("" +
-                    "INSERT INTO skill(skillname, projectid) VALUES(?,?)");
-
-            stmt.setString(1,skill);
-            stmt.setInt(2,projectid);
-            stmt.executeUpdate();
-            System.out.println("Insert complete");
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
-    }
-
-    public static ArrayList<String> fetchSkills(int projectid){
-        ArrayList<String> skills = new ArrayList<>();
-
-        try {
-            PreparedStatement stmt =
-                    DatabaseConnector.getConnection().prepareStatement(
-                            "SELECT skill.skillname FROM skill WHERE projectid="+projectid+"");
-
-            ResultSet resultSet = stmt.executeQuery();
-
-            while (resultSet.next()){
-                skills.add(resultSet.getString(1));
-            }
-
-
-            } catch (SQLException e){
-            e.printStackTrace();
-        }
-        return skills;
-    }
+//    public void writeSkillToDB(String skill, int projectid){
+//
+//        try{
+//            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("" +
+//                    "INSERT INTO skill(skillname, projectid) VALUES(?,?)");
+//
+//            stmt.setString(1,skill);
+//            stmt.setInt(2,projectid);
+//            stmt.executeUpdate();
+//            System.out.println("Insert complete");
+//        } catch (SQLException e){
+//            e.printStackTrace();
+//        }
+//
+//    }
+//
+//    public static ArrayList<String> fetchSkills(int projectid){
+//        ArrayList<String> skills = new ArrayList<>();
+//
+//        try {
+//            PreparedStatement stmt =
+//                    DatabaseConnector.getConnection().prepareStatement(
+//                            "SELECT skill.skillname FROM skill WHERE projectid="+projectid+"");
+//
+//            ResultSet resultSet = stmt.executeQuery();
+//
+//            while (resultSet.next()){
+//                skills.add(resultSet.getString(1));
+//            }
+//
+//
+//            } catch (SQLException e){
+//            e.printStackTrace();
+//        }
+//        return skills;
+//    }
 
     public void writeProjectToDB(Project project){
 
@@ -97,7 +98,7 @@ public class ProjectRepo {
                 tmpProject.setProjectDescription(resultSet.getString(9));
             }
 
-            tmpProject.setSkillsAllocated(fetchSkills(tmpProject.getId()));
+            //tmpProject.setSkillsAllocated(fetchSkills(tmpProject.getId()));
 
 
         } catch (SQLException e){
@@ -105,14 +106,47 @@ public class ProjectRepo {
         }
 
         return tmpProject;
-
     }
 
-    public void deleteProject(int projectid){
+    public ArrayList<Integer> membersInProject(int projectId){
+        ArrayList<Integer> projectMembers = new ArrayList<>();
+
+        try {
+
+            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT assignment.userid FROM assignment WHERE projectid ='" + projectId + "'");
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()){
+                projectMembers.add(resultSet.getInt(1));
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return projectMembers;
+    }
+
+    public void assignMemberToProject(int projectId, int memberId){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement("INSERT INTO assignment(projectid, userid) VALUES(?,?) ");
+            stmt.setInt(1, projectId);
+            stmt.setInt(2, memberId);
+            stmt.executeUpdate();
+            System.out.println("Insert complete");
+        } catch (SQLException e){
+            System.out.println("Something went wrong");
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteProject(int projectId){
 
         try {
             PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
-                    "DELETE FROM project WHERE projectid="+projectid+"");
+                    "DELETE FROM project WHERE projectid="+projectId+"");
             stmt.executeUpdate();
             System.out.println("Delete complete");
         }catch (SQLException e){

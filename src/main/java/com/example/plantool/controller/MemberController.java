@@ -2,7 +2,6 @@ package com.example.plantool.controller;
 
 import com.example.plantool.services.MemberService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
@@ -48,7 +47,7 @@ public class MemberController {
 
         if (validPass) {
 
-            String userId = String.valueOf(memberService.findMember(email).getUserId());
+            String userId = String.valueOf(memberService.findMember(email).getMemberId());
             int memberLeader = Integer.valueOf(memberService.findMember(email).getIsLeader());
             session.setAttribute("userid", userId);
             session.setAttribute("boolean-leader", memberLeader);

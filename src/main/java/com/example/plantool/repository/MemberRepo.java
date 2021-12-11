@@ -27,6 +27,7 @@ public class MemberRepo {
         }
     }
 
+
     //Fetches all users from database
     public ArrayList<Member> findAllMembers (){
 
@@ -64,7 +65,7 @@ public class MemberRepo {
 
         ResultSet set = stmt.executeQuery();
         while(set.next()){
-            tmpMember.setUserId(set.getInt(1));
+            tmpMember.setMemberId(set.getInt(1));
             tmpMember.setName(set.getString(2));
             tmpMember.setEmail(set.getString(3));
             tmpMember.setPassword(set.getString(4));
@@ -81,7 +82,7 @@ public class MemberRepo {
 
         ResultSet set = stmt.executeQuery();
         while(set.next()){
-            tmpMember.setUserId(set.getInt(1));
+            tmpMember.setMemberId(set.getInt(1));
             tmpMember.setName(set.getString(2));
             tmpMember.setEmail(set.getString(3));
             tmpMember.setPassword(set.getString(4));
@@ -99,7 +100,7 @@ public class MemberRepo {
 
         ResultSet set = stmt.executeQuery();
         while(set.next()){
-            tmpMember.setUserId(set.getInt(1));
+            tmpMember.setMemberId(set.getInt(1));
             tmpMember.setName(set.getString(2));
             tmpMember.setEmail(set.getString(3));
             tmpMember.setPassword(set.getString(4));

@@ -23,9 +23,9 @@ public class ProjectService {
 
     }
 
-    public void createSkill(String skill, int projectid){
-        repo.writeSkillToDB(skill, projectid);
-    }
+   // public void createSkill(String skill, int projectid){
+   //     repo.writeSkillToDB(skill, projectid);
+   // }
 
 
     // opret nyt projekt
@@ -56,6 +56,30 @@ public class ProjectService {
     // hent alle projekter
     public ArrayList<Project> fetchAllProjects(){
         return repo.fetchAllProjects();
+    }
+
+    public void assignMemberToProject(int projectId, int memberId){
+        if (projectHasMember(projectId, memberId)){
+            System.out.println("Member already assigned to project");
+        }
+
+        else {
+            repo.assignMemberToProject(projectId, memberId);
+        }
+    }
+
+    public ArrayList<Integer> membersInProject(int projectId){
+        return repo.membersInProject(projectId);
+    }
+
+    public boolean projectHasMember(int projectId, int memberId){
+
+        for(int i = 0; i < repo.membersInProject(projectId).size(); i++){
+            if(repo.membersInProject(projectId).get(i).equals(memberId)){
+                return true;
+            }
+        }
+        return false;
     }
 
     // metode til udregning af arbejdsdage

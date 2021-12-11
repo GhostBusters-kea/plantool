@@ -28,6 +28,7 @@ public class MemberService {
 
     }
 
+
     // checks if the email is already registered
     public boolean doesEmailExist(String email){
 

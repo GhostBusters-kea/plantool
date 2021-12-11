@@ -1,5 +1,6 @@
 package com.example.plantool.services;
 
+import com.example.plantool.model.Skill;
 import com.example.plantool.repository.SkillRepo;
 
 import java.sql.SQLException;
@@ -68,18 +69,18 @@ public class SkillService {
         }
     }
 
-    public ArrayList<String> fetchAllSkills(){
+    public ArrayList<Skill> fetchAllSkills(){
         return skillRepo.findAllSkills();
     }
 
-    public ArrayList<String> fetchMemberSkills(int memberId) throws SQLException {
+    public Skill fetchSkillByName(String skillName) throws SQLException {
+        return skillRepo.findSkillByName(skillName);
+    }
 
-        ArrayList<String> memberSkills = new ArrayList<>();
-        ArrayList<Integer> memberSkillsById = skillRepo.findMemberSkills(memberId);
+    public ArrayList<Skill> fetchMemberSkills(int memberId) throws SQLException {
 
-        for(int i = 0; i < memberSkillsById.size(); i++) {
-            memberSkills.add(skillRepo.findSkill(memberSkillsById.get(i)));
-        }
+        ArrayList<Skill> memberSkills = skillRepo.findMemberSkills(memberId);
+
         return memberSkills;
 
     }
