@@ -93,7 +93,7 @@ public class ProjectService {
 
         long result = totalDays - 2*(totalDays/7);
 
-        if(totalDays %7 !=0){
+        if(totalDays % 7 !=0){
             if(first==7) {
                 result -= 1;
             } else if (last==7) {
