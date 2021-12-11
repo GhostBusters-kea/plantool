@@ -62,6 +62,8 @@ public class ProjectService {
         return repo.membersInProject(projectId);
     }
 
+
+
     public boolean projectHasMember(int projectId, int memberId){
 
         for(int i = 0; i < repo.membersInProject(projectId).size(); i++){
