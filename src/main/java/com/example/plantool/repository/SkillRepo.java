@@ -58,6 +58,8 @@ public class SkillRepo {
         }
     }
 
+
+
     // virker
     public ArrayList<Skill> findAllSkills (){
 
@@ -120,30 +122,23 @@ public class SkillRepo {
         return skill;
     }
 
-    public static void main(String[] args) {
-        SkillRepo repo = new SkillRepo();
 
-        System.out.println(repo.findMemberSkills(4));
-
-
-    }
-
-    // kunne ikke trække data fra to forskellige tabeller - der skal laves et join
-    // TODO: Michael vil du evt. kigge på denne? Der skal laves et join mellem userskillstabellen og skillstabllen så skillname kan tilføjes til skill
-
+    // virker
     public ArrayList<Skill> findMemberSkills(int memberId){
 
         ArrayList<Skill> memberSkills = new ArrayList<>();
 
         try{
             PreparedStatement stmt =
-                    DatabaseConnector.getConnection().prepareStatement("SELECT userskills.skillid FROM userskills WHERE userid =" + memberId + "JOIN skills ON ");
+                    DatabaseConnector.getConnection().prepareStatement(
+                            "SELECT userskills.userid, userskills.skillid, skillname FROM userskills JOIN skills on skills.skillid=userskills.skillid WHERE userid ="+memberId+"");
 
             ResultSet result = stmt.executeQuery();
 
             while(result.next()){
                 Skill tmpSkill = new Skill();
-                tmpSkill.setSkillId(result.getInt(1));
+                tmpSkill.setSkillId(result.getInt(2));
+                tmpSkill.setSkillName(result.getString(3));
                 memberSkills.add(tmpSkill);
             }
         } catch (SQLException e){
@@ -153,19 +148,19 @@ public class SkillRepo {
         return memberSkills;
     }
 
-    // TODO: der skal også laves et join state,ment på denne
+    // virker
     public ArrayList<Skill> findProjectSkills(int projectId){
 
         ArrayList<Skill> projectSkills = new ArrayList<>();
 
         try{
             PreparedStatement stmt =
-                    DatabaseConnector.getConnection().prepareStatement("SELECT projectskills.skillid, skillid FROM projectskills WHERE projectid ='" + projectId + "'");
+                    DatabaseConnector.getConnection().prepareStatement("SELECT projectskills.projectid, projectskills.skillid, skillname FROM projectskills JOIN skills ON skills.skillid=projectskills.skillid WHERE projectid ="+projectId+"");
 
             ResultSet result = stmt.executeQuery();
 
             while(result.next()){
-                Skill tmpSkill = new Skill(result.getInt(1), result.getString(2));
+                Skill tmpSkill = new Skill(result.getInt(2), result.getString(3));
                 projectSkills.add(tmpSkill);
 
             }
