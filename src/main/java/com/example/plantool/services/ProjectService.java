@@ -10,22 +10,12 @@ import java.time.temporal.ChronoUnit;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class ProjectService {
     ProjectRepo repo = new ProjectRepo();
-
-    public static void main(String[] args) {
-
-        ProjectService ps = new ProjectService();
-
-        System.out.println(ps.fetchSingleProject(19));
-
-
-    }
-
-   // public void createSkill(String skill, int projectid){
-   //     repo.writeSkillToDB(skill, projectid);
-   // }
 
 
     // opret nyt projekt
@@ -83,7 +73,6 @@ public class ProjectService {
     }
 
     // metode til udregning af arbejdsdage
-    // TODO: Matematikkyndig person skal kigge på denne metode
     public static long calculateBusinessDays(Project project){
         int first = project.getStartDate().getDayOfWeek().getValue();
         int last = project.getEndDate().getDayOfWeek().getValue();
@@ -105,18 +94,26 @@ public class ProjectService {
         return result;
     }
 
+    // metode nummer 2  - kan ændres til at returnere en liste med alle dagene mellem start og end
+    public static int countBusinessDays(Project project){
 
-    // udregning af gennemsnitlig antal arbejdstimer pr dag
-    public long calculateHoursPrDay(Project project){
-        long result = project.getHoursAllocated() / calculateBusinessDays(project);
-        return result;
+        Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY ||
+                date.getDayOfWeek() == DayOfWeek.SUNDAY;
+
+        List<LocalDate> businessDays = project.getStartDate().datesUntil(project.getEndDate())
+                .filter(isWeekend.negate())
+                .collect(Collectors.toList());
+
+        return businessDays.size();
     }
 
-    // tilknyt deltager til projekt
-//    public void addMemberToProject(Member member, Project project){
-//        project.addMemberToProject(member);
-//
-//    }
+
+    // udregning af gennemsnitlig antal arbejdstimer pr dag
+    public float calculateHoursPrDay(Project project, int numberOfMembers){
+        long result = project.getHoursAllocated() / calculateBusinessDays(project);
+        return (float) result/numberOfMembers;
+    }
+
 
 
     // metoder til af ændre projekter
