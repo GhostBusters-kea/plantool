@@ -48,7 +48,10 @@ public class ProjectService {
         return repo.fetchAllProjects();
     }
 
+
+    // knytter projektdeltager til bestemt project
     public void assignMemberToProject(int projectId, int memberId){
+
         if (projectHasMember(projectId, memberId)){
             System.out.println("Member already assigned to project");
         }
@@ -137,9 +140,6 @@ public class ProjectService {
         project.setHoursUsed(hoursUsed);
     }
 
-//     public void addSkillToProject(Project project, String skill){
-//        project.addSkillToProject(skill);
-//    }
 
     public void writeProjectToDB(Project project){
         repo.writeProjectToDB(project);

@@ -23,6 +23,8 @@ public class Member {
         this.isLeader = isLeader;
     }
 
+    public Member(){}
+
     public int getMemberId() {
         return userId;
     }

@@ -15,42 +15,8 @@ import java.util.ArrayList;
 
 public class ProjectRepo {
 
-//    public void writeSkillToDB(String skill, int projectid){
-//
-//        try{
-//            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("" +
-//                    "INSERT INTO skill(skillname, projectid) VALUES(?,?)");
-//
-//            stmt.setString(1,skill);
-//            stmt.setInt(2,projectid);
-//            stmt.executeUpdate();
-//            System.out.println("Insert complete");
-//        } catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//
-//    }
-//
-//    public static ArrayList<String> fetchSkills(int projectid){
-//        ArrayList<String> skills = new ArrayList<>();
-//
-//        try {
-//            PreparedStatement stmt =
-//                    DatabaseConnector.getConnection().prepareStatement(
-//                            "SELECT skill.skillname FROM skill WHERE projectid="+projectid+"");
-//
-//            ResultSet resultSet = stmt.executeQuery();
-//
-//            while (resultSet.next()){
-//                skills.add(resultSet.getString(1));
-//            }
-//
-//
-//            } catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//        return skills;
-//    }
+
+    // TODO: update project
 
     public void writeProjectToDB(Project project){
 
@@ -75,15 +41,12 @@ public class ProjectRepo {
         }
     }
 
+    // hent enkelt projekt
     public Project fetchSingleProject(int projectid){
-
         Project tmpProject = new Project();
-
         try{
             PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
             "SELECT project.projectid, projectname, projectstartdate, projectenddate, projectdeadline, projecthoursallo, projecthoursused, projectleader, projectdescrip FROM project WHERE projectid="+projectid+"");
-
-
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()){
@@ -104,17 +67,15 @@ public class ProjectRepo {
         } catch (SQLException e){
             e.printStackTrace();
         }
-
         return tmpProject;
     }
 
+    // returnerer liste med deltagerid i et bestemt projekt
     public ArrayList<Integer> membersInProject(int projectId){
         ArrayList<Integer> projectMembers = new ArrayList<>();
 
         try {
-
-            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT assignment.userid FROM assignment WHERE projectid ='" + projectId + "'");
-
+            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT assignment.userid FROM assignment WHERE projectid =" + projectId + "");
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()){
@@ -127,6 +88,31 @@ public class ProjectRepo {
         return projectMembers;
     }
 
+    // returnerer liste med deltagere i et bestemt projekt
+    public ArrayList<Member> listMembersInProject(int projectId){
+        ArrayList<Member> projectMembers = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
+                    "SELECT assignment.projectid, assignment.userid, name, email FROM assignment JOIN user ON user.userid = assignment.userid WHERE assignment.projectid="+projectId+"");
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()){
+                Member tmpMember = new Member();
+                tmpMember.setMemberId(resultSet.getInt(2));
+                tmpMember.setName(resultSet.getString(3));
+                tmpMember.setEmail(resultSet.getString(4));
+                projectMembers.add(tmpMember);
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return projectMembers;
+    }
+
+    // knytter projektdeltager til bestemt projekt
     public void assignMemberToProject(int projectId, int memberId){
 
         try{
@@ -135,13 +121,14 @@ public class ProjectRepo {
             stmt.setInt(1, projectId);
             stmt.setInt(2, memberId);
             stmt.executeUpdate();
-            System.out.println("Project Members Insert complete");
+            System.out.println("Project Member Insert complete");
         } catch (SQLException e){
             System.out.println("Something went wrong");
             e.printStackTrace();
         }
     }
 
+    // slet project
     public void deleteProject(int projectId){
 
         try {
@@ -155,21 +142,17 @@ public class ProjectRepo {
 
     }
 
-    // TODO: update project
-
+    // returnerer liste med alle projekter
     public ArrayList<Project> fetchAllProjects(){
 
         ArrayList<Project> allProjects = new ArrayList<>();
 
         try {
-
             PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT * FROM project");
-
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()){
                 Project tmpProject = new Project();
-
                 tmpProject.setId(resultSet.getInt(1));
                 tmpProject.setName(resultSet.getString(2));
                 tmpProject.setStartDate(resultSet.getDate(3).toLocalDate());
@@ -179,7 +162,6 @@ public class ProjectRepo {
                 tmpProject.setHoursUsed(resultSet.getInt(7));
                 tmpProject.setWhoIsLeader(resultSet.getInt(8));
                 tmpProject.setProjectDescription(resultSet.getString(9));
-
                 allProjects.add(tmpProject);
             }
 
