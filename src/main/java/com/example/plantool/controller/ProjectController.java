@@ -79,7 +79,7 @@ public class ProjectController {
 
         ArrayList<Project> projects = projectService.fetchAllProjects();
 
-        for(int i = 0; i > projects.size(); i++){
+        for(int i = 0; i < projects.size(); i++){
 
             ArrayList<Member> tempAss = new ArrayList<>();
             for(int j = 0; j < projectService.membersInProject(projects.get(i).getId()).size(); j++){
