@@ -9,38 +9,43 @@ import java.util.ArrayList;
 public class SkillService {
     SkillRepo skillRepo = new SkillRepo();
 
+
+
+    // checker om kompetencen allerede findes i databassen
     public boolean doesSkillExist(String skillName){
 
         for(int i = 0; i < skillRepo.findAllSkills().size(); i++){
-            if(skillRepo.findAllSkills().get(i).equals(skillName)){
+            if(skillRepo.findAllSkills().get(i).getSkillName().equals(skillName)){
                 return true;
             }
         }
         return false;
     }
 
+    // checker om projektdeltager allerede har en bestemt kompetence
     public boolean memberHasSkill(int memberId, int skillId){
-
         for(int i = 0; i < skillRepo.findMemberSkills(memberId).size(); i++){
-            if(skillRepo.findMemberSkills(memberId).get(i).equals(skillId)){
+            if(skillRepo.findMemberSkills(memberId).get(i).getSkillId()==skillId){
                 return true;
             }
         }
         return false;
     }
 
+    // checker om et project allerede er tildelt en bestemt kompetence
     public boolean projectHasSkill(int projectId, int skillId){
         for(int i = 0; i < skillRepo.findProjectSkills(projectId).size(); i++){
-            if(skillRepo.findProjectSkills(projectId).get(i).equals(skillId)){
+            if(skillRepo.findProjectSkills(projectId).get(i).getSkillId()==skillId){
                 return true;
             }
         }
         return false;
     }
 
+    // opret ny kompetence
     public void createSkill(String skillName){
 
-        if (!doesSkillExist(skillName)){
+        if (doesSkillExist(skillName)){
             System.out.println("Skill already exists");
         }
 
@@ -49,7 +54,9 @@ public class SkillService {
         }
     }
 
+    // knytter kompetence til projektdeltager
     public void assignSkillToMember(int memberId, int skillId){
+
         if (memberHasSkill(memberId, skillId)){
             System.out.println("Skill already exists");
         }
@@ -59,6 +66,16 @@ public class SkillService {
         }
     }
 
+    public static void main(String[] args) {
+
+        SkillService skill = new SkillService();
+
+        System.out.println(skill.fetchMemberSkills(1));
+
+
+    }
+
+    // knytter kompetence til project
     public void assignSkillToProject(int projectId, int skillId){
         if (projectHasSkill(projectId, skillId)){
             System.out.println("Skill already exists");
@@ -69,22 +86,20 @@ public class SkillService {
         }
     }
 
+    // returnere en liste med alle kompetencer
     public ArrayList<Skill> fetchAllSkills(){
         return skillRepo.findAllSkills();
     }
 
-    public Skill fetchSkillByName(String skillName) throws SQLException {
+    // returnere bestemt kompetence på navn
+    public Skill fetchSkillByName(String skillName) {
         return skillRepo.findSkillByName(skillName);
     }
 
-    public ArrayList<Skill> fetchMemberSkills(int memberId) throws SQLException {
-
+    // returnere liste med kompetencerne på en bestemt projektdeltager
+    public ArrayList<Skill> fetchMemberSkills(int memberId) {
         ArrayList<Skill> memberSkills = skillRepo.findMemberSkills(memberId);
-
         return memberSkills;
-
     }
-
-
 
 }
