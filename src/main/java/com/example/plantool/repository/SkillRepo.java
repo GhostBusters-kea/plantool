@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class SkillRepo {
 
-    // virker - æmdret SQL-statement fra skill til skills
+    // opret kompetence
     public void insertSkillToDB (String skillName){
 
         try{
@@ -24,7 +24,7 @@ public class SkillRepo {
         }
     }
 
-    // virker
+    // knytter kompetence til projektdeltager
     public void assignSkillToMember(int memberId, int skillId){
 
         try{
@@ -41,7 +41,7 @@ public class SkillRepo {
         }
     }
 
-    // virker
+    // knytter kompetence til projekt
     public void assignSkillToProject(int projectId, int skillId){
 
         try{
@@ -60,7 +60,7 @@ public class SkillRepo {
 
 
 
-    // virker
+    // returnere liste med alle kompetencer
     public ArrayList<Skill> findAllSkills (){
 
         ArrayList<Skill> skills = new ArrayList<>();
@@ -83,7 +83,7 @@ public class SkillRepo {
         return skills;
     }
 
-    // virker
+    // returnerer enkelt kompetence på ID
     public Skill findSkillById(int skillId) {
         Skill skill = new Skill();
         try{
@@ -102,7 +102,7 @@ public class SkillRepo {
     }
 
 
-    // virker
+    // returnere enkelt kompetence på navn
     public Skill findSkillByName(String skillName) {
         Skill skill = new Skill();
 
@@ -123,7 +123,7 @@ public class SkillRepo {
     }
 
 
-    // virker
+    // returnerer liste med kompetencer på en bestemt projektdeltager
     public ArrayList<Skill> findMemberSkills(int memberId){
 
         ArrayList<Skill> memberSkills = new ArrayList<>();
@@ -148,7 +148,7 @@ public class SkillRepo {
         return memberSkills;
     }
 
-    // virker
+    // returnerer liste med kompetencer på et bestemt projekt
     public ArrayList<Skill> findProjectSkills(int projectId){
 
         ArrayList<Skill> projectSkills = new ArrayList<>();
