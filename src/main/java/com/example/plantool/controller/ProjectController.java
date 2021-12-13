@@ -56,22 +56,19 @@ public class ProjectController {
 
         Project newProject = new Project(name, startDate, deadline, deadline, leaderId, hoursAllocated, projectDescription);
         projectService.addProjectToDb(newProject);
+        newProject.setId(projectService.fetchSingelProjectId(newProject.getName()));
+        System.out.println(newProject.getName());
+        System.out.println(newProject.getId());
 
-        String[] skillsAllocated = wr.getParameterValues("skills");
+        String[] skillsAllocated = wr.getParameterValues("skill");
 
         for(int i = 0; i < skillsAllocated.length; i++){
             skillService.assignSkillToProject(newProject.getId(), skillService.fetchSkillByName(skillsAllocated[i]).getSkillId());
         }
 
-
         String[] assignees = wr.getParameterValues("member");
 
         for(int i = 0; i < assignees.length; i++){
-
-            System.out.println(assignees[i]);
-
-            System.out.println(memberService.memberByName(assignees[i]).getMemberId());
-            System.out.println(newProject.getId());
             projectService.assignMemberToProject(newProject.getId(), memberService.memberByName(assignees[i]).getMemberId());
         }
 

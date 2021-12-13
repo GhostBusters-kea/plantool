@@ -94,17 +94,13 @@ public class ProjectRepo {
         int id = 0;
         try{
             PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
-                    "SELECT project.projectid FROM project WHERE projectname="+ projectName +"");
+                    "SELECT projectid FROM plantool.project WHERE projectname = '" + projectName + "'");
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()){
                 id = resultSet.getInt(1);
-                
+                System.out.println("project repo id: " + id);
             }
-
-            //tmpProject.setSkillsAllocated(fetchSkills(tmpProject.getId()));
-
-
         } catch (SQLException e){
             e.printStackTrace();
         }

@@ -43,6 +43,10 @@ public class ProjectService {
         return repo.fetchSingleProject(projectID);
     }
 
+    public int fetchSingelProjectId(String projectName){
+        return repo.fetchSingleProjectId(projectName);
+    }
+
     // hent alle projekter
     public ArrayList<Project> fetchAllProjects(){
         return repo.fetchAllProjects();
