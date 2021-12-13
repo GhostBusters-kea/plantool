@@ -66,7 +66,7 @@ public class ProjectService {
     }
 
 
-
+    // checker om projektdeltager allerede er knyttet til projekt
     public boolean projectHasMember(int projectId, int memberId){
 
         for(int i = 0; i < repo.membersInProject(projectId).size(); i++){
