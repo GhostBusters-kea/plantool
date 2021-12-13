@@ -79,15 +79,6 @@ public class ProjectController {
 
         ArrayList<Project> projects = projectService.fetchAllProjects();
 
-        for(int i = 0; i < projects.size(); i++){
-
-            ArrayList<Member> tempAss = new ArrayList<>();
-            for(int j = 0; j < projectService.membersInProject(projects.get(i).getId()).size(); j++){
-                tempAss.add(memberService.memberById(projectService.membersInProject(projects.get(i).getId()).get(j)));
-            }
-
-            projects.get(i).setAssignees(tempAss);
-        }
         model.addAttribute("projects", projects);
 
         return mapping;
