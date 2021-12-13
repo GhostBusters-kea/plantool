@@ -3,8 +3,12 @@ package com.example.plantool.model;
 import java.time.LocalDate;
 
 public class SubTask extends Project{
-    public SubTask(String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, int hoursAllocated, String projectDescription) {
+
+    int taskID;
+
+    public SubTask(int taskID, String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, int hoursAllocated, String projectDescription) {
         super(name, startDate, endDate, deadline, hoursAllocated, projectDescription);
+        this.taskID = taskID;
     }
 
     public SubTask() {
@@ -26,4 +30,13 @@ public class SubTask extends Project{
                 ", projectDescription='" + projectDescription + '\'' +
                 '}';
     }
+
+    public int getTaskID() {
+        return taskID;
+    }
+
+    public void setTaskID(int taskID) {
+        this.taskID = taskID;
+    }
+
 }
