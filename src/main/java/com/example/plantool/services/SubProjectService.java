@@ -15,7 +15,40 @@ import java.util.stream.Collectors;
 public class SubProjectService {
     SubprojectsRepo repo = new SubprojectsRepo();
 
-    // opret nyt projekt
+
+    public void updatesubProjectName(int subprojectid, String name){
+        repo.updateSubProjectName(subprojectid, name);
+    }
+
+    public void updateProjectStartDate(int subprojectid, LocalDate startdate){
+        repo.updateSubProjectStartDate(subprojectid,startdate);
+    }
+
+    public void updateSubProjectsEndDate(int subprojectid,LocalDate enddate){
+        repo.updateSubProjectEndDate(subprojectid,enddate);
+    }
+
+    public void updateDeadline(int subprojectid, LocalDate deadline){
+        repo.updateSubProjectDeadline(subprojectid,deadline);
+    }
+
+    public void updateHoursAllocated(int subprojectid, int hours){
+        repo.updateHoursAllocated(subprojectid,hours);
+
+    }
+
+    public void updateHoursUsed(int subprojectid, int hours){
+        repo.updateHoursUsed(subprojectid,hours);
+    }
+
+    public void updatesubProjectDescription(int subprojectid, String description){
+        repo.updateDescription(subprojectid,description);
+    }
+
+
+
+
+    // opret nyt underprojekt
     public Project createNewSubProject(int projectid, String projectName, LocalDate startDate, LocalDate endDate, LocalDate deadline,
                                     int hoursAllocated, String description){
         Project project = new Project();
