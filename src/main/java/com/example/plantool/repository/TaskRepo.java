@@ -13,8 +13,113 @@ import java.util.ArrayList;
 
 public class TaskRepo {
 
-    public void writeTaskToDB(Task task, int subprojectId){
+    // opdater navn
+    public void updateTaskName(int taskid, String taskname){
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE task SET taskename='"+taskname+"' WHERE taskid="+taskid+"");
 
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    // opdate startdato
+    public void updateTaskStartDate(int taskid, LocalDate startdate){
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE task SET taskstartdate='"+startdate+"' WHERE taskid="+taskid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    // opdate slutdato
+    public void updateTaskEndDate(int taskid, LocalDate enddate){
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE task SET taskenddate='"+enddate+"' WHERE taskid="+taskid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    // opdater deadline
+    public void updateTaskDeadline(int taskid, LocalDate deadline){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE task SET taskdeadline='"+deadline+"' WHERE taskid="+taskid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    // opdater allokeret tid
+    public void updateHoursAllocated(int taskid, int hours){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE task SET taskhoursallo='"+hours+"' WHERE taskid="+taskid+"");
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    // opdater tid brugt
+    public void updateHoursUsed(int taskid, int hours){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE task SET taskhoursused='"+hours+"' WHERE taskid="+taskid+"");
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        TaskRepo repo = new TaskRepo();
+        repo.updateDescription(1,"Denne beskrivelse");
+
+    }
+
+    // opdater beskrivelse
+    public void updateDescription(int taskid, String description){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE task SET taskdescription='"+description+"' WHERE taskid="+taskid+"");
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public void writeTaskToDB(Task task, int subprojectId){
         try{
             PreparedStatement stmt =
                     DatabaseConnector.getConnection().prepareStatement(
@@ -162,24 +267,5 @@ public class TaskRepo {
             e.printStackTrace();
         }
         return allTasks;
-    }
-
-    public static void main(String[] args) {
-        TaskRepo t = new TaskRepo();
-
-        Task task = new Task();
-        task.setName("55");
-        task.getSubprojectId();
-        task.setStartDate(LocalDate.of(2021, 12, 14));
-        task.setEndDate(LocalDate.of(2021, 12, 14));
-        task.setDeadline(LocalDate.of(2021, 12, 14));
-        task.setHoursAllocated(25);
-        task.setHoursUsed(5);
-        task.setProjectDescription("Proejkt");
-
-        //t.writeTaskToDB(task,1);
-        //System.out.println(t.fetchSingleTask(4));
-        //t.assignMemberToTask(4, 1);
-        System.out.println(t.fetchAllTasks(1));
     }
 }

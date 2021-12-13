@@ -46,8 +46,6 @@ public class SubProjectService {
     }
 
 
-
-
     // opret nyt underprojekt
     public Project createNewSubProject(int projectid, String projectName, LocalDate startDate, LocalDate endDate, LocalDate deadline,
                                     int hoursAllocated, String description){
