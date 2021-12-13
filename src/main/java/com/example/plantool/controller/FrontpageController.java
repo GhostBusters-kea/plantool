@@ -20,7 +20,7 @@ public class FrontpageController {
             return "index";
         }
         if (memberLead == 0) {
-            return "index2";
+            return "index";
         }
         return "redirect:/login";
     }

@@ -15,8 +15,57 @@ import java.util.ArrayList;
 
 public class ProjectRepo {
 
+    public void updateProjectStartDate(int projectid, LocalDate startdate){
 
-    // TODO: update project
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE project SET projectstartdate='"+startdate+"' WHERE projectid="+projectid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void updateProjectEndDate(int projectid, LocalDate enddate){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE project SET projectenddate='"+enddate+"' WHERE projectid="+projectid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void updateProjectDeadline(int projectid, LocalDate deadline){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE project SET projectdeadline='"+deadline+"' WHERE projectid="+projectid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void main(String[] args) {
+        ProjectRepo repo = new ProjectRepo();
+
+        repo.updateProjectDeadline(7,LocalDate.of(2021,12,24));
+    }
+
 
     public void writeProjectToDB(Project project){
 
@@ -184,6 +233,7 @@ public class ProjectRepo {
                 tmpProject.setWhoIsLeader(resultSet.getInt(8));
                 tmpProject.setProjectDescription(resultSet.getString(9));
                 allProjects.add(tmpProject);
+                tmpProject.setAssignees(listMembersInProject(tmpProject.getId()));
             }
 
         } catch (SQLException e){
