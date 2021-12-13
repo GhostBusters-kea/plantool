@@ -75,6 +75,13 @@ public class Member {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "Member{" +
+                "userId=" + userId +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", skills=" + skills +
+                ", isLeader=" + isLeader +
+                '}';
     }
 }

@@ -71,7 +71,7 @@ public class MemberRepo {
             tmpMember.setPassword(set.getString(4));
             tmpMember.setIsLeader(set.getInt(5));
         }
-        System.out.println(tmpMember);
+
         return tmpMember;
     }
 
@@ -88,7 +88,7 @@ public class MemberRepo {
             tmpMember.setPassword(set.getString(4));
             tmpMember.setIsLeader(set.getInt(5));
         }
-        System.out.println(tmpMember);
+
         return tmpMember;
     }
 
@@ -96,7 +96,7 @@ public class MemberRepo {
 
         Member tmpMember = new Member(null,null, null, 0);
 
-        PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT user.userid, name, email, password, projectleader FROM user WHERE name ='" + name + "'");
+        PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT userid, name, email, password, projectleader FROM user WHERE name = '" + name + "'");
 
         ResultSet set = stmt.executeQuery();
         while(set.next()){
@@ -106,7 +106,7 @@ public class MemberRepo {
             tmpMember.setPassword(set.getString(4));
             tmpMember.setIsLeader(set.getInt(5));
         }
-        System.out.println(tmpMember);
+        System.out.println(tmpMember.toString());
         return tmpMember;
     }
 

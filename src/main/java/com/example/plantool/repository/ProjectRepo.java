@@ -41,6 +41,27 @@ public class ProjectRepo {
         }
     }
 
+    public int fetchSingleProjectId(String projectName){
+        int id = 0;
+        try{
+            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
+                    "SELECT project.projectid FROM project WHERE projectname="+ projectName +"");
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()){
+                id = resultSet.getInt(1);
+                
+            }
+
+            //tmpProject.setSkillsAllocated(fetchSkills(tmpProject.getId()));
+
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return id;
+    }
+
     // hent enkelt projekt
     public Project fetchSingleProject(int projectid){
         Project tmpProject = new Project();

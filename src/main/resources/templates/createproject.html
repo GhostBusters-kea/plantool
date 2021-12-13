@@ -76,7 +76,7 @@
                 <label for="member">Select which members to assign this project</label>
                     <ul class="list-group" th:each="member : ${members}">
                         <li class="list-group-item" id="member">
-                                <input class="form-check-input me-1" type="checkbox" name="members" value="members"
+                                <input class="form-check-input me-1" type="checkbox" th:attr="name='member'" th:value="${member.name}"
                                 th:text="${member.name}"/>
                         </li>
                     </ul>

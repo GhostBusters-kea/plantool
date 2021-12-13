@@ -58,8 +58,6 @@ public class SkillRepo {
         }
     }
 
-
-
     // returnere liste med alle kompetencer
     public ArrayList<Skill> findAllSkills (){
 

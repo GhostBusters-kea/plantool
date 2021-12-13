@@ -64,9 +64,14 @@ public class ProjectController {
         }
 
 
-        String[] assignees = wr.getParameterValues("members");
+        String[] assignees = wr.getParameterValues("member");
 
         for(int i = 0; i < assignees.length; i++){
+
+            System.out.println(assignees[i]);
+
+            System.out.println(memberService.memberByName(assignees[i]).getMemberId());
+            System.out.println(newProject.getId());
             projectService.assignMemberToProject(newProject.getId(), memberService.memberByName(assignees[i]).getMemberId());
         }
 
