@@ -18,6 +18,35 @@ public class ProjectService {
     ProjectRepo repo = new ProjectRepo();
 
 
+    public void updateProjectName(int projectid, String name){
+        repo.updateProjectName(projectid, name);
+    }
+
+    public void updateProjectStartDate(int projectid, LocalDate startdate){
+        repo.updateProjectStartDate(projectid,startdate);
+    }
+
+    public void updateProjectsEndDate(int projectid,LocalDate enddate){
+        repo.updateProjectEndDate(projectid,enddate);
+    }
+
+    public void updateDeadline(int projectid, LocalDate deadline){
+        repo.updateProjectDeadline(projectid,deadline);
+    }
+
+    public void updateHoursAllocated(int projectid, int hours){
+        repo.updateHoursAllocated(projectid,hours);
+
+    }
+
+    public void updateHoursUsed(int projectid, int hours){
+        repo.updateHoursUsed(projectid,hours);
+    }
+
+    public void updateProjectDescription(int projectid, String description){
+        repo.updateDescription(projectid,description);
+    }
+
     // opret nyt projekt
     public Project createNewProject(String projectName, LocalDate startDate, LocalDate endDate, LocalDate deadline,
                                  int hoursAllocated, int whoIsLeader, String description){

@@ -66,14 +66,6 @@ public class SkillService {
         }
     }
 
-    public static void main(String[] args) {
-
-        SkillService skill = new SkillService();
-
-        System.out.println(skill.fetchMemberSkills(1));
-
-
-    }
 
     // knytter kompetence til project
     public void assignSkillToProject(int projectId, int skillId){
