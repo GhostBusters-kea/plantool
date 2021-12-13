@@ -15,6 +15,20 @@ import java.util.ArrayList;
 
 public class ProjectRepo {
 
+    public void updateProjectName(int projectid, String projectname){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE project SET projectname='"+projectname+"' WHERE projectid="+projectid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public void updateProjectStartDate(int projectid, LocalDate startdate){
 
         try{
@@ -42,7 +56,6 @@ public class ProjectRepo {
         } catch (SQLException e){
             e.printStackTrace();
         }
-
     }
 
     public void updateProjectDeadline(int projectid, LocalDate deadline){
@@ -57,15 +70,49 @@ public class ProjectRepo {
         } catch (SQLException e){
             e.printStackTrace();
         }
-
     }
 
-    public static void main(String[] args) {
-        ProjectRepo repo = new ProjectRepo();
+    public void updateHoursAllocated(int projectid, int hours){
 
-        repo.updateProjectDeadline(7,LocalDate.of(2021,12,24));
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE project SET projecthoursallo='"+hours+"' WHERE projectid="+projectid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
+    public void updateHoursUsed(int projectid, int hours){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE project SET projecthoursused='"+hours+"' WHERE projectid="+projectid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void updateDescription(int projectid, String description){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE project SET projectdescrip='"+description+"' WHERE projectid="+projectid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 
     public void writeProjectToDB(Project project){
 
