@@ -212,6 +212,7 @@ public class ProjectRepo {
                 tmpProject.setWhoIsLeader(resultSet.getInt(8));
                 tmpProject.setProjectDescription(resultSet.getString(9));
                 allProjects.add(tmpProject);
+                tmpProject.setAssignees(listMembersInProject(tmpProject.getId()));
             }
 
         } catch (SQLException e){
