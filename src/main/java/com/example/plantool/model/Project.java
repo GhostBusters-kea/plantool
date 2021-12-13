@@ -9,10 +9,13 @@ public class Project {
     protected String name;
     protected LocalDate startDate;
     protected LocalDate endDate;
+    protected int totalDays;
+    protected int daysUntilDeadline;
     protected LocalDate deadline;
     protected ArrayList<Member> assignees;
     protected int whoIsLeader;
     protected int hoursAllocated;
+    protected float hoursADay;
     protected int hoursUsed;
     protected ArrayList<Skill> skillsAllocated;
     protected String projectDescription;
@@ -72,6 +75,22 @@ public class Project {
         this.endDate = endDate;
     }
 
+    public int getTotalDays() {
+        return totalDays;
+    }
+
+    public void setTotalDays(int totalDays) {
+        this.totalDays = totalDays;
+    }
+
+    public int getDaysUntilDeadline() {
+        return daysUntilDeadline;
+    }
+
+    public void setDaysUntilDeadline(int daysUntilDeadline) {
+        this.daysUntilDeadline = daysUntilDeadline;
+    }
+
     public LocalDate getDeadline() {
         return deadline;
     }
@@ -102,6 +121,14 @@ public class Project {
 
     public void setHoursAllocated(int hoursAllocated) {
         this.hoursAllocated = hoursAllocated;
+    }
+
+    public float getHoursADay() {
+        return hoursADay;
+    }
+
+    public void setHoursADay(float hoursADay) {
+        this.hoursADay = hoursADay;
     }
 
     public int getHoursUsed() {

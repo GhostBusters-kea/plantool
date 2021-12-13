@@ -81,6 +81,14 @@ public class ProjectController {
 
         ArrayList<Project> projects = projectService.fetchAllProjects();
 
+        for(int i = 0; i < projects.size(); i++){
+
+            projects.get(i).setTotalDays(projectService.countBusinessDays(projects.get(i)));
+            projects.get(i).setDaysUntilDeadline(projectService.daysUntilDeadline(projects.get(i)));
+            projects.get(i).setHoursADay(projectService.calculateHoursPrDay(projects.get(i), projects.get(i).getAssignees().size()));
+        }
+
+
         model.addAttribute("projects", projects);
 
         return mapping;

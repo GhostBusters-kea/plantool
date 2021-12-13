@@ -25,30 +25,37 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-10 mt-5 mb-5">
-            <table id="example" class="table table-bordered" style="width: 100%">
+            <table id="example" class="table table-bordered" style="width: 120%">
                 <thead>
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
                     <th>Kick-off Date</th>
+                    <th>Total Businesses</th>
+                    <th>Business Days Until Deadline</th>
                     <th>DeadLine</th>
                     <th>Allocated Hours</th>
-                    <th>Used Hours</th>
-                    <th>Project Leader</th>
+                    <th>Daily Average Hours / Member</th>
+                    <th>Hours Used</th>
                     <th>Description</th>
+                    <th>Project Leader</th>
                     <th>Assigned Members</th>
+                    <th>Assigned Skills</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="project : ${projects}">
-                    <td th:text="${project.id}"></td>
+                    <td><a th:text="${project.id}" th:ref="@{#}"></a></td>
                     <td th:text="${project.name}"></td>
                     <td th:text="${project.startDate}"></td>
+                    <td th:text="${project.totalDays}"></td>
+                    <td th:text="${project.daysUntilDeadline}"></td>
                     <td th:text="${project.deadline}"></td>
                     <td th:text="${project.hoursAllocated}"></td>
+                    <td th:text="${project.hoursADay}"></td>
                     <td th:text="${project.hoursUsed}"></td>
-                    <td th:text="${project.whoIsLeader}"></td> <!-- TODO: change to leader name -->
                     <td th:text="${project.projectDescription}"></td>
+                    <td th:text="${project.whoIsLeader}"></td> <!-- TODO: change to leader name -->
                     <td >
                         <div>
                             <ul class="list-group" th:each="member : ${project.assignees}">
@@ -56,6 +63,14 @@
                             </ul>
                         </div>
                     </td>
+                    <td >
+                        <div>
+                            <ul class="list-group" th:each="skill : ${project.skillsAllocated}">
+                                <li class="list-group-item" th:text="${skill.name}"></li>
+                            </ul>
+                        </div>
+                    </td>
+
                 </tr>
                 </tbody>
             </table>
@@ -63,67 +78,9 @@
     </div>
 </div>
 
-<!--
-<div class="container">
-    <div class="row">
-        <div class="col">
-            -
-        </div>
-        <div class="col">
-            Tasks
-        </div>
-        <div class="col">
-            Assigned To
-        </div>
-        <div class="col">
-            Start Date
-        </div>
-        <div class="col">
-            End Date
-        </div>
-        <div class="col">
-            Status
-        </div>
-        <div class="col">
-            Deadline
-        </div>
-        <div class="col">
-            Description
-        </div>
-    </div>
-
-    <div class="row">
-        1
-    </div>
-    <div class="row">
-        2
-    </div>
-    <div class="row">
-        3
-    </div>
-    <div class="row">
-        4
-    </div>
-    <div class="row">
-        5
-    </div>
-    <div class="row">
-        6
-    </div>
-</div>
-
--->
-
-
 
 <!-- Bootstrap JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-
-
-
-
-
 
 </body>
 </html>

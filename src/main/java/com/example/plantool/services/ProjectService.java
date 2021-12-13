@@ -133,7 +133,7 @@ public class ProjectService {
     }
 
     // metode nummer 2  - kan ændres til at returnere en liste med alle dagene mellem start og end
-    public static int countBusinessDays(Project project){
+    public int countBusinessDays(Project project){
 
         Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY ||
                 date.getDayOfWeek() == DayOfWeek.SUNDAY;
@@ -141,19 +141,47 @@ public class ProjectService {
         List<LocalDate> businessDays = project.getStartDate().datesUntil(project.getEndDate())
                 .filter(isWeekend.negate())
                 .collect(Collectors.toList());
-
-        return businessDays.size();
+        if(businessDays.size() == 0){
+            return 1;
+        }
+        else {
+            return businessDays.size();
+        }
     }
 
 
     // udregning af gennemsnitlig antal arbejdstimer pr dag
     public float calculateHoursPrDay(Project project, int numberOfMembers){
-        long result = project.getHoursAllocated() / calculateBusinessDays(project);
+        float days = 0;
+        if(calculateBusinessDays(project) == 0){
+            days = 1;
+        }
+        else {
+            days = calculateBusinessDays(project);
+        }
+        float result = project.getHoursAllocated() / days;
+
+        if(numberOfMembers == 0){
+            numberOfMembers = 1;
+        }
         return (float) result/numberOfMembers;
     }
 
+    public int daysUntilDeadline(Project project){
+        Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY ||
+                date.getDayOfWeek() == DayOfWeek.SUNDAY;
 
+        if(LocalDate.now().isBefore(project.getEndDate())) {
+            List<LocalDate> daysLeft = LocalDate.now().datesUntil(project.getEndDate())
+                    .filter(isWeekend.negate())
+                    .collect(Collectors.toList());
+            return daysLeft.size();
+        }
+        else{
+            return 0;
+        }
 
+    }
 
 
     // metoder til af ændre projekter

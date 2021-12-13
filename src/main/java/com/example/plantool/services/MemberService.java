@@ -100,6 +100,7 @@ public class MemberService {
         memberRepo.isLeaderBoolean(isLeader, email);
     }
 
+    // TODO: Create session service
     public String inSession(Model model, HttpSession session, String mapping) throws SQLException {
 
         if(session.getAttribute("userid") == null) {
