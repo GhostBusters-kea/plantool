@@ -13,7 +13,114 @@ import java.util.ArrayList;
 
 public class SubprojectsRepo {
 
-    // TODO: update project
+
+
+    // opdater navn
+    public void updateSubProjectName(int subprojectid, String subprojectname){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE subproject SET subprojectname='"+subprojectname+"' WHERE subprojectid="+subprojectid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    // opdate startdato
+    public void updateSubProjectStartDate(int subprojectid, LocalDate startdate){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE subproject SET subprojectstartdate='"+startdate+"' WHERE subprojectid="+subprojectid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    // opdate slutdato
+    public void updateSubProjectEndDate(int subprojectid, LocalDate enddate){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE subproject SET subprojectenddate='"+enddate+"' WHERE subprojectid="+subprojectid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    // opdater deadline
+    public void updateSubProjectDeadline(int subprojectid, LocalDate deadline){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE subproject SET subprojectdeadline='"+deadline+"' WHERE subprojectid="+subprojectid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    // opdater allokeret tid
+    public void updateHoursAllocated(int subprojectid, int hours){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE subproject SET subprojecthoursallo='"+hours+"' WHERE subprojectid="+subprojectid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    // opdater tid brugt
+    public void updateHoursUsed(int subprojectid, int hours){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE subproject SET subprojecthoursused='"+hours+"' WHERE subprojectid="+subprojectid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    // opdater beskrivelse
+    public void updateDescription(int subprojectid, String description){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE subproject SET subprojectdescription='"+description+"' WHERE subprojectid="+subprojectid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 
 
 
