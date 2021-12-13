@@ -29,7 +29,6 @@ public class TaskService {
 
     public void updateHoursAllocated(int taskid, int hours){
         repo.updateHoursAllocated(taskid,hours);
-
     }
 
     public void updateHoursUsed(int taskid, int hours){
