@@ -45,7 +45,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="project : ${projects}">
-                    <td><a th:text="${project.id}" th:ref="@{#}"></a></td>
+                    <td><a th:text="${project.id}" th:href="@{/viewsubproject}"></a></td>
                     <td th:text="${project.name}"></td>
                     <td th:text="${project.startDate}"></td>
                     <td th:text="${project.totalDays}"></td>
