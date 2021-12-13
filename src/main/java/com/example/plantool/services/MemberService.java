@@ -136,5 +136,4 @@ public class MemberService {
 
         return "redirect:/";
     }
-
 }

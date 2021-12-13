@@ -2,31 +2,36 @@ package com.example.plantool.repository;
 
 import com.example.plantool.model.Member;
 import com.example.plantool.model.Project;
+import com.example.plantool.model.SubProject;
 import com.example.plantool.utility.DatabaseConnector;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class SubprojectsRepo {
+
     // TODO: update project
 
-    public void writeProjectToDB(Project project){
 
+
+    // opret underprojekt -
+    public void writeSubProjectToDB(Project project, int projectid){
         try{
             PreparedStatement stmt =
                     DatabaseConnector.getConnection().prepareStatement(
-                            "INSERT INTO project(projectname, projectstartdate, projectenddate, projectdeadline, " +
-                                    "projecthoursallo, projecthoursused, projectleader, projectdescrip) VALUES(?,?,?,?,?,?,?,?)"
+                            "INSERT INTO subproject(projectid, subprojectname, subprojectstartdate, subprojectenddate, subprojectdeadline, " +
+                                    "subprojecthoursallo, subprojecthoursused, subprojectdescription) VALUES(?,?,?,?,?,?,?,?)"
                     );
-            stmt.setString(1, project.getName());
-            stmt.setObject(2, project.getStartDate());
-            stmt.setObject(3, project.getEndDate());
-            stmt.setObject(4, project.getDeadline());
-            stmt.setInt(5, project.getHoursAllocated());
-            stmt.setInt(6, project.getHoursUsed());
-            stmt.setInt(7, project.getWhoIsLeader());
+            stmt.setInt(1, projectid);
+            stmt.setString(2, project.getName());
+            stmt.setObject(3, project.getStartDate());
+            stmt.setObject(4, project.getEndDate());
+            stmt.setObject(5, project.getDeadline());
+            stmt.setInt(6, project.getHoursAllocated());
+            stmt.setInt(7, project.getHoursUsed());
             stmt.setString(8, project.getProjectDescription());
             stmt.executeUpdate();
             System.out.println("Project Insert complete");
@@ -36,11 +41,12 @@ public class SubprojectsRepo {
     }
 
     // hent enkelt projekt
-    public Project fetchSingleProject(int projectid){
-        Project tmpProject = new Project();
+    public SubProject fetchSingleSubProject(int subprojectid){
+        SubProject tmpProject = new SubProject();
         try{
             PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
-                    "SELECT project.projectid, projectname, projectstartdate, projectenddate, projectdeadline, projecthoursallo, projecthoursused, projectleader, projectdescrip FROM project WHERE projectid="+projectid+"");
+                    "SELECT subproject.subprojectid, subprojectname, subprojectstartdate, subprojectenddate, subprojectdeadline, subprojecthoursallo, subprojecthoursused, subprojectdescription FROM subproject WHERE subprojectid="+subprojectid+"");
+
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()){
@@ -51,8 +57,7 @@ public class SubprojectsRepo {
                 tmpProject.setDeadline(resultSet.getDate(5).toLocalDate());
                 tmpProject.setHoursAllocated(resultSet.getInt(6));
                 tmpProject.setHoursUsed(resultSet.getInt(7));
-                tmpProject.setWhoIsLeader(resultSet.getInt(8));
-                tmpProject.setProjectDescription(resultSet.getString(9));
+                tmpProject.setProjectDescription(resultSet.getString(8));
             }
 
             //tmpProject.setSkillsAllocated(fetchSkills(tmpProject.getId()));
@@ -64,12 +69,12 @@ public class SubprojectsRepo {
         return tmpProject;
     }
 
-    // returnerer liste med deltagerid i et bestemt projekt
-    public ArrayList<Integer> membersInProject(int projectId){
+        // returnerer liste med deltagerid i et bestemt underprojekt
+    public ArrayList<Integer> membersInSubProject(int subprojectId){
         ArrayList<Integer> projectMembers = new ArrayList<>();
 
         try {
-            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT assignment.userid FROM assignment WHERE projectid =" + projectId + "");
+            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT assignment.userid FROM assignment WHERE subprojectid =" + subprojectId + "");
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()){
@@ -83,12 +88,12 @@ public class SubprojectsRepo {
     }
 
     // returnerer liste med deltagere i et bestemt projekt
-    public ArrayList<Member> listMembersInProject(int projectId){
+    public ArrayList<Member> listMembersInSubProject(int subProjectId){
         ArrayList<Member> projectMembers = new ArrayList<>();
 
         try {
             PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
-                    "SELECT assignment.projectid, assignment.userid, name, email FROM assignment JOIN user ON user.userid = assignment.userid WHERE assignment.projectid="+projectId+"");
+                    "SELECT assignment.projectid, assignment.userid, name, email FROM assignment JOIN user ON user.userid = assignment.userid WHERE assignment.subprojectid="+subProjectId+"");
 
             ResultSet resultSet = stmt.executeQuery();
 
@@ -106,13 +111,14 @@ public class SubprojectsRepo {
         return projectMembers;
     }
 
-    // knytter projektdeltager til bestemt projekt
-    public void assignMemberToProject(int projectId, int memberId){
+
+    // knytter projektdeltager til bestemt underprojekt
+    public void assignMemberToSubProject(int subprojectId, int memberId){
 
         try{
             PreparedStatement stmt =
-                    DatabaseConnector.getConnection().prepareStatement("INSERT INTO assignment(projectid, userid) VALUES(?,?) ");
-            stmt.setInt(1, projectId);
+                    DatabaseConnector.getConnection().prepareStatement("INSERT INTO assignment(subprojectid, userid) VALUES(?,?) ");
+            stmt.setInt(1, subprojectId);
             stmt.setInt(2, memberId);
             stmt.executeUpdate();
             System.out.println("Project Member Insert complete");
@@ -122,48 +128,46 @@ public class SubprojectsRepo {
         }
     }
 
-    // slet project
-    public void deleteProject(int projectId){
+
+    // slet underproject
+    public void deleteSubProject(int subprojectId){
 
         try {
             PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
-                    "DELETE FROM project WHERE projectid="+projectId+"");
+                    "DELETE FROM subproject WHERE subprojectid="+subprojectId+"");
             stmt.executeUpdate();
             System.out.println("Delete complete");
         }catch (SQLException e){
             e.printStackTrace();
         }
-
     }
 
-    // returnerer liste med alle projekter
-    public ArrayList<Project> fetchAllProjects(){
+    // returnerer liste med et projekts underprojekter
+    public ArrayList<SubProject> fetchSubProjectsFromProject(int projectid){
 
-        ArrayList<Project> allProjects = new ArrayList<>();
+        ArrayList<SubProject> tmpsubprojects = new ArrayList<>();
 
         try {
-            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT * FROM project");
+            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("SELECT * FROM subproject WHERE subproject.projectid="+projectid+"");
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()){
-                Project tmpProject = new Project();
+                SubProject tmpProject = new SubProject();
                 tmpProject.setId(resultSet.getInt(1));
-                tmpProject.setName(resultSet.getString(2));
-                tmpProject.setStartDate(resultSet.getDate(3).toLocalDate());
-                tmpProject.setEndDate(resultSet.getDate(4).toLocalDate());
-                tmpProject.setDeadline(resultSet.getDate(5).toLocalDate());
-                tmpProject.setHoursAllocated(resultSet.getInt(6));
-                tmpProject.setHoursUsed(resultSet.getInt(7));
-                tmpProject.setWhoIsLeader(resultSet.getInt(8));
+                tmpProject.setName(resultSet.getString(3));
+                tmpProject.setStartDate(resultSet.getDate(4).toLocalDate());
+                tmpProject.setEndDate(resultSet.getDate(5).toLocalDate());
+                tmpProject.setDeadline(resultSet.getDate(6).toLocalDate());
+                tmpProject.setHoursAllocated(resultSet.getInt(7));
+                tmpProject.setHoursUsed(resultSet.getInt(8));
                 tmpProject.setProjectDescription(resultSet.getString(9));
-                allProjects.add(tmpProject);
+                tmpsubprojects.add(tmpProject);
             }
 
         } catch (SQLException e){
             e.printStackTrace();
         }
-        return allProjects;
+        return tmpsubprojects;
     }
-
 
 }
