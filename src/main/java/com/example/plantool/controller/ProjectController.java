@@ -50,7 +50,7 @@ public class ProjectController {
         int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
         String name = wr.getParameter("name");
         LocalDate startDate = LocalDate.parse(wr.getParameter("startDate"));
-        LocalDate deadline = LocalDate.parse(wr.getParameter("startDate"));
+        LocalDate deadline = LocalDate.parse(wr.getParameter("deadline"));
         int hoursAllocated = Integer.parseInt(wr.getParameter("hoursAllocated"));
         String projectDescription = wr.getParameter("description");
 
@@ -83,6 +83,7 @@ public class ProjectController {
 
         for(int i = 0; i < projects.size(); i++){
 
+            projects.get(i).setSkillsAllocated(skillService.skillsInProject(projects.get(i).getId()));
             projects.get(i).setTotalDays(projectService.countBusinessDays(projects.get(i)));
             projects.get(i).setDaysUntilDeadline(projectService.daysUntilDeadline(projects.get(i)));
             projects.get(i).setHoursADay(projectService.calculateHoursPrDay(projects.get(i), projects.get(i).getAssignees().size()));

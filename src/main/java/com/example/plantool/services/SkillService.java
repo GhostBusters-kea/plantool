@@ -42,6 +42,10 @@ public class SkillService {
         return false;
     }
 
+    public ArrayList<Skill> skillsInProject(int projectId){
+        return skillRepo.findProjectSkills(projectId);
+    }
+
     // opret ny kompetence
     public void createSkill(String skillName){
 

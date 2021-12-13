@@ -201,6 +201,7 @@ public class ProjectRepo {
         return projectMembers;
     }
 
+
     // returnerer liste med deltagere i et bestemt projekt
     public ArrayList<Member> listMembersInProject(int projectId){
         ArrayList<Member> projectMembers = new ArrayList<>();
@@ -275,8 +276,8 @@ public class ProjectRepo {
                 tmpProject.setHoursUsed(resultSet.getInt(7));
                 tmpProject.setWhoIsLeader(resultSet.getInt(8));
                 tmpProject.setProjectDescription(resultSet.getString(9));
-                allProjects.add(tmpProject);
                 tmpProject.setAssignees(listMembersInProject(tmpProject.getId()));
+                allProjects.add(tmpProject);
             }
 
         } catch (SQLException e){

@@ -49,19 +49,6 @@
                 <input type="number" class="form-control" id="projectHoursInput" name="hoursAllocated" placeholder="Type the number of allocated hours for this project here...">
             </div>
 
-            <!--
-            <div class="mb-form mb-3">
-                <label for="skill">Select which skills are needed in this project</label>
-                <ul class="list-group">
-                    <li class="list-group-item" th:field="*{skill}" id="skill">
-                        <input class="form-check-input me-1" type="checkbox"
-                        th:each="skill : ${T(path.to.skill).values()}"
-                        th:value="${skill}"
-                        th:text="${skill}">
-                    </li>
-                </ul>
-            </div>
-            -->
             <div class="mb-form mb-3">
                 <label for="skill">Select which skills to assign this project</label>
                 <ul class="list-group" th:each="skill : ${skills}">
