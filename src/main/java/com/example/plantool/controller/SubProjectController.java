@@ -16,6 +16,8 @@ public class SubProjectController {
     @GetMapping("/viewsubproject")
     public String subprojectView(Model model, HttpSession session) {
         int memberLead = (Integer) session.getAttribute("boolean-leader");
+        int projectId = (Integer) session.getAttribute("projectId");
+        System.out.println(projectId);
 
         ArrayList<SubProject> subProjectArray = subProjectService.fetchAllSubProjectsFromProject(1);
 

@@ -45,8 +45,13 @@
                 </thead>
                 <tbody>
                 <tr th:each="project : ${projects}">
-                    <td><a th:text="${project.id}" th:href="@{/viewsubproject}"></a></td>
-                    <td th:text="${project.name}"></td>
+                    <td th:text="${project.id}"></td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" th:attr="name='projectId'" th:value="${project.id}"/>
+                            <button type="submit" value="Submit" class="btn btn-link" th:text="${project.name}"></button>
+                        </form>
+                    </td>
                     <td th:text="${project.startDate}"></td>
                     <td th:text="${project.totalDays}"></td>
                     <td th:text="${project.daysUntilDeadline}"></td>

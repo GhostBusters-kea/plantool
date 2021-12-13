@@ -94,4 +94,12 @@ public class ProjectController {
 
         return mapping;
     }
+
+    @PostMapping("/viewproject")
+    public String postSubProject(WebRequest wr, HttpSession session) throws SQLException{
+        int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
+        int projectId = Integer.parseInt(wr.getParameter("projectId"));
+        session.setAttribute("projectId", projectId);
+        return "redirect:/viewsubproject";
+    }
 }
