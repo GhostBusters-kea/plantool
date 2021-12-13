@@ -18,7 +18,35 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class SubTaskService {
-    SubTaskRepo subTaskrepo = new SubTaskRepo();
+    SubTaskRepo repo = new SubTaskRepo();
+
+    public void updateSubTaskName(int subtaskid, String name){
+        repo.updateSubTaskName(subtaskid, name);
+    }
+
+    public void updateSubTaskStartDate(int subtaskid, LocalDate startdate){
+        repo.updateSubTaskStartDate(subtaskid,startdate);
+    }
+
+    public void updateSubTaskEndDate(int subtaskid,LocalDate enddate){
+        repo.updateSubTaskEndDate(subtaskid,enddate);
+    }
+
+    public void updateDeadline(int subtaskid, LocalDate deadline){
+        repo.updateSubTaskDeadline(subtaskid,deadline);
+    }
+
+    public void updateHoursAllocated(int subtaskid, int hours){
+        repo.updateHoursAllocated(subtaskid,hours);
+    }
+
+    public void updateHoursUsed(int subtaskid, int hours){
+        repo.updateHoursUsed(subtaskid,hours);
+    }
+
+    public void updatesubDescription(int subtaskid, String description){
+        repo.updateDescription(subtaskid,description);
+    }
 
 
     // opret nyt projekt
@@ -32,23 +60,21 @@ public class SubTaskService {
         subTask.setHoursAllocated(hoursAllocated);
         subTask.setWhoIsLeader(whoIsLeader);
         subTask.setProjectDescription(description);
-
         return subTask;
-
     }
 
     public void addSubTaskToDB(SubTask subTask, int taskid){
-        subTaskrepo.writeSubTaskToDB(subTask, taskid);
+        repo.writeSubTaskToDB(subTask, taskid);
     }
 
     // hent enkelt projekt
     public SubTask fetchSingleSubTask(int subTaskID){
-        return subTaskrepo.fetchSingleSubTask(subTaskID);
+        return repo.fetchSingleSubTask(subTaskID);
     }
 
     // hent alle projekter
     public ArrayList<SubTask> fetchAllSubTask(int taskId){
-        return subTaskrepo.fetchAllSubTask(taskId);
+        return repo.fetchAllSubTask(taskId);
     }
 
     public void assignMemberToSubTask(int subTaskId, int memberId){
@@ -57,20 +83,20 @@ public class SubTaskService {
         }
 
         else {
-            subTaskrepo.assignMemberToSubTask(subTaskId, memberId);
+            repo.assignMemberToSubTask(subTaskId, memberId);
         }
     }
 
     public ArrayList<Integer> membersInSubTask(int taskId){
-        return subTaskrepo.membersInSubTask(taskId);
+        return repo.membersInSubTask(taskId);
     }
 
 
 
     public boolean subTaskHasMember(int subTaskId, int memberId){
 
-        for(int i = 0; i < subTaskrepo.membersInSubTask(subTaskId).size(); i++){
-            if(subTaskrepo.membersInSubTask(subTaskId).get(i).equals(memberId)){
+        for(int i = 0; i < repo.membersInSubTask(subTaskId).size(); i++){
+            if(repo.membersInSubTask(subTaskId).get(i).equals(memberId)){
                 return true;
             }
         }
@@ -121,35 +147,16 @@ public class SubTaskService {
 
 
 
-    // metoder til af ændre projekter
-    public void addSubTaskName(SubTask subTask, String name){
-        subTask.setName(name);
-    }
-
-    public void addSubTaskDates(SubTask subTask, LocalDate startDate, LocalDate endDate){
-        subTask.setStartDate(startDate);
-        subTask.setEndDate(endDate);
-    }
-
-    public void addSubTaskDeadline(SubTask subTask, LocalDate deadline){
-        subTask.setDeadline(deadline);
-    }
-
-    public void addSubTaskHours(SubTask subTask, int hoursAllocated, int hoursUsed){
-        subTask.setHoursAllocated(hoursAllocated);
-        subTask.setHoursUsed(hoursUsed);
-    }
-
 //     public void addSkillToProject(Project project, String skill){
 //        project.addSkillToProject(skill);
 //    }
 
     public void writeProjectToDB(SubTask subTask, int taskId){
-        subTaskrepo.writeSubTaskToDB(subTask, taskId);
+        repo.writeSubTaskToDB(subTask, taskId);
     }
 
     public void deleteSubTask(int taskId){
-        subTaskrepo.deleteSubTask(taskId);
+        repo.deleteSubTask(taskId);
     }
 
 }

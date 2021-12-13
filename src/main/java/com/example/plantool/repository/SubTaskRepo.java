@@ -18,51 +18,105 @@ import java.util.ArrayList;
 
 public class SubTaskRepo {
 
-//    public void writeSkillToDB(String skill, int projectid){
-//
-//        try{
-//            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement("" +
-//                    "INSERT INTO skill(skillname, projectid) VALUES(?,?)");
-//
-//            stmt.setString(1,skill);
-//            stmt.setInt(2,projectid);
-//            stmt.executeUpdate();
-//            System.out.println("Insert complete");
-//        } catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//
-//    }
-//
-//    public static ArrayList<String> fetchSkills(int projectid){
-//        ArrayList<String> skills = new ArrayList<>();
-//
-//        try {
-//            PreparedStatement stmt =
-//                    DatabaseConnector.getConnection().prepareStatement(
-//                            "SELECT skill.skillname FROM skill WHERE projectid="+projectid+"");
-//
-//            ResultSet resultSet = stmt.executeQuery();
-//
-//            while (resultSet.next()){
-//                skills.add(resultSet.getString(1));
-//            }
-//
-//
-//            } catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//        return skills;
-//    }
+    // opdater navn
+    public void updateSubTaskName(int subtaskid, String subtaskname){
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE subtask SET subtaskname='"+subtaskname+"' WHERE subtaskid="+subtaskid+"");
 
-    public static void main(String[] args) {
-        SubTaskService service = new SubTaskService();
-        SubTaskRepo test = new SubTaskRepo();
-        SubTask tmp = new SubTask();
-
-       // test.fetchAllSubTask(1);
-        test.fetchSingleSubTask(3);
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
+
+    // opdate startdato
+    public void updateSubTaskStartDate(int subtaskid, LocalDate startdate){
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE subtask SET subtaskstartdate='"+startdate+"' WHERE subtaskid="+subtaskid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    // opdater slutdato
+    public void updateSubTaskEndDate(int subtaskid, LocalDate enddate){
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE subtask SET subtaskenddate='"+enddate+"' WHERE subtaskid="+subtaskid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    // opdater deadline
+    public void updateSubTaskDeadline(int subtaskid, LocalDate deadline){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE subtask SET subtaskdeadline='"+deadline+"' WHERE subtaskid="+subtaskid+"");
+
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    // opdater allokeret tid
+    public void updateHoursAllocated(int subtaskid, int hours){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE subtask SET subtaskhoursallo='"+hours+"' WHERE subtaskid="+subtaskid+"");
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    // opdater tid brugt
+    public void updateHoursUsed(int subtaskid, int hours){
+
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE subtask SET subtaskhoursused='"+hours+"' WHERE subtaskid="+subtaskid+"");
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    // opdater beskrivelse
+    public void updateDescription(int subtaskid, String description){
+        try{
+            PreparedStatement stmt =
+                    DatabaseConnector.getConnection().prepareStatement
+                            ("UPDATE subtask SET subtaskdescription='"+description+"' WHERE subtaskid="+subtaskid+"");
+            stmt.executeUpdate();
+            System.out.println("Update complete");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public void writeSubTaskToDB(SubTask subTask, int taskId){
 
         try{
@@ -166,8 +220,6 @@ public class SubTaskRepo {
         }
 
     }
-
-    // TODO: update project
 
     public ArrayList<SubTask> fetchAllSubTask(int taskid){
 

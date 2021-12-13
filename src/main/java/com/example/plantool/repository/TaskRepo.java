@@ -98,12 +98,6 @@ public class TaskRepo {
         }
     }
 
-    public static void main(String[] args) {
-        TaskRepo repo = new TaskRepo();
-        repo.updateDescription(1,"Denne beskrivelse");
-
-    }
-
     // opdater beskrivelse
     public void updateDescription(int taskid, String description){
 
