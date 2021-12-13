@@ -13,8 +13,6 @@ import java.util.ArrayList;
 
 public class SubprojectsRepo {
 
-
-
     // opdater navn
     public void updateSubProjectName(int subprojectid, String subprojectname){
 

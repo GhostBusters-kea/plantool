@@ -5,9 +5,8 @@ import java.time.LocalDate;
 public class Task extends Project{
     int subprojectId;
 
-    public Task(int subprojectId, String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, int hoursAllocated, String projectDescription) {
+    public Task(String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, int hoursAllocated, String projectDescription) {
         super(name, startDate, endDate, deadline, hoursAllocated, projectDescription);
-        this.subprojectId = subprojectId;
     }
 
     public Task() {

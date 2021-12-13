@@ -9,9 +9,36 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class TaskService {
-
     TaskRepo repo = new TaskRepo();
 
+    public void updateTaskName(int taskid, String name){
+        repo.updateTaskName(taskid, name);
+    }
+
+    public void updateTaskStartDate(int taskid, LocalDate startdate){
+        repo.updateTaskStartDate(taskid,startdate);
+    }
+
+    public void updateTaskEndDate(int taskid,LocalDate enddate){
+        repo.updateTaskEndDate(taskid,enddate);
+    }
+
+    public void updateDeadline(int taskid, LocalDate deadline){
+        repo.updateTaskDeadline(taskid,deadline);
+    }
+
+    public void updateHoursAllocated(int taskid, int hours){
+        repo.updateHoursAllocated(taskid,hours);
+
+    }
+
+    public void updateHoursUsed(int taskid, int hours){
+        repo.updateHoursUsed(taskid,hours);
+    }
+
+    public void updatesubDescription(int taskid, String description){
+        repo.updateDescription(taskid,description);
+    }
 
     // opret ny task
     public Task createNewTask(int subprojectId, String taskName, LocalDate startDate, LocalDate endDate, LocalDate deadline,
