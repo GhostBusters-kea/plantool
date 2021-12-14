@@ -22,9 +22,75 @@
 <h2 class="m-5">Sub-Project</h2>
 
 <div class="container">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-        Create Sub-Project
-    </button>
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+            <table id="example" class="table table-bordered" style="width: 120%">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Kick-off Date</th>
+                    <th>Total Businesses</th>
+                    <th>Business Days Until Deadline</th>
+                    <th>DeadLine</th>
+                    <th>Allocated Hours</th>
+                    <th>Daily Average Hours / Member</th>
+                    <th>Hours Used</th>
+                    <th>Description</th>
+                    <th>Project Leader</th>
+                    <th>Assigned Members</th>
+                    <th>Assigned Skills</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="project : ${projects}">
+                    <td>
+                        <form method="post">
+                            <input type="hidden" th:attr="name='projectId'" th:value="${project.id}"/>
+                            <button type="submit" value="Submit" class="btn btn-link" th:text="${project.name}"></button>
+                        </form>
+                    </td>
+                    <td th:text="${project.startDate}"></td>
+                    <td th:text="${project.totalDays}"></td>
+                    <td th:text="${project.daysUntilDeadline}"></td>
+                    <td th:text="${project.deadline}"></td>
+                    <td th:text="${project.hoursAllocated}"></td>
+                    <td th:text="${project.hoursADay}"></td>
+                    <td th:text="${project.hoursUsed}"></td>
+                    <td th:text="${project.projectDescription}"></td>
+                    <td th:text="${project.whoIsLeader}"></td> <!-- TODO: change to leader name -->
+                    <td >
+                        <div>
+                            <ul class="list-group" th:each="member : ${project.assignees}">
+                                <li class="list-group-item" th:text="${member.name}"></li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td >
+                        <div>
+                            <ul class="list-group" th:each="skill : ${project.skillsAllocated}">
+                                <li class="list-group-item" th:text="${skill.skillName}"></li>
+                            </ul>
+                        </div>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div class="container">
+    <div class="container">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+            Create Sub-Project
+        </button>
+        <div th:replace="fragments/modify"></div>
+        <div th:replace="fragments/delete"></div>
+    </div>
+
 
     <!-- The Modal -->
     <div class="modal" id="myModal">
