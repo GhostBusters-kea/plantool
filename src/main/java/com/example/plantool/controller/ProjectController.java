@@ -64,14 +64,14 @@ public class ProjectController {
         String[] skillsAllocated = wr.getParameterValues("skill");
 
 
-        for(int i = 0; i < skillsAllocated.length; i++){
-            skillService.assignSkillToProject(newProject.getId(), skillService.fetchSkillByName(skillsAllocated[i]).getSkillId());
+        for (String s : skillsAllocated) {
+            skillService.assignSkillToProject(newProject.getId(), skillService.fetchSkillByName(s).getSkillId());
         }
 
         String[] assignees = wr.getParameterValues("member");
 
-        for(int i = 0; i < assignees.length; i++){
-            projectService.assignMemberToProject(newProject.getId(), memberService.memberByName(assignees[i]).getMemberId());
+        for (String assignee : assignees) {
+            projectService.assignMemberToProject(newProject.getId(), memberService.memberByName(assignee).getMemberId());
         }
 
         return "redirect:/viewproject";
@@ -81,16 +81,16 @@ public class ProjectController {
     public String projectOverview(Model model, HttpSession session) throws SQLException {
         String mapping = sessionService.inSession(model, session, "viewproject");
 
+
         ArrayList<Project> projects = projectService.fetchAllProjects();
 
-        for(int i = 0; i < projects.size(); i++){
+        for (Project project : projects) {
 
-            projects.get(i).setSkillsAllocated(skillService.skillsInProject(projects.get(i).getId()));
-            projects.get(i).setTotalDays(projectService.countBusinessDays(projects.get(i)));
-            projects.get(i).setDaysUntilDeadline(projectService.daysUntilDeadline(projects.get(i)));
-            projects.get(i).setHoursADay(projectService.calculateHoursPrDay(projects.get(i), projects.get(i).getAssignees().size()));
+            project.setSkillsAllocated(skillService.skillsInProject(project.getId()));
+            project.setTotalDays(projectService.countBusinessDays(project));
+            project.setDaysUntilDeadline(projectService.daysUntilDeadline(project));
+            project.setHoursADay(projectService.calculateHoursPrDay(project, project.getAssignees().size()));
         }
-
 
         model.addAttribute("projects", projects);
 
@@ -102,8 +102,10 @@ public class ProjectController {
         int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
         int projectId = Integer.parseInt(wr.getParameter("projectId"));
 
+        Project project = projectService.fetchSingleProject(projectId);
 
-        session.setAttribute("projectId", projectId);
+        session.setAttribute("project", project);
+
         return "redirect:/viewsubproject";
     }
 }
