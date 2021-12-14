@@ -24,7 +24,6 @@ public class SubProjectController {
 
    @GetMapping("/viewsubproject")
     public String subProjectOverview(Model model, HttpSession session) throws SQLException {
-
        String mappingLeader = sessionService.inSession(model, session, "viewsubprojectleader");
        String mappingMember = sessionService.inSession(model, session, "viewsubprojectmember");
        int isLeader = sessionService.isLeaderSession(session);
