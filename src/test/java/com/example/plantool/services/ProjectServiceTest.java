@@ -34,15 +34,27 @@ class ProjectServiceTest {
         project.setEndDate(LocalDate.of(2021,12,21));
 
         // Act
-        //float
+        float hours = service.calculateHoursPrDay(project,1);
 
-
-
-
+        // Assert
+        assertEquals(4,hours);
 
     }
 
     @Test
     void daysUntilDeadline() {
+
+        // Arrange
+        Project project = new Project();
+        project.setHoursAllocated(20);
+        project.setStartDate(LocalDate.of(2021,12,14));
+        project.setEndDate(LocalDate.of(2021,12,21));
+
+        // Act
+        int days = service.daysUntilDeadline(project);
+
+        // Assert
+        assertEquals(5,days);
+
     }
 }
