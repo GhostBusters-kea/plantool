@@ -47,7 +47,7 @@
                 <tr th:each="project : ${projects}">
                     <td>
                         <div class="mt-2 mb-2" th:replace="fragments/modify"></div>
-                        <div class="mb-2" th:replace="fragments/delete"></div>
+                        <div class="mb-2" th:replace="fragments/delete :: delete(${project.id})"></div>
                     </td>
                     <td>
                         <form method="post">
