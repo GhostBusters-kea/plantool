@@ -9,9 +9,12 @@ import com.example.plantool.services.SubTaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Controller
@@ -37,5 +40,20 @@ public class SubTaskController {
             model.addAttribute("subtasks", subtasks);
             return mapping;
         }
+    }
+
+    @PostMapping("/viewsubtask")
+    public String createTaskPost(HttpSession session, WebRequest wr){
+        int taskId = (Integer) session.getAttribute("taskId");
+        String name = wr.getParameter("subtaskName");
+        LocalDate startDate = LocalDate.parse(wr.getParameter("subtaskStartDate"));
+        LocalDate deadline = LocalDate.parse(wr.getParameter("subtaskDeadline"));
+        int hoursAllocated = Integer.parseInt(wr.getParameter("subtaskHoursAllocated"));
+        String projectDescription = wr.getParameter("subtaskDescription");
+
+        SubTask subTask = new SubTask(name, startDate, deadline, deadline, hoursAllocated, projectDescription);
+        subTaskService.addSubTaskToDB(subTask, taskId);
+
+        return "redirect:/viewsubtask";
     }
 }

@@ -12,14 +12,91 @@
     <link rel="stylesheet" type="text/css" th:href="@{/custom.css}"/>
 
 
-    <title>Task</title>
+    <title>Sub-Task</title>
 </head>
 <body>
 <div class="container">
     <div th:replace="fragments/navbar"></div>
 </div>
 
-<h2 class="m-5">Tasks</h2>
+<h2 class="m-5">Sub-Tasks</h2>
+
+<div class="container">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+        Create Sub-Task
+    </button>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Create a new sub-task</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="container">
+                        <form action="/viewsubtask"  method="post">
+                            <div class="mb-3">
+                                <label for="subTaskNameInput" class="form-label">Sub-task name</label>
+                                <input type="text" class="form-control" id="subTaskNameInput" name="subtaskName" placeholder="Type the name of your sub-task here...">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="subtaskDescriptionTextarea" class="form-label">Sub-task description</label>
+                                <textarea class="form-control" id="subtaskDescriptionTextarea" type="text" name="subtaskDescription" rows="2" placeholder="Type in a few words about your sub-task.."></textarea>
+                            </div>
+
+                            <div class="md-form mb-3">
+                                <label for="subtaskKickOffInput">Choose kick-off date</label>
+                                <input class="form-control" type="date" name="subtaskStartDate" id="subtaskKickOffInput">
+                            </div>
+
+                            <div class="md-form mb-3">
+                                <label for="subtaskDeadlineInput">Choose deadline</label>
+                                <input class="form-control" type="date" name="subtaskDeadline" id="subtaskDeadlineInput">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="subtaskHoursInput" class="form-label">Allocated hours</label>
+                                <input type="number" class="form-control" id="subtaskHoursInput" name="subtaskHoursAllocated" placeholder="Type the number of allocated hours for this project here...">
+                            </div>
+
+                            <div class="mb-form mb-3">
+                                <label for="skill">Select which skills to assign this sub-task</label>
+                                <ul class="list-group" th:each="skill : ${skills}">
+                                    <li class="list-group-item" id="skill">
+                                        <input class="form-check-input me-1" type="checkbox" th:attr="name='skill'" th:value="${skill.skillName}"
+                                               th:text="${skill.skillName}"/>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mb-form mb-3">
+                                <label for="member">Select which members to assign this sub-project</label>
+                                <ul class="list-group" th:each="member : ${members}">
+                                    <li class="list-group-item" id="member">
+                                        <input class="form-check-input me-1" type="checkbox" th:attr="name='member'" th:value="${member.name}"
+                                               th:text="${member.name}"/>
+                                    </li>
+                                </ul>
+                            </div>
+                            <hr>
+                            <button type="submit" value="Submit" class="btn btn-primary mb-3">Create</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 <div class="container">
     <div class="row">
@@ -62,6 +139,7 @@
     </div>
 </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 <div class="container">
 
