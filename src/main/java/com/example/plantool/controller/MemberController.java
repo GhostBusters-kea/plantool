@@ -68,7 +68,7 @@ public class MemberController {
             session.setAttribute("userid", userId);
             session.setAttribute("boolean-leader", memberLeader);
 
-            return "redirect:/";
+            return "redirect:/frontpage";
         } else {
             return "login";
         }
