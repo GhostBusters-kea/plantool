@@ -1,5 +1,6 @@
 package com.example.plantool.controller;
 
+import com.example.plantool.model.Project;
 import com.example.plantool.model.SubProject;
 import com.example.plantool.services.MemberService;
 import com.example.plantool.services.SessionService;
@@ -24,8 +25,11 @@ public class SubProjectController {
    @GetMapping("/viewsubproject")
     public String subProjectOverview(Model model, HttpSession session) throws SQLException {
 
-       int projectId = (Integer) session.getAttribute("projectId");
-       int memberLead = (Integer) session.getAttribute("boolean-leader");
+        int projectId = (Integer) session.getAttribute("projectId");
+        int memberLead = (Integer) session.getAttribute("boolean-leader");
+
+        Project currentProject = (Project) session.getAttribute("project");
+        model.addAttribute("currentProject", currentProject);
 
         if(memberLead == 1){
             String mapping = sessionService.inSession(model, session, "viewsubprojectleader");
@@ -43,8 +47,6 @@ public class SubProjectController {
 
     }
     @PostMapping("/viewsubproject")
-
-
     public String postSubProject(WebRequest wr, HttpSession session) throws SQLException{
         int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
         int subProjectId = Integer.parseInt(wr.getParameter("subprojectId"));
@@ -55,8 +57,9 @@ public class SubProjectController {
 
     @PostMapping("/viewsubproject/create")
     public String createSubProject(WebRequest wr, HttpSession session){
-        session.getAttribute("projectId");
+
         int projectId = (Integer) session.getAttribute("projectId");
+
         String name = wr.getParameter("name");
         LocalDate startDate = LocalDate.parse(wr.getParameter("startDate"));
         LocalDate deadline = LocalDate.parse(wr.getParameter("deadline"));
