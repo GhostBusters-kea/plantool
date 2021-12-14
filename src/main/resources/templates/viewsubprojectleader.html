@@ -25,12 +25,14 @@
         <h5>Deadline:</h5>
         <h5 th:text="${currentProject.getDeadline()}"></h5>
     </div>
+    <div th:replace="fragments/modify"></div>
+    <div th:replace="fragments/delete"></div>
 </div>
 
 <div class="container">
 
     <!-- The Modal -->
-    <div class="modal" id="myModal">
+    <div class="modal" id="modal1">
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -102,7 +104,7 @@
     </div>
 
     <h4 class="m-5">Sub-Projects</h4>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1">
         Create Sub-Project
     </button>
     <div class="row">
