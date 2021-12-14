@@ -28,7 +28,6 @@
             <table id="example" class="table table-bordered" style="width: 120%">
                 <thead>
                 <tr>
-                    <th>Options</th>
                     <th>Name</th>
                     <th>Kick-off Date</th>
                     <th>Total Businesses</th>
@@ -45,15 +44,6 @@
                 </thead>
                 <tbody>
                 <tr th:each="project : ${projects}">
-                    <td>
-                        <button type="button" value="Submit" class="btn btn-primary mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#myModal"
-                        >
-                            Modify
-                        </button>
-                        <div class="mt-2 mb-2" th:replace="fragments/modify"></div>
-
-                        <div class="mb-2" th:replace="fragments/delete :: delete(${project.id})"></div>
-                    </td>
                     <td>
                         <form method="post">
                             <input type="hidden" th:attr="name='projectId'" th:value="${project.id}"/>
