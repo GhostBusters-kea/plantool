@@ -28,27 +28,20 @@ public class SubProjectController {
        String mappingLeader = sessionService.inSession(model, session, "viewsubprojectleader");
        String mappingMember = sessionService.inSession(model, session, "viewsubprojectmember");
        int isLeader = sessionService.isLeaderSession(session);
-       int projectId = (Integer) session.getAttribute("projectId");
-
-        if(isLeader == 1){
-
 
        Project currentProject = (Project) session.getAttribute("currentProject");
 
        int projectId = currentProject.getId();
-       int memberLead = (Integer) session.getAttribute("boolean-leader");
 
-        model.addAttribute("currentProject", currentProject);
+       model.addAttribute("currentProject", currentProject);
 
-        
-            String mapping = sessionService.inSession(model, session, "viewsubprojectleader");
+       ArrayList<SubProject> subProjects = subProjectService.fetchAllSubProjectsFromProject(projectId);
+       model.addAttribute("subprojects", subProjects);
 
-            ArrayList<SubProject> subProjects = subProjectService.fetchAllSubProjectsFromProject(projectId);
-            model.addAttribute("subprojects", subProjects);
-            return mappingLeader;
-        else {
-            ArrayList<SubProject> subProjects = subProjectService.fetchAllSubProjectsFromProject(projectId);
-            model.addAttribute("subprojects", subProjects);
+       if(isLeader == 1) {
+           return mappingLeader;
+
+       }else {
             return mappingMember;
         }
     }
