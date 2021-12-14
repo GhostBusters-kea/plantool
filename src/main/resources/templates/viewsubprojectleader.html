@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/custom.css}"/>
 
 
-    <title>Task</title>
+    <title>Subproject</title>
 </head>
 <body>
 <div class="container">
@@ -115,8 +115,13 @@
                 </thead>
                 <tbody>
                 <tr th:each="subproject : ${subprojects}">
-                    <td th:attr="name='subproject-id'" th:value="${subproject.getId()}"><a href="/viewtask"><p th:text="${subproject.getId()}"></p></a></td>
-                    <td th:text="${subproject.getName()}"></td>
+                    <td th:text="${subproject.getId()}"></td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" th:attr="name='subprojectId'" th:value="${subproject.id}"/>
+                            <button type="submit" value="Submit" class="btn btn-link" th:text="${subproject.name}"></button>
+                        </form>
+                    </td>
                     <td th:text="${subproject.getStartDate()}"></td>
                     <td th:text="${subproject.getDeadline()}"></td>
                     <td th:text="${subproject.getHoursAllocated()}"></td>

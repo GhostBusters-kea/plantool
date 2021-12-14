@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -19,28 +20,37 @@ public class TaskController {
     TaskService taskService = new TaskService();
 
     @GetMapping("/viewtask")
-    public String taskView(Model model, HttpSession session, WebRequest wr){
+    public String viewTask (Model model, HttpSession session) throws SQLException{
+        int subProjectId = (Integer) session.getAttribute("subprojectId");
         int memberLead = (Integer) session.getAttribute("boolean-leader");
-        String userId = (String) session.getAttribute("userid");
 
-        //int subprojectId = Integer.parseInt(wr.getParameter("subproject-id"));
-        int subprojectId = (Integer) model.getAttribute("subproject-id");
-
-        ArrayList<Task> taskArray = taskService.fetchAllTasks(subprojectId);
-
-        model.addAttribute("tasks", taskArray);
-
-        if (memberLead == 1) {
-            return "viewtaskforleader";
-        }else
-            return "viewtaskformember";
-
+        if (memberLead ==1){
+            String mapping = memberService.inSession(model, session, "viewtaskforleader");
+            ArrayList<Task> tasks = taskService.fetchAllTasks(subProjectId);
+            model.addAttribute("tasks", tasks);
+            return mapping;
+        }
+        else {
+            String mapping = memberService.inSession(model, session, "viewtaskformember");
+            ArrayList<Task> tasks = taskService.fetchAllTasks(subProjectId);
+            model.addAttribute("tasks", tasks);
+            return mapping;
+        }
     }
+    @PostMapping("/viewtask")
+    public String postTask(WebRequest wr, HttpSession session) throws SQLException{
+        int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
+        int taskId = Integer.parseInt(wr.getParameter("taskId"));
+        session.setAttribute("taskId", taskId);
+        return "redirect:/viewsubtask";
+    }
+
 
     @GetMapping("/createtask")
     public String createTaskGet(HttpSession session){
         return "createtask";
     }
+
 
     @PostMapping("/createtask")
     public String createTaskPost(HttpSession session, WebRequest wr){
@@ -60,3 +70,4 @@ public class TaskController {
 
 
 }
+
