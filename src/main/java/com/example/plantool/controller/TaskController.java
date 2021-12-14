@@ -23,22 +23,22 @@ public class TaskController {
 
     @GetMapping("/viewtask")
     public String viewTask (Model model, HttpSession session) throws SQLException{
-        int subProjectId = (Integer) session.getAttribute("subprojectId");
-        int memberLead = (Integer) session.getAttribute("boolean-leader");
+        String mappingLeader = sessionService.inSession(model, session, "viewtaskforleader");
+        String mappingMember = sessionService.inSession(model, session, "viewtaskformember");
+        int isLeader = sessionService.isLeaderSession(session);
 
-        if (memberLead ==1){
-            String mapping = sessionService.inSession(model, session, "viewtaskforleader");
-            ArrayList<Task> tasks = taskService.fetchAllTasks(subProjectId);
-            model.addAttribute("tasks", tasks);
-            return mapping;
+        int subProjectId = (Integer) session.getAttribute("subprojectId");
+        ArrayList<Task> tasks = taskService.fetchAllTasks(subProjectId);
+        model.addAttribute("tasks", tasks);
+
+        if (isLeader ==1){
+            return mappingLeader;
         }
         else {
-            String mapping = sessionService.inSession(model, session, "viewtaskformember");
-            ArrayList<Task> tasks = taskService.fetchAllTasks(subProjectId);
-            model.addAttribute("tasks", tasks);
-            return mapping;
+            return mappingMember;
         }
     }
+
     @PostMapping("/viewtask")
     public String postTask(WebRequest wr, HttpSession session) throws SQLException{
         int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
