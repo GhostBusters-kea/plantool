@@ -79,22 +79,43 @@ public class ProjectController {
 
     @GetMapping("/viewproject")
     public String projectOverview(Model model, HttpSession session) throws SQLException {
-        String mapping = sessionService.inSession(model, session, "viewproject");
+        String mappingLeader = sessionService.inSession(model, session, "viewprojectforleader");
+        String mappingMember = sessionService.inSession(model, session, "viewprojectformember");
+        int isLeader = sessionService.isLeaderSession(session);
 
-        ArrayList<Project> projects = projectService.fetchAllProjects();
+        if(isLeader == 1){
 
-        for(int i = 0; i < projects.size(); i++){
+            ArrayList<Project> projects = projectService.fetchAllProjects();
 
-            projects.get(i).setSkillsAllocated(skillService.skillsInProject(projects.get(i).getId()));
-            projects.get(i).setTotalDays(projectService.countBusinessDays(projects.get(i)));
-            projects.get(i).setDaysUntilDeadline(projectService.daysUntilDeadline(projects.get(i)));
-            projects.get(i).setHoursADay(projectService.calculateHoursPrDay(projects.get(i), projects.get(i).getAssignees().size()));
+            for(int i = 0; i < projects.size(); i++){
+
+                projects.get(i).setSkillsAllocated(skillService.skillsInProject(projects.get(i).getId()));
+                projects.get(i).setTotalDays(projectService.countBusinessDays(projects.get(i)));
+                projects.get(i).setDaysUntilDeadline(projectService.daysUntilDeadline(projects.get(i)));
+                projects.get(i).setHoursADay(projectService.calculateHoursPrDay(projects.get(i), projects.get(i).getAssignees().size()));
+            }
+
+            model.addAttribute("projects", projects);
+            return mappingLeader;
+        }else{
+            ArrayList<Project> projects = projectService.fetchAllProjects();
+
+            for(int i = 0; i < projects.size(); i++){
+
+                projects.get(i).setSkillsAllocated(skillService.skillsInProject(projects.get(i).getId()));
+                projects.get(i).setTotalDays(projectService.countBusinessDays(projects.get(i)));
+                projects.get(i).setDaysUntilDeadline(projectService.daysUntilDeadline(projects.get(i)));
+                projects.get(i).setHoursADay(projectService.calculateHoursPrDay(projects.get(i), projects.get(i).getAssignees().size()));
+            }
+
+
+            model.addAttribute("projects", projects);
+            return mappingMember;
         }
 
 
-        model.addAttribute("projects", projects);
 
-        return mapping;
+
     }
 
     @PostMapping("/viewproject")

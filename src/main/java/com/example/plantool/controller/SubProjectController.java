@@ -23,28 +23,24 @@ public class SubProjectController {
 
    @GetMapping("/viewsubproject")
     public String subProjectOverview(Model model, HttpSession session) throws SQLException {
-
+       String mappingLeader = sessionService.inSession(model, session, "viewsubprojectleader");
+       String mappingMember = sessionService.inSession(model, session, "viewsubprojectmember");
+       int isLeader = sessionService.isLeaderSession(session);
        int projectId = (Integer) session.getAttribute("projectId");
-       int memberLead = (Integer) session.getAttribute("boolean-leader");
 
-        if(memberLead == 1){
-            String mapping = sessionService.inSession(model, session, "viewsubprojectleader");
+        if(isLeader == 1){
             ArrayList<SubProject> subProjects = subProjectService.fetchAllSubProjectsFromProject(projectId);
             model.addAttribute("subprojects", subProjects);
-            return mapping;
+            return mappingLeader;
         }
-
         else {
-            String mapping = sessionService.inSession(model, session, "viewsubprojectmember");
             ArrayList<SubProject> subProjects = subProjectService.fetchAllSubProjectsFromProject(projectId);
             model.addAttribute("subprojects", subProjects);
-            return mapping;
+            return mappingMember;
         }
-
     }
+
     @PostMapping("/viewsubproject")
-
-
     public String postSubProject(WebRequest wr, HttpSession session) throws SQLException{
         int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
         int subProjectId = Integer.parseInt(wr.getParameter("subprojectId"));

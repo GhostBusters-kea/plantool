@@ -66,11 +66,7 @@ public class TaskController {
         Task task = new Task(name, startDate, deadline, deadline, hoursAllocated, projectDescription);
         taskService.addTaskToDb(task, subprojectId);
 
-
         return "redirect:/viewtask";
     }
-
-
-
 }
 
