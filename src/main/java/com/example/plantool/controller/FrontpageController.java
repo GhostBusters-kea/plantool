@@ -12,18 +12,9 @@ public class FrontpageController {
     SessionService sessionService = new SessionService();
 
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String index(HttpSession session) throws SQLException {
-
-        int memberLead = (Integer) session.getAttribute("boolean-leader");
-        String userId = (String) session.getAttribute("userid");
-        if (memberLead == 1 && userId instanceof String) {
-            return "index";
-        }
-        if (memberLead == 0) {
-            return "index";
-        }
-        return "redirect:/login";
+        return "index";
     }
 
     @GetMapping("/logout")
