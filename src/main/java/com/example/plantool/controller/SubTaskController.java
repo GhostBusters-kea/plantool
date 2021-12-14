@@ -25,20 +25,19 @@ public class SubTaskController {
 
     @GetMapping("/viewsubtask")
     public String viewSubTask (Model model, HttpSession session) throws SQLException {
-        int taskId = (Integer) session.getAttribute("taskId");
-        int memberLead = (Integer) session.getAttribute("boolean-leader");
+        String mappingLeader = sessionService.inSession(model, session, "viewsubtaskforleader");
+        String mappingMember = sessionService.inSession(model, session, "viewsubtaskformember");
+        int isLeader = sessionService.isLeaderSession(session);
 
-        if (memberLead ==1){
-            String mapping = sessionService.inSession(model, session, "viewsubtaskforleader");
-            ArrayList<SubTask> subTasks = subTaskService.fetchAllSubTask(taskId);
-            model.addAttribute("subtasks", subTasks);
-            return mapping;
+        int taskId = (Integer) session.getAttribute("taskId");
+        ArrayList<SubTask> subTasks = subTaskService.fetchAllSubTask(taskId);
+        model.addAttribute("subtasks", subTasks);
+
+        if (isLeader ==1){
+            return mappingLeader;
         }
         else {
-            String mapping = sessionService.inSession(model, session, "viewsubtaskformember");
-            ArrayList<SubTask> subtasks = subTaskService.fetchAllSubTask(taskId);
-            model.addAttribute("subtasks", subtasks);
-            return mapping;
+            return mappingMember;
         }
     }
 
