@@ -6,9 +6,8 @@ public class SubTask extends Project{
 
     int taskID;
 
-    public SubTask(int taskID, String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, int hoursAllocated, String projectDescription) {
+    public SubTask(String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, int hoursAllocated, String projectDescription) {
         super(name, startDate, endDate, deadline, hoursAllocated, projectDescription);
-        this.taskID = taskID;
     }
 
     public SubTask() {

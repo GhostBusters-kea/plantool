@@ -54,8 +54,9 @@ public class TaskController {
     }
 
 
-    @PostMapping("/createtask")
+    @PostMapping("/viewtask/create")
     public String createTaskPost(HttpSession session, WebRequest wr){
+        int subprojectId = (Integer) session.getAttribute("subprojectId");
         String name = wr.getParameter("taskName");
         LocalDate startDate = LocalDate.parse(wr.getParameter("taskStartDate"));
         LocalDate deadline = LocalDate.parse(wr.getParameter("taskDeadline"));
@@ -63,7 +64,7 @@ public class TaskController {
         String projectDescription = wr.getParameter("taskDescription");
 
         Task task = new Task(name, startDate, deadline, deadline, hoursAllocated, projectDescription);
-        taskService.addTaskToDb(task, 1); //TODO subproject skal fixes
+        taskService.addTaskToDb(task, subprojectId);
 
 
         return "redirect:/viewtask";
