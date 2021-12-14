@@ -12,14 +12,14 @@
     <link rel="stylesheet" type="text/css" th:href="@{/custom.css}"/>
 
 
-    <title>Task</title>
+    <title>Sub-Task</title>
 </head>
 <body>
 <div class="container">
     <div th:replace="fragments/navbar"></div>
 </div>
 
-<h2 class="m-5">Tasks</h2>
+<h2 class="m-5">Sub-Tasks</h2>
 
 <div class="container">
     <div class="row">
@@ -28,7 +28,6 @@
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Subproject Name</th>
                     <th>Task Name</th>
                     <th>Kick-off Date</th>
                     <th>DeadLine</th>
@@ -41,8 +40,12 @@
                 <tbody>
                 <tr th:each="task : ${tasks}">
                     <td th:text="${task.getId()}"></td>
-                    <td th:text="${task.getSubprojectId()}"></td>
-                    <td th:text="${task.getName()}"></td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" th:attr="name='taskId'" th:value="${task.id}"/>
+                            <button type="submit" value="Submit" class="btn btn-link" th:text="${task.name}"></button>
+                        </form>
+                    </td>
                     <td th:text="${task.getStartDate()}"></td>
                     <td th:text="${task.getDeadline()}"></td>
                     <td th:text="${task.getHoursAllocated()}"></td>
