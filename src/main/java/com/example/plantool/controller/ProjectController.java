@@ -102,10 +102,6 @@ public class ProjectController {
         }else{
             return mappingMember;
         }
-
-
-
-
     }
 
     @PostMapping("/viewproject")

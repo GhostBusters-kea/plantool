@@ -19,70 +19,15 @@
     <div th:replace="fragments/navbarleader"></div>
 </div>
 
-
-
 <div class="container">
-    <div class="row">
-        <div class="col-lg-10 mt-5 mb-5">
-
-            <table id="project-table" class="table table-bordered" style="width: 120%">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Kick-off Date</th>
-                    <th>Total Businesses</th>
-                    <th>Business Days Until Deadline</th>
-                    <th>DeadLine</th>
-                    <th>Allocated Hours</th>
-                    <th>Daily Average Hours / Member</th>
-                    <th>Hours Used</th>
-                    <th>Description</th>
-                    <th>Project Leader</th>
-                    <th>Assigned Members</th>
-                    <th>Assigned Skills</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td th:text="${currentProject.name}"></td>
-                    <td th:text="${currentProject.startDate}"></td>
-                    <td th:text="${currentProject.totalDays}"></td>
-                    <td th:text="${currentProject.daysUntilDeadline}"></td>
-                    <td th:text="${currentProject.deadline}"></td>
-                    <td th:text="${currentProject.hoursAllocated}"></td>
-                    <td th:text="${currentProject.hoursADay}"></td>
-                    <td th:text="${currentProject.hoursUsed}"></td>
-                    <td th:text="${currentProject.projectDescription}"></td>
-                    <td th:text="${currentProject.whoIsLeader}"></td> <!-- TODO: change to leader name -->
-                    <td >
-                        <div>
-                            <ul class="list-group" th:each="member : ${currentProject.assignees}">
-                                <li class="list-group-item" th:text="${member.name}"></li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td >
-                        <div>
-                            <ul class="list-group" th:each="skill : ${currentProject.skillsAllocated}">
-                                <li class="list-group-item" th:text="${skill.skillName}"></li>
-                            </ul>
-                        </div>
-                    </td>
-
-                </tr>
-                </tbody>
-            </table>
-        </div>
+    <div>
+        <h2 th:text="${currentProject.getName()}"></h2>
+        <h5>Deadline:</h5>
+        <h5 th:text="${currentProject.getDeadline()}"></h5>
     </div>
 </div>
 
-</div>
-
 <div class="container">
-
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-            Create Sub-Project
-        </button>
 
     <!-- The Modal -->
     <div class="modal" id="myModal">
@@ -157,6 +102,9 @@
     </div>
 
     <h4 class="m-5">Sub-Projects</h4>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+        Create Sub-Project
+    </button>
     <div class="row">
         <div class="col-lg-10 mt-5 mb-5">
             <table id="example" class="table table-bordered" style="width: 100%">
