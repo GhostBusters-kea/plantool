@@ -17,7 +17,6 @@ import java.util.ArrayList;
 @Controller
 public class SubProjectController {
     SubProjectService subProjectService = new SubProjectService();
-    MemberService memberService = new MemberService();
     SessionService sessionService = new SessionService();
 
 
