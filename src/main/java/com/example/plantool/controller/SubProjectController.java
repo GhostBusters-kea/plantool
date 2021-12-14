@@ -1,5 +1,6 @@
 package com.example.plantool.controller;
 
+import com.example.plantool.model.Project;
 import com.example.plantool.model.SubProject;
 import com.example.plantool.services.MemberService;
 import com.example.plantool.services.SessionService;
@@ -23,16 +24,28 @@ public class SubProjectController {
 
    @GetMapping("/viewsubproject")
     public String subProjectOverview(Model model, HttpSession session) throws SQLException {
+
        String mappingLeader = sessionService.inSession(model, session, "viewsubprojectleader");
        String mappingMember = sessionService.inSession(model, session, "viewsubprojectmember");
        int isLeader = sessionService.isLeaderSession(session);
        int projectId = (Integer) session.getAttribute("projectId");
 
         if(isLeader == 1){
+
+
+       Project currentProject = (Project) session.getAttribute("currentProject");
+
+       int projectId = currentProject.getId();
+       int memberLead = (Integer) session.getAttribute("boolean-leader");
+
+        model.addAttribute("currentProject", currentProject);
+
+        
+            String mapping = sessionService.inSession(model, session, "viewsubprojectleader");
+
             ArrayList<SubProject> subProjects = subProjectService.fetchAllSubProjectsFromProject(projectId);
             model.addAttribute("subprojects", subProjects);
             return mappingLeader;
-        }
         else {
             ArrayList<SubProject> subProjects = subProjectService.fetchAllSubProjectsFromProject(projectId);
             model.addAttribute("subprojects", subProjects);
@@ -51,8 +64,9 @@ public class SubProjectController {
 
     @PostMapping("/viewsubproject/create")
     public String createSubProject(WebRequest wr, HttpSession session){
-        session.getAttribute("projectId");
+
         int projectId = (Integer) session.getAttribute("projectId");
+
         String name = wr.getParameter("name");
         LocalDate startDate = LocalDate.parse(wr.getParameter("startDate"));
         LocalDate deadline = LocalDate.parse(wr.getParameter("deadline"));

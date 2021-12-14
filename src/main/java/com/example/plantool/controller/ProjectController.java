@@ -64,14 +64,14 @@ public class ProjectController {
         String[] skillsAllocated = wr.getParameterValues("skill");
 
 
-        for(int i = 0; i < skillsAllocated.length; i++){
-            skillService.assignSkillToProject(newProject.getId(), skillService.fetchSkillByName(skillsAllocated[i]).getSkillId());
+        for (String s : skillsAllocated) {
+            skillService.assignSkillToProject(newProject.getId(), skillService.fetchSkillByName(s).getSkillId());
         }
 
         String[] assignees = wr.getParameterValues("member");
 
-        for(int i = 0; i < assignees.length; i++){
-            projectService.assignMemberToProject(newProject.getId(), memberService.memberByName(assignees[i]).getMemberId());
+        for (String assignee : assignees) {
+            projectService.assignMemberToProject(newProject.getId(), memberService.memberByName(assignee).getMemberId());
         }
 
         return "redirect:/viewproject";
@@ -93,9 +93,12 @@ public class ProjectController {
                 projects.get(i).setTotalDays(projectService.countBusinessDays(projects.get(i)));
                 projects.get(i).setDaysUntilDeadline(projectService.daysUntilDeadline(projects.get(i)));
                 projects.get(i).setHoursADay(projectService.calculateHoursPrDay(projects.get(i), projects.get(i).getAssignees().size()));
+             
             }
 
+
             model.addAttribute("projects", projects);
+            session.setAttribute("projects", projects);
             return mappingLeader;
         }else{
             ArrayList<Project> projects = projectService.fetchAllProjects();
@@ -110,6 +113,7 @@ public class ProjectController {
 
 
             model.addAttribute("projects", projects);
+            session.setAttribute("projects", projects);
             return mappingMember;
         }
 
@@ -123,8 +127,17 @@ public class ProjectController {
         int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
         int projectId = Integer.parseInt(wr.getParameter("projectId"));
 
+        ArrayList<Project> projects = (ArrayList<Project>) session.getAttribute("projects");
+        Project currentProject = new Project();
 
-        session.setAttribute("projectId", projectId);
+        for(Project project : projects){
+            if(project.getId() == projectId){
+
+                currentProject = project;
+            }
+        }
+        session.setAttribute("currentProject", currentProject);
+
         return "redirect:/viewsubproject";
     }
 }
