@@ -5,6 +5,7 @@ import com.example.plantool.model.Project;
 import com.example.plantool.model.Skill;
 import com.example.plantool.services.MemberService;
 import com.example.plantool.services.ProjectService;
+import com.example.plantool.services.SessionService;
 import com.example.plantool.services.SkillService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +24,13 @@ public class ProjectController {
     MemberService memberService = new MemberService();
     ProjectService projectService = new ProjectService();
     SkillService skillService = new SkillService();
+    SessionService sessionService = new SessionService();
 
 
     @GetMapping("/createproject")
     public String createProjectGet(HttpSession session, Model model) throws SQLException {
-        String mapping = memberService.inSession(model, session, "createproject");
-        int isLeader = memberService.isLeaderSession(session);
+        String mapping = sessionService.inSession(model, session, "createproject");
+        int isLeader = sessionService.isLeaderSession(session);
 
         if(isLeader == 1){
 
@@ -78,7 +80,7 @@ public class ProjectController {
 
     @GetMapping("/viewproject")
     public String projectOverview(Model model, HttpSession session) throws SQLException {
-        String mapping = memberService.inSession(model, session, "viewproject");
+        String mapping = sessionService.inSession(model, session, "viewproject");
 
         ArrayList<Project> projects = projectService.fetchAllProjects();
 

@@ -9,8 +9,7 @@ import java.sql.SQLException;
 @Controller
 public class FrontpageController {
 
-    // Måde at håndtere om man er member eller leader.
-    // Vi returnere en html side til projektlederen og en anden html til member. Html siderne er ikke lavet.
+    
     @GetMapping("/index")
     public String index(HttpSession session) throws SQLException {
 
