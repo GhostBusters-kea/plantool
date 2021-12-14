@@ -37,12 +37,15 @@ public class MemberController {
 
         String[] skillsAllocated = wr.getParameterValues("skill");
 
-        //TimeUnit.SECONDS.sleep(2);
         for(int i = 0; i < skillsAllocated.length; i++){
             skillService.assignSkillToMember(memberService.findMember(wr.getParameter("input-email")).getMemberId(), skillService.fetchSkillByName(skillsAllocated[i]).getSkillId());
         }
+        return "redirect:/createmembersucces";
+    }
 
-        return "redirect:/";
+    @GetMapping("/createmembersucces")
+    public String memberSuccess(){
+        return "createmembersucces";
     }
 
     @GetMapping("/login")
