@@ -18,38 +18,38 @@ public class ProjectService {
     ProjectRepo repo = new ProjectRepo();
 
 
-    public void updateProjectName(int projectid, String name){
+    public void updateProjectName(int projectid, String name) {
         repo.updateProjectName(projectid, name);
     }
 
-    public void updateProjectStartDate(int projectid, LocalDate startdate){
-        repo.updateProjectStartDate(projectid,startdate);
+    public void updateProjectStartDate(int projectid, LocalDate startdate) {
+        repo.updateProjectStartDate(projectid, startdate);
     }
 
-    public void updateProjectsEndDate(int projectid,LocalDate enddate){
-        repo.updateProjectEndDate(projectid,enddate);
+    public void updateProjectsEndDate(int projectid, LocalDate enddate) {
+        repo.updateProjectEndDate(projectid, enddate);
     }
 
-    public void updateDeadline(int projectid, LocalDate deadline){
-        repo.updateProjectDeadline(projectid,deadline);
+    public void updateDeadline(int projectid, LocalDate deadline) {
+        repo.updateProjectDeadline(projectid, deadline);
     }
 
-    public void updateHoursAllocated(int projectid, int hours){
-        repo.updateHoursAllocated(projectid,hours);
+    public void updateHoursAllocated(int projectid, int hours) {
+        repo.updateHoursAllocated(projectid, hours);
 
     }
 
-    public void updateHoursUsed(int projectid, int hours){
-        repo.updateHoursUsed(projectid,hours);
+    public void updateHoursUsed(int projectid, int hours) {
+        repo.updateHoursUsed(projectid, hours);
     }
 
-    public void updateProjectDescription(int projectid, String description){
-        repo.updateDescription(projectid,description);
+    public void updateProjectDescription(int projectid, String description) {
+        repo.updateDescription(projectid, description);
     }
 
     // opret nyt projekt
     public Project createNewProject(String projectName, LocalDate startDate, LocalDate endDate, LocalDate deadline,
-                                 int hoursAllocated, int whoIsLeader, String description){
+                                    int hoursAllocated, int whoIsLeader, String description) {
         Project project = new Project();
         project.setName(projectName);
         project.setStartDate(startDate);
@@ -63,47 +63,45 @@ public class ProjectService {
 
     }
 
-    public void addProjectToDb(Project project){
+    public void addProjectToDb(Project project) {
         repo.writeProjectToDB(project);
     }
 
     // hent enkelt projekt
-    public Project fetchSingleProject(int projectID){
+    public Project fetchSingleProject(int projectID) {
         return repo.fetchSingleProject(projectID);
     }
 
-    public int fetchSingelProjectId(String projectName){
+    public int fetchSingelProjectId(String projectName) {
         return repo.fetchSingleProjectId(projectName);
     }
 
     // hent alle projekter
-    public ArrayList<Project> fetchAllProjects(){
+    public ArrayList<Project> fetchAllProjects() {
         return repo.fetchAllProjects();
     }
 
 
     // knytter projektdeltager til bestemt project
-    public void assignMemberToProject(int projectId, int memberId){
+    public void assignMemberToProject(int projectId, int memberId) {
 
-        if (projectHasMember(projectId, memberId)){
+        if (projectHasMember(projectId, memberId)) {
             System.out.println("Member already assigned to project");
-        }
-
-        else {
+        } else {
             repo.assignMemberToProject(projectId, memberId);
         }
     }
 
-    public ArrayList<Integer> membersInProject(int projectId){
+    public ArrayList<Integer> membersInProject(int projectId) {
         return repo.membersInProject(projectId);
     }
 
 
     // checker om projektdeltager allerede er knyttet til projekt
-    public boolean projectHasMember(int projectId, int memberId){
+    public boolean projectHasMember(int projectId, int memberId) {
 
-        for(int i = 0; i < repo.membersInProject(projectId).size(); i++){
-            if(repo.membersInProject(projectId).get(i).equals(memberId)){
+        for (int i = 0; i < repo.membersInProject(projectId).size(); i++) {
+            if (repo.membersInProject(projectId).get(i).equals(memberId)) {
                 return true;
             }
         }
@@ -111,29 +109,29 @@ public class ProjectService {
     }
 
     // metode til udregning af arbejdsdage
-    public static long calculateBusinessDays(Project project){
+    public static long calculateBusinessDays(Project project) {
         int first = project.getStartDate().getDayOfWeek().getValue();
         int last = project.getEndDate().getDayOfWeek().getValue();
 
         long totalDays =
-                ChronoUnit.DAYS.between(project.getStartDate(),project.getEndDate());
+                ChronoUnit.DAYS.between(project.getStartDate(), project.getEndDate());
 
-        long result = totalDays - 2*(totalDays/7);
+        long result = totalDays - 2 * (totalDays / 7);
 
-        if(totalDays % 7 !=0){
-            if(first==7) {
+        if (totalDays % 7 != 0) {
+            if (first == 7) {
                 result -= 1;
-            } else if (last==7) {
+            } else if (last == 7) {
                 result -= 1;
-            } else if (last<first){
-                result -=2;
+            } else if (last < first) {
+                result -= 2;
             }
         }
         return result;
     }
 
     // metode nummer 2  - kan ændres til at returnere en liste med alle dagene mellem start og end
-    public int countBusinessDays(Project project){
+    public int countBusinessDays(Project project) {
 
         Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY ||
                 date.getDayOfWeek() == DayOfWeek.SUNDAY;
@@ -141,75 +139,42 @@ public class ProjectService {
         List<LocalDate> businessDays = project.getStartDate().datesUntil(project.getEndDate())
                 .filter(isWeekend.negate())
                 .collect(Collectors.toList());
-        if(businessDays.size() == 0){
+        if (businessDays.size() == 0) {
             return 1;
-        }
-        else {
+        } else {
             return businessDays.size();
         }
     }
 
 
     // udregning af gennemsnitlig antal arbejdstimer pr dag
-    public float calculateHoursPrDay(Project project, int numberOfMembers){
+    public float calculateHoursPrDay(Project project, int numberOfMembers) {
         float days = 0;
-        if(calculateBusinessDays(project) == 0){
+        if (calculateBusinessDays(project) == 0) {
             days = 1;
-        }
-        else {
+        } else {
             days = calculateBusinessDays(project);
         }
         float result = project.getHoursAllocated() / days;
 
-        if(numberOfMembers == 0){
+        if (numberOfMembers == 0) {
             numberOfMembers = 1;
         }
-        return (float) result/numberOfMembers;
+        return (float) result / numberOfMembers;
     }
 
-    public int daysUntilDeadline(Project project){
+    public int daysUntilDeadline(Project project) {
         Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY ||
                 date.getDayOfWeek() == DayOfWeek.SUNDAY;
 
-        if(LocalDate.now().isBefore(project.getEndDate())) {
+        if (LocalDate.now().isBefore(project.getEndDate())) {
             List<LocalDate> daysLeft = LocalDate.now().datesUntil(project.getEndDate())
                     .filter(isWeekend.negate())
                     .collect(Collectors.toList());
             return daysLeft.size();
-        }
-        else{
+        } else {
             return 0;
         }
-
-    }
-
-
-    // metoder til af ændre projekter
-    public void addProjectName(Project project, String name){
-        project.setName(name);
-    }
-
-    public void addProjectDates(Project project, LocalDate startDate, LocalDate endDate){
-        project.setStartDate(startDate);
-        project.setEndDate(endDate);
-    }
-
-    public void addProjectDeadline(Project project, LocalDate deadline){
-        project.setDeadline(deadline);
-    }
-
-    public void addProjectHours(Project project, int hoursAllocated, int hoursUsed){
-        project.setHoursAllocated(hoursAllocated);
-        project.setHoursUsed(hoursUsed);
-    }
-
-
-    public void writeProjectToDB(Project project){
-        repo.writeProjectToDB(project);
-    }
-
-    public void deleteProject(int projectID){
-        repo.deleteProject(projectID);
     }
 
 }
