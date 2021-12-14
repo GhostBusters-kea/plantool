@@ -2,6 +2,8 @@ package com.example.plantool.repository;
 
 
 import com.example.plantool.model.Member;
+import com.example.plantool.services.MemberService;
+import com.example.plantool.services.SkillService;
 import com.example.plantool.utility.DatabaseConnector;
 
 import java.sql.PreparedStatement;
@@ -54,6 +56,7 @@ public class MemberRepo {
         }
         return allMembers;
     }
+
 
     //Fetches a single user from database
     public Member findMember (String email) throws SQLException {

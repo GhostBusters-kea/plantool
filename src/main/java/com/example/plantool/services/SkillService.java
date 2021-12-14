@@ -9,11 +9,8 @@ import java.util.ArrayList;
 public class SkillService {
     SkillRepo skillRepo = new SkillRepo();
 
-
-
     // checker om kompetencen allerede findes i databassen
     public boolean doesSkillExist(String skillName){
-
         for(int i = 0; i < skillRepo.findAllSkills().size(); i++){
             if(skillRepo.findAllSkills().get(i).getSkillName().equals(skillName)){
                 return true;
@@ -52,7 +49,6 @@ public class SkillService {
         if (doesSkillExist(skillName)){
             System.out.println("Skill already exists");
         }
-
         else {
             skillRepo.insertSkillToDB(skillName);
         }
