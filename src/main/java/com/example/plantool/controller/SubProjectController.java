@@ -48,29 +48,5 @@ public class SubProjectController {
         return "redirect:/viewtask";
     }
 
-
-
-
-
-/*
-   @GetMapping("/viewsubproject")
-    public String subprojectView(Model model, HttpSession session) {
-        int memberLead = (Integer) session.getAttribute("boolean-leader");
-        int projectId = (Integer) session.getAttribute("projectId");
-        System.out.println(projectId);
-
-        ArrayList<SubProject> subProjectArray = subProjectService.fetchAllSubProjectsFromProject(projectId);
-
-        model.addAttribute("subprojects", subProjectArray);
-
-
-        if (memberLead == 1) {
-            return "viewsubprojectleader";
-        } else
-            return "viewsubprojectmember";
-    }
-
- */
-
-
 }
+

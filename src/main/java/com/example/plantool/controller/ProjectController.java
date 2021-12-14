@@ -5,6 +5,7 @@ import com.example.plantool.model.Project;
 import com.example.plantool.model.Skill;
 import com.example.plantool.services.MemberService;
 import com.example.plantool.services.ProjectService;
+import com.example.plantool.services.SessionService;
 import com.example.plantool.services.SkillService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,18 +17,20 @@ import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class ProjectController {
     MemberService memberService = new MemberService();
     ProjectService projectService = new ProjectService();
     SkillService skillService = new SkillService();
+    SessionService sessionService = new SessionService();
 
 
     @GetMapping("/createproject")
     public String createProjectGet(HttpSession session, Model model) throws SQLException {
-        String mapping = memberService.inSession(model, session, "createproject");
-        int isLeader = memberService.isLeaderSession(session);
+        String mapping = sessionService.inSession(model, session, "createproject");
+        int isLeader = sessionService.isLeaderSession(session);
 
         if(isLeader == 1){
 
@@ -46,7 +49,7 @@ public class ProjectController {
     }
 
     @PostMapping("/createproject")
-    public String createProjectPost(HttpSession session, WebRequest wr) throws SQLException {
+    public String createProjectPost(HttpSession session, WebRequest wr) throws SQLException, InterruptedException {
         int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
         String name = wr.getParameter("name");
         LocalDate startDate = LocalDate.parse(wr.getParameter("startDate"));
@@ -57,10 +60,10 @@ public class ProjectController {
         Project newProject = new Project(name, startDate, deadline, deadline, leaderId, hoursAllocated, projectDescription);
         projectService.addProjectToDb(newProject);
         newProject.setId(projectService.fetchSingelProjectId(newProject.getName()));
-        System.out.println(newProject.getName());
-        System.out.println(newProject.getId());
+
 
         String[] skillsAllocated = wr.getParameterValues("skill");
+
 
         for(int i = 0; i < skillsAllocated.length; i++){
             skillService.assignSkillToProject(newProject.getId(), skillService.fetchSkillByName(skillsAllocated[i]).getSkillId());
@@ -77,7 +80,7 @@ public class ProjectController {
 
     @GetMapping("/viewproject")
     public String projectOverview(Model model, HttpSession session) throws SQLException {
-        String mapping = memberService.inSession(model, session, "viewproject");
+        String mapping = sessionService.inSession(model, session, "viewproject");
 
         ArrayList<Project> projects = projectService.fetchAllProjects();
 
