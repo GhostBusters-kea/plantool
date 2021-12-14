@@ -57,8 +57,7 @@ public class ProjectController {
         Project newProject = new Project(name, startDate, deadline, deadline, leaderId, hoursAllocated, projectDescription);
         projectService.addProjectToDb(newProject);
         newProject.setId(projectService.fetchSingelProjectId(newProject.getName()));
-        System.out.println(newProject.getName());
-        System.out.println(newProject.getId());
+
 
         String[] skillsAllocated = wr.getParameterValues("skill");
 
