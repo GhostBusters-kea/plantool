@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class ProjectController {
@@ -46,7 +47,7 @@ public class ProjectController {
     }
 
     @PostMapping("/createproject")
-    public String createProjectPost(HttpSession session, WebRequest wr) throws SQLException {
+    public String createProjectPost(HttpSession session, WebRequest wr) throws SQLException, InterruptedException {
         int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
         String name = wr.getParameter("name");
         LocalDate startDate = LocalDate.parse(wr.getParameter("startDate"));
@@ -61,6 +62,7 @@ public class ProjectController {
         System.out.println(newProject.getId());
 
         String[] skillsAllocated = wr.getParameterValues("skill");
+
 
         for(int i = 0; i < skillsAllocated.length; i++){
             skillService.assignSkillToProject(newProject.getId(), skillService.fetchSkillByName(skillsAllocated[i]).getSkillId());

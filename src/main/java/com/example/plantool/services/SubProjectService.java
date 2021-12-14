@@ -45,8 +45,6 @@ public class SubProjectService {
         repo.updateDescription(subprojectid,description);
     }
 
-    public ArrayList<>
-
 
     // opret nyt underprojekt
     public Project createNewSubProject(int projectid, String projectName, LocalDate startDate, LocalDate endDate, LocalDate deadline,

@@ -21,7 +21,6 @@
 
     <div th:replace="fragments/navbar"></div>
 
-
     <div>
         <h1>Create a new member</h1>
         <div class="container col-8">
@@ -43,8 +42,17 @@
 
                 </div>
 
+                <div class="mb-form mb-3">
+                    <label for="skill">Select skills to assign to member</label>
+                    <ul class="list-group" th:each="skill : ${skills}">
+                        <li class="list-group-item" id="skill">
+                            <input class="form-check-input me-1" type="checkbox" th:attr="name='skill'" th:value="${skill.skillName}"
+                                   th:text="${skill.skillName}"/>
+                        </li>
+                    </ul>
+                </div>
 
-                <label for="checkbox">Er du leder?</label>
+                <label for="checkbox">Are you project leader?</label>
                 <input type="checkbox" name="check" value="true" id="checkbox">
 
                 <button class="btn btn-primary mb-3" type="submit">Opret bruger</button>

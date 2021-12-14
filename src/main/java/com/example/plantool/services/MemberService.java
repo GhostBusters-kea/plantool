@@ -79,7 +79,6 @@ public class MemberService {
     }
 
     public ArrayList<Member> getAllMembers(){
-
         ArrayList<Member> members = memberRepo.findAllMembers();
         return members;
     }
