@@ -26,11 +26,15 @@ class ProjectServiceTest {
 
     @Test
     void calculateHoursPrDay() {
+
         // Arrange
         Project project = new Project();
-        //project.setHoursAllocated();
+        project.setHoursAllocated(20);
         project.setStartDate(LocalDate.of(2021,12,14));
         project.setEndDate(LocalDate.of(2021,12,21));
+
+        // Act
+        //float
 
 
 
