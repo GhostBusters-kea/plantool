@@ -70,5 +70,20 @@ public class SubProjectController {
         return "redirect:/viewsubproject";
     }
 
+    @PostMapping("/viewsubproject/modify")
+    public String modifyProject(WebRequest wr, HttpSession session){
+
+
+        int projectId = (Integer) session.getAttribute("projectId");
+        String name = wr.getParameter("newname");
+        LocalDate startDate = LocalDate.parse(wr.getParameter("newstartDate"));
+        LocalDate deadline = LocalDate.parse(wr.getParameter("newdeadline"));
+        int hoursAllocated = Integer.parseInt(wr.getParameter("newhoursAllocated"));
+
+        String projectDescription = wr.getParameter("newdescription");
+        return null;
+    }
+
+
 }
 
