@@ -2,6 +2,7 @@ package com.example.plantool.controller;
 
 import com.example.plantool.model.Task;
 import com.example.plantool.services.MemberService;
+import com.example.plantool.services.SessionService;
 import com.example.plantool.services.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 public class TaskController {
     MemberService memberService = new MemberService();
     TaskService taskService = new TaskService();
+    SessionService sessionService = new SessionService();
 
     @GetMapping("/viewtask")
     public String viewTask (Model model, HttpSession session) throws SQLException{
@@ -25,13 +27,13 @@ public class TaskController {
         int memberLead = (Integer) session.getAttribute("boolean-leader");
 
         if (memberLead ==1){
-            String mapping = memberService.inSession(model, session, "viewtaskforleader");
+            String mapping = sessionService.inSession(model, session, "viewtaskforleader");
             ArrayList<Task> tasks = taskService.fetchAllTasks(subProjectId);
             model.addAttribute("tasks", tasks);
             return mapping;
         }
         else {
-            String mapping = memberService.inSession(model, session, "viewtaskformember");
+            String mapping = sessionService.inSession(model, session, "viewtaskformember");
             ArrayList<Task> tasks = taskService.fetchAllTasks(subProjectId);
             model.addAttribute("tasks", tasks);
             return mapping;

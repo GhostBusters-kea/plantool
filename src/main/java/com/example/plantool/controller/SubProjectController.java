@@ -2,6 +2,7 @@ package com.example.plantool.controller;
 
 import com.example.plantool.model.SubProject;
 import com.example.plantool.services.MemberService;
+import com.example.plantool.services.SessionService;
 import com.example.plantool.services.SubProjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class SubProjectController {
     SubProjectService subProjectService = new SubProjectService();
     MemberService memberService = new MemberService();
+    SessionService sessionService = new SessionService();
 
 
    @GetMapping("/viewsubproject")
@@ -26,14 +28,14 @@ public class SubProjectController {
        int memberLead = (Integer) session.getAttribute("boolean-leader");
 
         if(memberLead == 1){
-            String mapping = memberService.inSession(model, session, "viewsubprojectleader");
+            String mapping = sessionService.inSession(model, session, "viewsubprojectleader");
             ArrayList<SubProject> subProjects = subProjectService.fetchAllSubProjectsFromProject(projectId);
             model.addAttribute("subprojects", subProjects);
             return mapping;
         }
 
         else {
-            String mapping = memberService.inSession(model, session, "viewsubprojectmember");
+            String mapping = sessionService.inSession(model, session, "viewsubprojectmember");
             ArrayList<SubProject> subProjects = subProjectService.fetchAllSubProjectsFromProject(projectId);
             model.addAttribute("subprojects", subProjects);
             return mapping;
