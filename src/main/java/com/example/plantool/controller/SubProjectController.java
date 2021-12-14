@@ -3,6 +3,7 @@ package com.example.plantool.controller;
 import com.example.plantool.model.Project;
 import com.example.plantool.model.SubProject;
 import com.example.plantool.services.MemberService;
+import com.example.plantool.services.ProjectService;
 import com.example.plantool.services.SessionService;
 import com.example.plantool.services.SubProjectService;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 
 @Controller
 public class SubProjectController {
+    ProjectService projectService = new ProjectService();
     SubProjectService subProjectService = new SubProjectService();
     SessionService sessionService = new SessionService();
 
@@ -46,12 +48,17 @@ public class SubProjectController {
     }
 
     @PostMapping("/viewsubproject")
-    public String postSubProject(WebRequest wr, HttpSession session) throws SQLException{
-        int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
-        int subProjectId = Integer.parseInt(wr.getParameter("subprojectId"));
-        session.setAttribute("subprojectId", subProjectId);
+    public String postSubProject(WebRequest wr, HttpSession session) {
+        // int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
+        if(wr.getParameter("subprojectId") != null) {
+            int subProjectId = Integer.parseInt(wr.getParameter("subprojectId"));
+            session.setAttribute("subprojectId", subProjectId);
 
-        return "redirect:/viewtask";
+            return "redirect:/viewtask";
+        }
+        else{
+            return "redirect:/viewsubproject";
+        }
     }
 
     @PostMapping("/viewsubproject/create")
@@ -73,15 +80,33 @@ public class SubProjectController {
     @PostMapping("/viewsubproject/modify")
     public String modifyProject(WebRequest wr, HttpSession session){
 
-
+        // Request project attributes
         int projectId = (Integer) session.getAttribute("projectId");
         String name = wr.getParameter("newname");
         LocalDate startDate = LocalDate.parse(wr.getParameter("newstartDate"));
         LocalDate deadline = LocalDate.parse(wr.getParameter("newdeadline"));
         int hoursAllocated = Integer.parseInt(wr.getParameter("newhoursAllocated"));
-
         String projectDescription = wr.getParameter("newdescription");
-        return null;
+
+        // Update project
+
+        if(name != null){
+            projectService.updateProjectName(projectId, name);
+        }
+        if(startDate != null){
+            projectService.updateProjectStartDate(projectId, startDate);
+        }
+        if(deadline != null){
+            projectService.updateDeadline(projectId, deadline);
+        }
+        if(hoursAllocated != 0){
+            projectService.updateHoursAllocated(projectId, hoursAllocated);
+        }
+        if(projectDescription != null){
+            projectService.updateProjectDescription(projectId, projectDescription);
+        }
+
+        return "redirect:/viewproject";
     }
 
 
