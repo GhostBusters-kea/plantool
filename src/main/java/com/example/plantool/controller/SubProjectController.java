@@ -36,7 +36,7 @@ public class SubProjectController {
 
        ArrayList<SubProject> subProjects = subProjectService.fetchAllSubProjectsFromProject(projectId);
        model.addAttribute("subprojects", subProjects);
-
+       session.setAttribute("subprojects", subProjects );
        if(isLeader == 1) {
            return mappingLeader;
 
@@ -51,6 +51,15 @@ public class SubProjectController {
         int subProjectId = Integer.parseInt(wr.getParameter("subprojectId"));
         session.setAttribute("subprojectId", subProjectId);
 
+        ArrayList<SubProject> subProjects = (ArrayList<SubProject>) session.getAttribute("subprojects");
+        SubProject currentSubproject = new SubProject();
+
+        for(SubProject subProject : subProjects){
+            if(subProject.getId() == subProjectId){
+                currentSubproject = subProject;
+            }
+        }
+        session.setAttribute("currentSubproject", currentSubproject);
         return "redirect:/viewtask";
     }
 

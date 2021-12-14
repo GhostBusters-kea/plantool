@@ -19,6 +19,16 @@
     <div th:replace="fragments/navbarleader"></div>
 </div>
 
+<div class="container">
+    <div>
+        <h2 th:text="${currentSubproject.getName()}"></h2>
+        <h5>Deadline:</h5>
+        <h5 th:text="${currentSubproject.getDeadline()}"></h5>
+    </div>
+    <div th:replace="fragments/modify"></div>
+    <div th:replace="fragments/delete"></div>
+</div>
+
 <h2 class="m-5">Tasks</h2>
 
 

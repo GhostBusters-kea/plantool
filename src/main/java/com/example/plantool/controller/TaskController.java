@@ -1,5 +1,7 @@
 package com.example.plantool.controller;
 
+import com.example.plantool.model.Project;
+import com.example.plantool.model.SubProject;
 import com.example.plantool.model.Task;
 import com.example.plantool.services.MemberService;
 import com.example.plantool.services.SessionService;
@@ -31,6 +33,11 @@ public class TaskController {
         ArrayList<Task> tasks = taskService.fetchAllTasks(subProjectId);
         model.addAttribute("tasks", tasks);
 
+
+        SubProject currentSubproject = (SubProject) session.getAttribute("currentSubproject");
+        model.addAttribute("currentSubproject", currentSubproject);
+        session.setAttribute("tasks", tasks);
+
         if (isLeader ==1){
             return mappingLeader;
         }
@@ -44,6 +51,17 @@ public class TaskController {
         int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
         int taskId = Integer.parseInt(wr.getParameter("taskId"));
         session.setAttribute("taskId", taskId);
+
+        ArrayList<Task> tasks = (ArrayList<Task>) session.getAttribute("tasks");
+        Task currentTask = new Task();
+
+        for(Task task : tasks){
+            if(task.getId() == taskId){
+                currentTask = task;
+            }
+        }
+        session.setAttribute("currentTask", currentTask);
+
         return "redirect:/viewsubtask";
     }
 

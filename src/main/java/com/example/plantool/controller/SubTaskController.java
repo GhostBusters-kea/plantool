@@ -1,6 +1,7 @@
 package com.example.plantool.controller;
 
 
+import com.example.plantool.model.SubProject;
 import com.example.plantool.model.SubTask;
 import com.example.plantool.model.Task;
 import com.example.plantool.services.MemberService;
@@ -32,6 +33,9 @@ public class SubTaskController {
         int taskId = (Integer) session.getAttribute("taskId");
         ArrayList<SubTask> subTasks = subTaskService.fetchAllSubTask(taskId);
         model.addAttribute("subtasks", subTasks);
+
+        Task currentTask = (Task) session.getAttribute("currentTask");
+        model.addAttribute("currentTask", currentTask);
 
         if (isLeader ==1){
             return mappingLeader;
