@@ -17,7 +17,6 @@ class DoesEmailExistTest {
         boolean doesItExist = service.doesEmailExist(email);
         boolean doesItExistWrong = service.doesEmailExist(wrongMail);
 
-
         //Assert
         assertEquals(true, doesItExist);
         assertEquals(false, doesItExistWrong);
