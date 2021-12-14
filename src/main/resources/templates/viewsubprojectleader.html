@@ -44,31 +44,26 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>
-                        <form method="post">
-                            <input type="hidden" th:attr="name='projectId'" th:value="${project.id}"/>
-                            <button type="submit" value="Submit" class="btn btn-link" th:text="${project.name}"></button>
-                        </form>
-                    </td>
-                    <td th:text="${project.startDate}"></td>
-                    <td th:text="${project.totalDays}"></td>
-                    <td th:text="${project.daysUntilDeadline}"></td>
-                    <td th:text="${project.deadline}"></td>
-                    <td th:text="${project.hoursAllocated}"></td>
-                    <td th:text="${project.hoursADay}"></td>
-                    <td th:text="${project.hoursUsed}"></td>
-                    <td th:text="${project.projectDescription}"></td>
-                    <td th:text="${project.whoIsLeader}"></td> <!-- TODO: change to leader name -->
+                    <td th:text="${currentProject.name}"></td>
+                    <td th:text="${currentProject.startDate}"></td>
+                    <td th:text="${currentProject.totalDays}"></td>
+                    <td th:text="${currentProject.daysUntilDeadline}"></td>
+                    <td th:text="${currentProject.deadline}"></td>
+                    <td th:text="${currentProject.hoursAllocated}"></td>
+                    <td th:text="${currentProject.hoursADay}"></td>
+                    <td th:text="${currentProject.hoursUsed}"></td>
+                    <td th:text="${currentProject.projectDescription}"></td>
+                    <td th:text="${currentProject.whoIsLeader}"></td> <!-- TODO: change to leader name -->
                     <td >
                         <div>
-                            <ul class="list-group" th:each="member : ${project.assignees}">
+                            <ul class="list-group" th:each="member : ${currentProject.assignees}">
                                 <li class="list-group-item" th:text="${member.name}"></li>
                             </ul>
                         </div>
                     </td>
                     <td >
                         <div>
-                            <ul class="list-group" th:each="skill : ${project.skillsAllocated}">
+                            <ul class="list-group" th:each="skill : ${currentProject.skillsAllocated}">
                                 <li class="list-group-item" th:text="${skill.skillName}"></li>
                             </ul>
                         </div>

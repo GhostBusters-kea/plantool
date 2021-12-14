@@ -25,10 +25,11 @@ public class SubProjectController {
    @GetMapping("/viewsubproject")
     public String subProjectOverview(Model model, HttpSession session) throws SQLException {
 
-        int projectId = (Integer) session.getAttribute("projectId");
-        int memberLead = (Integer) session.getAttribute("boolean-leader");
+       Project currentProject = (Project) session.getAttribute("currentProject");
 
-        Project currentProject = (Project) session.getAttribute("project");
+       int projectId = currentProject.getId();
+       int memberLead = (Integer) session.getAttribute("boolean-leader");
+
         model.addAttribute("currentProject", currentProject);
 
         if(memberLead == 1){

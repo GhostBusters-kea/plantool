@@ -81,7 +81,6 @@ public class ProjectController {
     public String projectOverview(Model model, HttpSession session) throws SQLException {
         String mapping = sessionService.inSession(model, session, "viewproject");
 
-
         ArrayList<Project> projects = projectService.fetchAllProjects();
 
         for (Project project : projects) {
@@ -93,6 +92,7 @@ public class ProjectController {
         }
 
         model.addAttribute("projects", projects);
+        session.setAttribute("projects", projects);
 
         return mapping;
     }
@@ -102,9 +102,16 @@ public class ProjectController {
         int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
         int projectId = Integer.parseInt(wr.getParameter("projectId"));
 
-        Project project = projectService.fetchSingleProject(projectId);
+        ArrayList<Project> projects = (ArrayList<Project>) session.getAttribute("projects");
+        Project currentProject = new Project();
 
-        session.setAttribute("project", project);
+        for(Project project : projects){
+            if(project.getId() == projectId){
+
+                currentProject = project;
+            }
+        }
+        session.setAttribute("currentProject", currentProject);
 
         return "redirect:/viewsubproject";
     }
