@@ -48,31 +48,9 @@ public class SubProjectService {
     }
 
 
-    // Creates new subproject
-    public Project createNewSubProject(int projectid, String projectName, LocalDate startDate, LocalDate endDate, LocalDate deadline,
-                                    int hoursAllocated, String description){
-        Project project = new Project();
-        project.setName(projectName);
-        project.setStartDate(startDate);
-        project.setStartDate(endDate);
-        project.setDeadline(deadline);
-        project.setHoursAllocated(hoursAllocated);
-        project.setProjectDescription(description);
-
-        repo.writeSubProjectToDB(project,projectid);
-
-        return project;
-
-    }
-
     // Add subproject database
     public void addSubProjectToDb(SubProject subProject, int projectid){
         repo.writeSubProjectToDB(subProject,projectid);
-    }
-
-    // fetch single subproject
-    public Project fetchSingleSubProject(int subprojectID){
-        return repo.fetchSingleSubProject(subprojectID);
     }
 
 
@@ -82,7 +60,7 @@ public class SubProjectService {
     }
 
 
-        // assign member to subproject
+        // assign member to subproject - not implementet
         public void assignMemberToSubProject (int subprojectId, int memberId){
 
             if (subProjectHasMember(subprojectId,memberId)) {
@@ -93,6 +71,7 @@ public class SubProjectService {
         }
 
 
+        // not implementet
         public ArrayList<Integer> membersInSubProject (int subprojectId){
             return repo.membersInSubProject(subprojectId);
         }
@@ -130,7 +109,7 @@ public class SubProjectService {
             return result;
         }
 
-        // method number 2 - can be changed to return a list of all the days between start and end
+        // method number 2 - can be changed to return a list of all the days between start and end - not implementet
         public static int countBusinessDays (Project project){
 
             Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY ||
@@ -144,35 +123,10 @@ public class SubProjectService {
         }
 
 
-        // calculation of average number of working hours per day
+        // calculation of average number of working hours per day - not implementet
         public float calculateHoursPrDay (Project project,int numberOfMembers){
             long result = project.getHoursAllocated() / calculateBusinessDays(project);
             return (float) result / numberOfMembers;
-        }
-
-
-        // metoder til af ændre projekter
-        public void addProjectName (Project project, String name){
-            project.setName(name);
-        }
-
-        public void addProjectDates (Project project, LocalDate startDate, LocalDate endDate){
-            project.setStartDate(startDate);
-            project.setEndDate(endDate);
-        }
-
-        public void addProjectDeadline (Project project, LocalDate deadline){
-            project.setDeadline(deadline);
-        }
-
-        public void addProjectHours (Project project,int hoursAllocated, int hoursUsed){
-            project.setHoursAllocated(hoursAllocated);
-            project.setHoursUsed(hoursUsed);
-        }
-
-
-        public void writeProjectToDB (Project project, int projectid){
-            repo.writeSubProjectToDB(project,projectid);
         }
 
         //Deletes subproject

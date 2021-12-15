@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Author: Lars Brogaard
+ * Author: Jonas Munk
  *
  * Subproject repository data querie
  */
@@ -49,7 +49,7 @@ public class SubprojectsRepo {
 
     }
 
-    // Update subproject end date
+    // Update subproject end date - not implementet
     public void updateSubProjectEndDate(int subprojectid, LocalDate enddate){
 
         try{
@@ -95,7 +95,7 @@ public class SubprojectsRepo {
         }
     }
 
-    // Update hours used
+    // Update hours used - not implementet
     public void updateHoursUsed(int subprojectid, int hours){
 
         try{
@@ -197,7 +197,7 @@ public class SubprojectsRepo {
         return projectMembers;
     }
 
-    // Returns a list with members in subproject
+    // Returns a list with members in subproject - Not implementet
     public ArrayList<Member> listMembersInSubProject(int subProjectId){
         ArrayList<Member> projectMembers = new ArrayList<>();
 

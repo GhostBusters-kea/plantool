@@ -22,64 +22,6 @@ import java.util.ArrayList;
 
 public class SubTaskRepo {
 
-    // Update subtask name
-    public void updateSubTaskName(int subtaskid, String subtaskname){
-        try{
-            PreparedStatement stmt =
-                    DatabaseConnector.getConnection().prepareStatement
-                            ("UPDATE subtask SET subtaskname='"+subtaskname+"' WHERE subtaskid="+subtaskid+"");
-
-            stmt.executeUpdate();
-            System.out.println("Update complete");
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    // Update startdate
-    public void updateSubTaskStartDate(int subtaskid, LocalDate startdate){
-        try{
-            PreparedStatement stmt =
-                    DatabaseConnector.getConnection().prepareStatement
-                            ("UPDATE subtask SET subtaskstartdate='"+startdate+"' WHERE subtaskid="+subtaskid+"");
-
-            stmt.executeUpdate();
-            System.out.println("Update complete");
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    // Update end date
-    public void updateSubTaskEndDate(int subtaskid, LocalDate enddate){
-        try{
-            PreparedStatement stmt =
-                    DatabaseConnector.getConnection().prepareStatement
-                            ("UPDATE subtask SET subtaskenddate='"+enddate+"' WHERE subtaskid="+subtaskid+"");
-
-            stmt.executeUpdate();
-            System.out.println("Update complete");
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-
-    // Update deadline
-    public void updateSubTaskDeadline(int subtaskid, LocalDate deadline){
-
-        try{
-            PreparedStatement stmt =
-                    DatabaseConnector.getConnection().prepareStatement
-                            ("UPDATE subtask SET subtaskdeadline='"+deadline+"' WHERE subtaskid="+subtaskid+"");
-
-            stmt.executeUpdate();
-            System.out.println("Update complete");
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
     // Update hours allocated
     public void updateHoursAllocated(int subtaskid, int hours){
 
@@ -94,26 +36,13 @@ public class SubTaskRepo {
         }
     }
 
-    // Update hours used
+    // Update hours used - not implementet
     public void updateHoursUsed(int subtaskid, int hours){
 
         try{
             PreparedStatement stmt =
                     DatabaseConnector.getConnection().prepareStatement
                             ("UPDATE subtask SET subtaskhoursused='"+hours+"' WHERE subtaskid="+subtaskid+"");
-            stmt.executeUpdate();
-            System.out.println("Update complete");
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    // Update description
-    public void updateDescription(int subtaskid, String description){
-        try{
-            PreparedStatement stmt =
-                    DatabaseConnector.getConnection().prepareStatement
-                            ("UPDATE subtask SET subtaskdescription='"+description+"' WHERE subtaskid="+subtaskid+"");
             stmt.executeUpdate();
             System.out.println("Update complete");
         } catch (SQLException e){
@@ -144,40 +73,6 @@ public class SubTaskRepo {
         } catch (SQLException e){
             e.printStackTrace();
         }
-    }
-
-    // Fetch a single subtask
-    public SubTask fetchSingleSubTask(int subtaskId){
-
-        SubTask tmpSubTask = new SubTask();
-
-        try{
-            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
-                    "SELECT  subtask.subtaskid, taskid, subtaskname, subtaskstartdate, subtaskenddate, subtaskdeadline, subtaskhoursallo, subtaskhoursused, subtaskdescription FROM subtask WHERE subtaskid="+subtaskId+"");
-
-
-            ResultSet resultSet = stmt.executeQuery();
-
-            while (resultSet.next()){
-                tmpSubTask.setId(resultSet.getInt(1));
-                tmpSubTask.setTaskID(resultSet.getInt(2));
-                tmpSubTask.setName(resultSet.getString(3));
-                tmpSubTask.setStartDate(resultSet.getDate(4).toLocalDate());
-                tmpSubTask.setEndDate(resultSet.getDate(5).toLocalDate());
-                tmpSubTask.setDeadline(resultSet.getDate(6).toLocalDate());
-                tmpSubTask.setHoursAllocated(resultSet.getInt(7));
-                tmpSubTask.setHoursUsed(resultSet.getInt(8));
-                tmpSubTask.setProjectDescription(resultSet.getString(9));
-            }
-
-            //tmpProject.setSkillsAllocated(fetchSkills(tmpProject.getId()));
-
-
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-        System.out.println(tmpSubTask);
-        return tmpSubTask;
     }
 
     //Return a list with members in subtask

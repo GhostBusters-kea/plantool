@@ -4,19 +4,19 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
 /**
  * Author: Michael Dyvad
  *
  * Database connector
  */
-
+//Singleton
 public class DatabaseConnector {
 
     private static String url;
     private static String username;
     private static String password;
     private static Connection conn;
+
 
     public static Connection getConnection() {
 

@@ -23,20 +23,6 @@ public class SubTaskService {
     }
 
 
-    // Creates new project
-    public SubTask createNewSubTak(String subTaskName, LocalDate startDate, LocalDate endDate, LocalDate deadline,
-                                    int hoursAllocated, int whoIsLeader, String description){
-        SubTask subTask = new SubTask();
-        subTask.setName(subTaskName);
-        subTask.setStartDate(startDate);
-        subTask.setStartDate(endDate);
-        subTask.setDeadline(deadline);
-        subTask.setHoursAllocated(hoursAllocated);
-        subTask.setWhoIsLeader(whoIsLeader);
-        subTask.setProjectDescription(description);
-        return subTask;
-    }
-
     //Inserts subtask to database
     public void addSubTaskToDB(SubTask subTask, int taskid){
         repo.writeSubTaskToDB(subTask, taskid);
@@ -47,7 +33,7 @@ public class SubTaskService {
         return repo.fetchAllSubTask(taskId);
     }
 
-    //Assign member to subtask
+    //Assign member to subtask - not implementet
     public void assignMemberToSubTask(int subTaskId, int memberId){
         if (subTaskHasMember(subTaskId, memberId)){
             System.out.println("Member already assigned to project");
@@ -91,7 +77,7 @@ public class SubTaskService {
         return result;
     }
 
-    // method number 2 - can be changed to return a list of all the days between start and end
+    // method number 2 - can be changed to return a list of all the days between start and end - not implementet
     public static int countBusinessDays(SubTask subTask){
 
         Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY ||
@@ -105,24 +91,11 @@ public class SubTaskService {
     }
 
 
-    // udregning af gennemsnitlig antal arbejdstimer pr dag
+    // udregning af gennemsnitlig antal arbejdstimer pr dag - not implementet
     public float calculateHoursPrDay(SubTask subTask, int numberOfMembers){
         long result = subTask.getHoursAllocated() / calculateBusinessDays(subTask);
         return (float) result/numberOfMembers;
     }
 
-
-
-//     public void addSkillToProject(Project project, String skill){
-//        project.addSkillToProject(skill);
-//    }
-
-    public void writeProjectToDB(SubTask subTask, int taskId){
-        repo.writeSubTaskToDB(subTask, taskId);
-    }
-
-    public void deleteSubTask(int taskId){
-        repo.deleteSubTask(taskId);
-    }
 
 }
