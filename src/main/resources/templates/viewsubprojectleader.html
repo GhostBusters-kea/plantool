@@ -12,25 +12,52 @@
     <link rel="stylesheet" type="text/css" th:href="@{/custom.css}"/>
 
 
-    <title>Subproject</title>
+    <title>Sub-Project</title>
 </head>
 <body>
 <div class="container">
     <div th:replace="fragments/navbarleader"></div>
 </div>
 
-<div class="container">
-    <div>
-        <h2 th:text="${currentProject.getName()}"></h2>
-        <h5>Deadline:</h5>
-        <h5 th:text="${currentProject.getDeadline()}"></h5>
-    </div>
-    <div>
+<div class="container mt-2 mb-2 bg-light">
+    <div class="row row-col-6 justify-content">
+        <div class="col-md-auto">
+            <h2>Project:</h2>
+        </div>
 
-        <!-- Modify -->
-        <button type="button" class="btn btn-primary mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#modifyProjectModal">
-            Modify
-        </button>
+        <div class="col-2">
+            <h2 th:text="${currentProject.getName()}"></h2>
+        </div>
+    </div>
+
+    <div class="row row-col-6">
+        <div class="col-md-auto">
+            <h5>Deadline:</h5>
+        </div>
+
+        <div class="col-2">
+            <h5 th:text="${currentProject.getDeadline()}"></h5>
+        </div>
+    </div>
+
+    <div>
+        <div class="row row-col-6">
+            <div class="col-1">
+                <!-- Modify -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modifyProjectModal">
+                    Modify
+                </button>
+            </div>
+            <div class="col-2">
+                <!-- Delete -->
+                <form method="post" action="/viewsubproject/delete">
+                    <input type="hidden" th:attr="name='deleteId'" th:value="${currentProject.getId()}"/>
+                    <button type="submit" value="Submit" class="btn btn-primary">Delete</button>
+                </form>
+            </div>
+        </div>
+
+
         <!-- The Modal -->
         <div class="modal" id="modifyProjectModal">
             <div class="modal-dialog">
@@ -100,20 +127,15 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Delete -->
-    <form method="post" action="/viewsubproject/delete">
-        <input type="hidden" th:attr="name='deleteId'" th:value="${currentProject.getId()}"/>
-        <button type="submit" value="Submit" class="btn btn-primary">Delete</button>
-    </form>
 </div>
 
-<div class="container">
+<!-- subprojects -->
+
+<div class="container mt-5 mb-2 bg-light">
 
     <!-- The Create subproject Modal -->
     <div class="modal" id="modal1">
@@ -188,12 +210,20 @@
         </div>
     </div>
 
-    <h4 class="m-5">Sub-Projects</h4>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1">
-        Create Sub-Project
-    </button>
+    <div class="row row-col-4 justify-content">
+        <div class="col-md-auto mt-3">
+            <h4>Sub-Projects</h4>
+        </div>
+
+        <div class="col-2 mt-3">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1">
+                Create Sub-Project
+            </button>
+        </div>
+    </div>
+
     <div class="row">
-        <div class="col-lg-10 mt-5 mb-5">
+        <div class="col m-3">
             <table id="example" class="table table-bordered" style="width: 100%">
                 <thead>
                 <tr>

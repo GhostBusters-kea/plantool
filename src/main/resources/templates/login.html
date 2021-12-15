@@ -18,20 +18,21 @@
 
 <div class="container">
 
-    <div th:replace="fragments/navbarleader"></div>
+    <!-- Member Navbar -->
+    <div th:replace="fragments/navbarmember"></div>
 
     <div>
     <h1>Login</h1>
     <div class="container col-8">
         <form id="login-form" method="POST" action="/login">
         <div class="form-floating mb-3">
-           <input class="form-control" name="input-email" id="floatingEmail" type="text" placeholder="email">
+           <input class="form-control" name="input-email" id="floatingEmail" type="text" placeholder="Type E-mail">
             <label for="floatingEmail">E-mail</label>
         </div>
 
 
         <div class="form-floating mb-3">
-            <input class="form-control" name="input-password" id="floatingPassword" type="text" placeholder="password">
+            <input class="form-control" name="input-password" id="floatingPassword" type="password" placeholder="Type Password">
             <label for="floatingPassword">Password</label>
         </div>
 
