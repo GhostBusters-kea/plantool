@@ -7,6 +7,7 @@ import com.example.plantool.model.Task;
 import com.example.plantool.services.MemberService;
 import com.example.plantool.services.SessionService;
 import com.example.plantool.services.SubTaskService;
+import com.example.plantool.services.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ public class SubTaskController {
     MemberService memberService = new MemberService();
     SubTaskService subTaskService = new SubTaskService();
     SessionService sessionService = new SessionService();
+    TaskService taskService = new TaskService();
 
     @GetMapping("/viewsubtask")
     public String viewSubTask (Model model, HttpSession session) throws SQLException {
@@ -58,5 +60,43 @@ public class SubTaskController {
         subTaskService.addSubTaskToDB(subTask, taskId);
 
         return "redirect:/viewsubtask";
+    }
+
+    @PostMapping("/viewsubtask/modify")
+    public String modifyTask(WebRequest wr, HttpSession session){
+
+        int taskId = ((Task) session.getAttribute("currentTask")).getId();
+
+        if(wr.getParameter("newname") != ""){
+            taskService.updateTaskName(taskId, wr.getParameter("newtaskname"));
+        }
+        if(wr.getParameter("newstartDate") != ""){
+            taskService.updateTaskStartDate(taskId, LocalDate.parse(wr.getParameter("newtaskStartDate")));
+        }
+        if(wr.getParameter("newdeadline") != ""){
+            taskService.updateDeadline(taskId, LocalDate.parse(wr.getParameter("newtaskdeadline")));
+        }
+        if(wr.getParameter("newhoursAllocated") != ""){
+            taskService.updateHoursAllocated(taskId, Integer.parseInt(wr.getParameter("newtaskhoursAllocated")));
+        }
+        if(wr.getParameter("newdescription") != ""){
+            taskService.updateTaskDescription(taskId, wr.getParameter("newtaskdescription"));
+        }
+
+        return "redirect:/viewproject";
+    }
+
+    //Delete wishes from wishlist
+    @PostMapping("/viewsubtask/delete")
+    public String deleteProject(WebRequest wr, HttpSession session) throws SQLException {
+
+        if(session.getAttribute("currentTask")  != null){
+            int taskDeleteId = Integer.parseInt(wr.getParameter("deleteTaskId")); //todo id passer ikke
+            taskService.deleteTask(taskDeleteId);
+            return "redirect:/viewtask";
+
+        }else{
+            return "redirect:/viewsubtask";
+        }
     }
 }

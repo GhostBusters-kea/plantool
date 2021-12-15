@@ -90,7 +90,7 @@ public class TaskController {
     }
 
     @PostMapping("/viewtask/modify")
-    public String modifyProject(WebRequest wr, HttpSession session){
+    public String modifySubproject(WebRequest wr, HttpSession session){
 
         int subProjectId = ((SubProject) session.getAttribute("currentSubproject")).getId();
 
@@ -115,7 +115,7 @@ public class TaskController {
 
     //Delete wishes from wishlist
     @PostMapping("/viewtask/delete")
-    public String deleteProject(WebRequest wr, HttpSession session) throws SQLException {
+    public String deleteSubproject(WebRequest wr, HttpSession session) throws SQLException {
 
         if(session.getAttribute("currentSubproject")  != null){
             int subprojectDeleteId = Integer.parseInt(wr.getParameter("deleteSubprojectId")); //todo id passer ikke

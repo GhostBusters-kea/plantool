@@ -35,10 +35,13 @@ public class TaskService {
         repo.updateHoursUsed(taskid,hours);
     }
 
-    public void updatesubDescription(int taskid, String description){
+    public void updateTaskDescription(int taskid, String description){
         repo.updateDescription(taskid,description);
     }
 
+    public void deleteTask(int taskId){
+        repo.deleteTask(taskId);
+    }
     // opret ny task
     public Task createNewTask(int subprojectId, String taskName, LocalDate startDate, LocalDate endDate, LocalDate deadline,
                                     int hoursAllocated, String description){

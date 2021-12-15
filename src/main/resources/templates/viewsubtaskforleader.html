@@ -25,8 +25,95 @@
         <h5>Deadline:</h5>
         <h5 th:text="${currentTask.getDeadline()}"></h5>
     </div>
-    <div th:replace="fragments/modify"></div>
-    <div th:replace="fragments/delete"></div>
+    <!-- Modify -->
+
+    <button type="button" class="btn btn-primary mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#modifyTaskModal">
+        Modify
+    </button>
+    <!-- The Modal -->
+    <div class="modal" id="modifyTaskModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">What would you like to modify</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <div class="container" >
+                        <form action="/viewsubtask/modify"  method="post">
+                            <div class="mb-3">
+                                <label for="taskNameInput" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="taskNameInput" name="newtaskname" placeholder="Type the new name here...">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="taskDescriptionTextarea" class="form-label">Description</label>
+                                <textarea class="form-control" id="taskDescriptionTextarea" type="text" name="newtaskdescription" rows="2" placeholder="Update description.."></textarea>
+                            </div>
+
+                            <div class="md-form mb-3">
+                                <label for="KickOffInput">Change kick-off date</label>
+                                <input class="form-control" type="date" name="newtaskStartDate" id="KickOffInput">
+                            </div>
+
+                            <div class="md-form mb-3">
+                                <label for="DeadlineInput">Change deadline</label>
+                                <input class="form-control" type="date" name="newtaskdeadline" id="DeadlineInput">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="taskHoursInput" class="form-label">Update Allocated hours</label>
+                                <input type="number" class="form-control" id="taskHoursInput" name="newtaskhoursAllocated" placeholder="Update the number of allocated hours here...">
+                            </div>
+                            <!--
+                            <div class="mb-form mb-3">
+                                <label for="skill">Update assigned skills</label>
+                                <ul class="list-group" th:each="skill : ${skills}">
+                                    <li class="list-group-item" id="skill">
+                                        <input class="form-check-input me-1" type="checkbox" th:attr="name='newskill'" th:value="${skill.skillName}"
+                                               th:text="${skill.skillName}"/>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mb-form mb-3">
+                                <label for="member">Update assigned members</label>
+                                <ul class="list-group" th:each="member : ${members}">
+                                    <li class="list-group-item" id="member">
+                                        <input class="form-check-input me-1" type="checkbox" th:attr="name='newmember'" th:value="${member.name}"
+                                               th:text="${member.name}"/>
+                                    </li>
+                                </ul>
+                            </div>
+                            -->
+                            <hr>
+                            <button type="submit" value="Submit" class="btn btn-primary mb-3">Update</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete -->
+    <div>
+        <form method="post" action="/viewsubtask/delete" >
+            <input type="hidden" th:attr="name='deleteTaskId'" th:value="${currentTask.getId()}"/>
+            <button type="submit" value="Submit" class="btn btn-primary">Delete</button>
+        </form>
+    </div>
+
 </div>
 
 <h2 class="m-5">Sub-Tasks</h2>
