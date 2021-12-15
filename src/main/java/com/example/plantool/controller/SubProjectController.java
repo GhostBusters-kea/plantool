@@ -71,7 +71,8 @@ public class SubProjectController {
     @PostMapping("/viewsubproject/create")
     public String createSubProject(WebRequest wr, HttpSession session){
 
-        int projectId = (Integer) session.getAttribute("projectId");
+        Project currentProject = (Project) session.getAttribute("currentProject");
+        int projectId = currentProject.getId();
 
         String name = wr.getParameter("name");
         LocalDate startDate = LocalDate.parse(wr.getParameter("startDate"));
@@ -89,19 +90,19 @@ public class SubProjectController {
 
         int projectId = ((Project) session.getAttribute("currentProject")).getId();
 
-        if(wr.getParameter("newname") != null){
+        if(wr.getParameter("newname") != ""){
             projectService.updateProjectName(projectId, wr.getParameter("newname"));
         }
-        if(wr.getParameter("newstartDate") != null){
+        if(wr.getParameter("newstartDate") != ""){
             projectService.updateProjectStartDate(projectId, LocalDate.parse(wr.getParameter("newdeadline")));
         }
-        if(wr.getParameter("newdeadline") != null){
+        if(wr.getParameter("newdeadline") != ""){
             projectService.updateDeadline(projectId, LocalDate.parse(wr.getParameter("newdeadline")));
         }
-        if(wr.getParameter("newhoursAllocated") != null){
+        if(wr.getParameter("newhoursAllocated") != ""){
             projectService.updateHoursAllocated(projectId, Integer.parseInt(wr.getParameter("newhoursAllocated")));
         }
-        if(wr.getParameter("newdescription") != null){
+        if(wr.getParameter("newdescription") != ""){
             projectService.updateProjectDescription(projectId, wr.getParameter("newdescription"));
         }
 

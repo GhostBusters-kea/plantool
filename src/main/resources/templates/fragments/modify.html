@@ -1,11 +1,11 @@
 
 <!-- Modify -->
 
-<button type="button" class="btn btn-primary mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#myModal">
+<button type="button" class="btn btn-primary mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#modifyProjectModal">
     Modify
 </button>
 <!-- The Modal -->
-<div class="modal" id="myModal">
+<div class="modal" id="modifyProjectModal">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -44,7 +44,7 @@
                             <label for="projectHoursInput" class="form-label">Update Allocated hours</label>
                             <input type="number" class="form-control" id="projectHoursInput" name="newhoursAllocated" placeholder="Update the number of allocated hours here...">
                         </div>
-
+                        <!--
                         <div class="mb-form mb-3">
                             <label for="skill">Update assigned skills</label>
                             <ul class="list-group" th:each="skill : ${skills}">
@@ -63,6 +63,7 @@
                                 </li>
                             </ul>
                         </div>
+                        -->
                         <hr>
                         <button type="submit" value="Submit" class="btn btn-primary mb-3">Update</button>
                     </form>
