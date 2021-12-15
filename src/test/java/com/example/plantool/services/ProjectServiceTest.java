@@ -8,10 +8,16 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-// Author Lars Brogaard
+/**
+ * Author: Lars Brogaard
+ *
+ * Test 2 methods from projectservice
+ */
 
 class ProjectServiceTest {
     ProjectService service = new ProjectService();
+
+    //Test business days count / Successful test
     @Test
     void countBusinessDays() {
 
@@ -27,6 +33,7 @@ class ProjectServiceTest {
         assertEquals(5,days);
     }
 
+    //Test on calculate hours per day / Successful test
     @Test
     void calculateHoursPrDay() {
 

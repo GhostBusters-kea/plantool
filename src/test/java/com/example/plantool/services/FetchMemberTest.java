@@ -5,22 +5,27 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
+/**
+ * Author: Michael Dyvad
+ *
+ * Test findmember
+ */
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class FetchMemberTest {
-    //Er i tvivl om det er rigtigt resultat
+
+    //Test that the findmember method can find a member on email / Successful test
     @Test
     void findMember() throws SQLException {
         //Arrange
         MemberService service = new MemberService();
         String email = "kevin@mail.com";
-        String emailWrong = "wrong@mail.com";
 
         //Act
-        Member member = service.findMember(email);
-        Member memberWrong = service.findMember(emailWrong);
+        String memberFindEmail = service.findMember(email).getEmail();
 
         //Assert
-        assertEquals(member, member);
+        assertEquals(email, memberFindEmail);
     }
 }

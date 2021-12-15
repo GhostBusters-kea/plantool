@@ -4,8 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Author: Michael Dyvad
+ *
+ * Test if email exist
+ */
+
 class DoesEmailExistTest {
-    //Test worked as expected
+    //Test if an email alreadt exist in DB / Successful test
     @Test
     void doesEmailExist() {
         //Arrange
