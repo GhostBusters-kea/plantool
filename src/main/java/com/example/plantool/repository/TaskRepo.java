@@ -186,29 +186,7 @@ public class TaskRepo {
         return taskMembers;
     }
 
-    //
-    public ArrayList<Member> listMembersInTask(int taskId){
-        ArrayList<Member> projectMembers = new ArrayList<>();
 
-        try {
-            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
-                    "SELECT assignment.taskid, assignment.userid, name, email FROM assignment JOIN user ON user.userid = assignment.userid WHERE assignment.taskid="+taskId+"");
-
-            ResultSet resultSet = stmt.executeQuery();
-
-            while (resultSet.next()){
-                Member tmpMember = new Member();
-                tmpMember.setMemberId(resultSet.getInt(2));
-                tmpMember.setName(resultSet.getString(3));
-                tmpMember.setEmail(resultSet.getString(4));
-                projectMembers.add(tmpMember);
-            }
-
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-        return projectMembers;
-    }
 
     // assign a member to a task
     public void assignMemberToTask(int taskId, int memberId){

@@ -87,48 +87,6 @@ public class SubProjectService {
             return false;
         }
 
-        // method of calculating working days
-        public static long calculateBusinessDays (Project project){
-            int first = project.getStartDate().getDayOfWeek().getValue();
-            int last = project.getEndDate().getDayOfWeek().getValue();
-
-            long totalDays =
-                    ChronoUnit.DAYS.between(project.getStartDate(), project.getEndDate());
-
-            long result = totalDays - 2 * (totalDays / 7);
-
-            if (totalDays % 7 != 0) {
-                if (first == 7) {
-                    result -= 1;
-                } else if (last == 7) {
-                    result -= 1;
-                } else if (last < first) {
-                    result -= 2;
-                }
-            }
-            return result;
-        }
-
-        // method number 2 - can be changed to return a list of all the days between start and end - not implementet
-        public static int countBusinessDays (Project project){
-
-            Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY ||
-                    date.getDayOfWeek() == DayOfWeek.SUNDAY;
-
-            List<LocalDate> businessDays = project.getStartDate().datesUntil(project.getEndDate())
-                    .filter(isWeekend.negate())
-                    .collect(Collectors.toList());
-
-            return businessDays.size();
-        }
-
-
-        // calculation of average number of working hours per day - not implementet
-        public float calculateHoursPrDay (Project project,int numberOfMembers){
-            long result = project.getHoursAllocated() / calculateBusinessDays(project);
-            return (float) result / numberOfMembers;
-        }
-
         //Deletes subproject
         public void deletesubProject ( int subprojectid){
             repo.deleteSubProject(subprojectid);

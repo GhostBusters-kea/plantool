@@ -214,7 +214,7 @@ public class ProjectRepo {
     }
 
 
-    // returns list with members in a certain project
+    // returns list with members in a certain project TODO: Move to member repo
     public ArrayList<Member> listMembersInProject(int projectId){
         ArrayList<Member> projectMembers = new ArrayList<>();
 

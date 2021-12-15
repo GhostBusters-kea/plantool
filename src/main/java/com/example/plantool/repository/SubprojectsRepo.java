@@ -127,7 +127,7 @@ public class SubprojectsRepo {
 
 
 
-    // Creates subproject in database
+    // Creates subproject in database TODO: Change Project to projectId
     public void writeSubProjectToDB(Project project, int projectid){
         try{
             PreparedStatement stmt =
@@ -197,29 +197,6 @@ public class SubprojectsRepo {
         return projectMembers;
     }
 
-    // Returns a list with members in subproject - Not implementet
-    public ArrayList<Member> listMembersInSubProject(int subProjectId){
-        ArrayList<Member> projectMembers = new ArrayList<>();
-
-        try {
-            PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
-                    "SELECT assignment.projectid, assignment.userid, name, email FROM assignment JOIN user ON user.userid = assignment.userid WHERE assignment.subprojectid="+subProjectId+"");
-
-            ResultSet resultSet = stmt.executeQuery();
-
-            while (resultSet.next()){
-                Member tmpMember = new Member();
-                tmpMember.setMemberId(resultSet.getInt(2));
-                tmpMember.setName(resultSet.getString(3));
-                tmpMember.setEmail(resultSet.getString(4));
-                projectMembers.add(tmpMember);
-            }
-
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-        return projectMembers;
-    }
 
 
     // Assign a member to subproject
