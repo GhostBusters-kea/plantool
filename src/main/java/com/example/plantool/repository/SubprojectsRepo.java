@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Author: Lars Brogaard
+ * Author: Jonas Munk
  *
  * Subproject repository data querie
  */
