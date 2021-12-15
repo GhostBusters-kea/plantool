@@ -26,7 +26,10 @@
         <h5 th:text="${currentProject.getDeadline()}"></h5>
     </div>
     <div th:replace="fragments/modify"></div>
-    <div th:replace="fragments/delete"></div>
+    <form method="post" action="/viewsubproject/delete">
+        <input type="hidden" th:attr="name='deleteId'" th:value="${currentProject.getId()}"/>
+        <button type="submit" value="Submit" class="btn btn-primary">Delete</button>
+    </form>
 </div>
 
 <div class="container">
@@ -68,9 +71,9 @@
 
                             <div class="mb-3">
                                 <label for="projectHoursInput" class="form-label">Allocated hours</label>
-                                <input type="number" class="form-control" id="projectHoursInput" name="hoursAllocated" placeholder="Type the number of allocated hours for this project here...">
+                                <input type="number" class="form-control" id="projectHoursInput" name="newhoursAllocated" placeholder="Type the number of allocated hours for this project here...">
                             </div>
-
+                            <!--
                             <div class="mb-form mb-3">
                                 <label for="skill">Select which skills to assign this sub-project</label>
                                 <ul class="list-group" th:each="skill : ${skills}">
@@ -89,6 +92,7 @@
                                     </li>
                                 </ul>
                             </div>
+                            -->
                             <hr>
                             <button type="submit" value="Submit" class="btn btn-primary mb-3">Create</button>
                         </form>

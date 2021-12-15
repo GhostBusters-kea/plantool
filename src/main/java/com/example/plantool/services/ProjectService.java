@@ -63,6 +63,10 @@ public class ProjectService {
 
     }
 
+    public void deleteProject(int projectId){
+        repo.deleteProject(projectId);
+    }
+
     public void addProjectToDb(Project project) {
         repo.writeProjectToDB(project);
     }
@@ -135,14 +139,18 @@ public class ProjectService {
 
         Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY ||
                 date.getDayOfWeek() == DayOfWeek.SUNDAY;
-
-        List<LocalDate> businessDays = project.getStartDate().datesUntil(project.getEndDate())
-                .filter(isWeekend.negate())
-                .collect(Collectors.toList());
-        if (businessDays.size() == 0) {
-            return 1;
-        } else {
-            return businessDays.size();
+        try{
+            List<LocalDate> businessDays = project.getStartDate().datesUntil(project.getEndDate())
+                    .filter(isWeekend.negate())
+                    .collect(Collectors.toList());
+            if (businessDays.size() == 0) {
+                return 1;
+            } else {
+                return businessDays.size();
+            }
+        }
+        catch(IllegalArgumentException ex){
+            return 0;
         }
     }
 

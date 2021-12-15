@@ -106,7 +106,7 @@ public class ProjectController {
 
     @PostMapping("/viewproject")
     public String postSubProject(WebRequest wr, HttpSession session) throws SQLException{
-        int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
+        // int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
         int projectId = Integer.parseInt(wr.getParameter("projectId"));
 
         ArrayList<Project> projects = (ArrayList<Project>) session.getAttribute("projects");

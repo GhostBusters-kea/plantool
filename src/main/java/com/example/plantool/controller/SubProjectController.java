@@ -2,7 +2,6 @@ package com.example.plantool.controller;
 
 import com.example.plantool.model.Project;
 import com.example.plantool.model.SubProject;
-import com.example.plantool.services.MemberService;
 import com.example.plantool.services.ProjectService;
 import com.example.plantool.services.SessionService;
 import com.example.plantool.services.SubProjectService;
@@ -11,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
-
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -89,35 +87,40 @@ public class SubProjectController {
     @PostMapping("/viewsubproject/modify")
     public String modifyProject(WebRequest wr, HttpSession session){
 
-        // Request project attributes
-        int projectId = (Integer) session.getAttribute("projectId");
-        String name = wr.getParameter("newname");
-        LocalDate startDate = LocalDate.parse(wr.getParameter("newstartDate"));
-        LocalDate deadline = LocalDate.parse(wr.getParameter("newdeadline"));
-        int hoursAllocated = Integer.parseInt(wr.getParameter("newhoursAllocated"));
-        String projectDescription = wr.getParameter("newdescription");
+        int projectId = ((Project) session.getAttribute("currentProject")).getId();
 
-        // Update project
-
-        if(name != null){
-            projectService.updateProjectName(projectId, name);
+        if(wr.getParameter("newname") != null){
+            projectService.updateProjectName(projectId, wr.getParameter("newname"));
         }
-        if(startDate != null){
-            projectService.updateProjectStartDate(projectId, startDate);
+        if(wr.getParameter("newstartDate") != null){
+            projectService.updateProjectStartDate(projectId, LocalDate.parse(wr.getParameter("newdeadline")));
         }
-        if(deadline != null){
-            projectService.updateDeadline(projectId, deadline);
+        if(wr.getParameter("newdeadline") != null){
+            projectService.updateDeadline(projectId, LocalDate.parse(wr.getParameter("newdeadline")));
         }
-        if(hoursAllocated != 0){
-            projectService.updateHoursAllocated(projectId, hoursAllocated);
+        if(wr.getParameter("newhoursAllocated") != null){
+            projectService.updateHoursAllocated(projectId, Integer.parseInt(wr.getParameter("newhoursAllocated")));
         }
-        if(projectDescription != null){
-            projectService.updateProjectDescription(projectId, projectDescription);
+        if(wr.getParameter("newdescription") != null){
+            projectService.updateProjectDescription(projectId, wr.getParameter("newdescription"));
         }
 
         return "redirect:/viewproject";
     }
 
+    //Delete wishes from wishlist
+    @PostMapping("/viewsubproject/delete")
+    public String deleteProject(WebRequest wr, HttpSession session) throws SQLException {
+
+        if(session.getAttribute("currentProject")  != null){
+            int deleteId = Integer.parseInt(wr.getParameter("deleteId"));
+            projectService.deleteProject(deleteId);
+            return "redirect:/viewproject";
+
+        }else{
+            return "redirect:/viewsubproject";
+        }
+    }
 
 }
 
