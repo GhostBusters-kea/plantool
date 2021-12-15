@@ -11,11 +11,11 @@ import java.util.ArrayList;
 public class Member {
 
     // Private fields
-    private int userId;
+    private int memberId;
     private String name;
     private String email;
     private String password;
-    private ArrayList<String> skills;
+    private ArrayList<Skill> skills;
     private int isLeader;
 
     // Initial Constructor
@@ -38,11 +38,11 @@ public class Member {
 
     // Getters and Setters
     public int getMemberId() {
-        return userId;
+        return memberId;
     }
 
-    public void setMemberId(int userId) {
-        this.userId = userId;
+    public void setMemberId(int memberId) {
+        this.memberId = memberId;
     }
 
     public String getName() {
@@ -69,11 +69,11 @@ public class Member {
         this.password = password;
     }
 
-    public ArrayList<String> getSkills() {
+    public ArrayList<Skill> getSkills() {
         return skills;
     }
 
-    public void setSkills(ArrayList<String> skills) {
+    public void setSkills(ArrayList<Skill> skills) {
         this.skills = skills;
     }
 
@@ -89,7 +89,7 @@ public class Member {
     @Override
     public String toString() {
         return "Member{" +
-                "userId=" + userId +
+                "memberId=" + memberId +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
