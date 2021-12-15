@@ -1,10 +1,18 @@
+
 package com.example.plantool.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Author: Jonas Munk
+ *
+ * Class for project model
+ */
+
 
 public class Project {
 
+    // Fields of Project. All attributes are protected since SubProject, Task and SubTask inherits from Project
     protected int id;
     protected String name;
     protected LocalDate startDate;
@@ -20,7 +28,7 @@ public class Project {
     protected ArrayList<Skill> skillsAllocated;
     protected String projectDescription;
 
-
+    // Constructor
     public Project(String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, int whoIsLeader, int hoursAllocated, String projectDescription) {
         this.name = name;
         this.startDate = startDate;
@@ -31,6 +39,7 @@ public class Project {
         this.projectDescription = projectDescription;
     }
 
+    // Overloaded constructor
     public Project(String name, LocalDate startDate, LocalDate endDate, LocalDate deadline, int hoursAllocated, String projectDescription) {
         this.name = name;
         this.startDate = startDate;
@@ -40,9 +49,11 @@ public class Project {
         this.projectDescription = projectDescription;
     }
 
+    // No-Args constructor
     public Project() {
     }
 
+    // Getters and setters
     public int getId() {
         return id;
     }
@@ -155,6 +166,7 @@ public class Project {
         this.projectDescription = projectDescription;
     }
 
+    // Overridden toString method
     @Override
     public String toString() {
         return "Project{" +

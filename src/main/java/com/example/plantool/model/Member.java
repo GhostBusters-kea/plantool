@@ -2,7 +2,15 @@ package com.example.plantool.model;
 
 import java.util.ArrayList;
 
+/**
+ * Author: Kevin Funch
+ *
+ * Model Member Class
+ */
+
 public class Member {
+
+    // Private fields
     private int userId;
     private String name;
     private String email;
@@ -10,12 +18,14 @@ public class Member {
     private ArrayList<String> skills;
     private int isLeader;
 
+    // Initial Constructor
     public Member(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
+    // Overloaded constructor
     public Member(String name, String email, String password, int isLeader) {
         this.name = name;
         this.email = email;
@@ -23,8 +33,10 @@ public class Member {
         this.isLeader = isLeader;
     }
 
+    // No-Args constructor
     public Member(){}
 
+    // Getters and Setters
     public int getMemberId() {
         return userId;
     }
@@ -73,6 +85,7 @@ public class Member {
         this.isLeader = isLeader;
     }
 
+    // Overridden toString method
     @Override
     public String toString() {
         return "Member{" +
