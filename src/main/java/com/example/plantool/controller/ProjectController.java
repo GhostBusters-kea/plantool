@@ -17,6 +17,11 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Author: Jonas Munk
+ *
+ * Controller for project
+ */
 
 @Controller
 public class ProjectController {
@@ -25,7 +30,7 @@ public class ProjectController {
     SkillService skillService = new SkillService();
     SessionService sessionService = new SessionService();
 
-
+    // View endpoint to create project
     @GetMapping("/createproject")
     public String createProjectGet(HttpSession session, Model model) throws SQLException {
         String mapping = sessionService.inSession(model, session, "createproject");
@@ -47,6 +52,7 @@ public class ProjectController {
 
     }
 
+    //Post mapping for create project
     @PostMapping("/createproject")
     public String createProjectPost(HttpSession session, WebRequest wr) throws SQLException, InterruptedException {
         int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
@@ -77,6 +83,7 @@ public class ProjectController {
         return "redirect:/viewproject";
     }
 
+    // view endpoint for project
     @GetMapping("/viewproject")
     public String projectOverview(Model model, HttpSession session) throws SQLException {
         String mappingLeader = sessionService.inSession(model, session, "viewprojectforleader");
@@ -104,6 +111,7 @@ public class ProjectController {
         }
     }
 
+    // Postmapping for view project
     @PostMapping("/viewproject")
     public String postSubProject(WebRequest wr, HttpSession session) throws SQLException{
         // int leaderId = Integer.parseInt(session.getAttribute("userid").toString());

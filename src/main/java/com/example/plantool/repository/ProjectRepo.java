@@ -11,10 +11,15 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
+/**
+ * Author: Lars Brogaard
+ *
+ * Projectrepo for data queries
+ */
 
 public class ProjectRepo {
 
+    //Update project name
     public void updateProjectName(int projectid, String projectname){
 
         try{
@@ -29,6 +34,7 @@ public class ProjectRepo {
         }
     }
 
+    //Update project start date
     public void updateProjectStartDate(int projectid, LocalDate startdate){
 
         try{
@@ -43,7 +49,7 @@ public class ProjectRepo {
         }
 
     }
-
+    //Update project end date
     public void updateProjectEndDate(int projectid, LocalDate enddate){
 
         try{
@@ -58,6 +64,7 @@ public class ProjectRepo {
         }
     }
 
+    //update project deadline
     public void updateProjectDeadline(int projectid, LocalDate deadline){
 
         try{
@@ -72,6 +79,7 @@ public class ProjectRepo {
         }
     }
 
+    //Update hours allocated
     public void updateHoursAllocated(int projectid, int hours){
 
         try{
@@ -86,6 +94,7 @@ public class ProjectRepo {
         }
     }
 
+    //Update hours used
     public void updateHoursUsed(int projectid, int hours){
 
         try{
@@ -100,6 +109,7 @@ public class ProjectRepo {
         }
     }
 
+    //Update description
     public void updateDescription(int projectid, String description){
 
         try{
@@ -114,6 +124,7 @@ public class ProjectRepo {
         }
     }
 
+    //Inserts a new project to database
     public void writeProjectToDB(Project project){
 
         try{
@@ -137,6 +148,7 @@ public class ProjectRepo {
         }
     }
 
+    //Fetches single project on project name
     public int fetchSingleProjectId(String projectName){
         int id = 0;
         try{
@@ -154,7 +166,7 @@ public class ProjectRepo {
         return id;
     }
 
-    // hent enkelt projekt
+    // Fetch single project
     public Project fetchSingleProject(int projectid){
         Project tmpProject = new Project();
         try{
@@ -183,7 +195,7 @@ public class ProjectRepo {
         return tmpProject;
     }
 
-    // returnerer liste med deltagerid i et bestemt projekt
+    // returns list with memberid in a certain project
     public ArrayList<Integer> membersInProject(int projectId){
         ArrayList<Integer> projectMembers = new ArrayList<>();
 
@@ -202,7 +214,7 @@ public class ProjectRepo {
     }
 
 
-    // returnerer liste med deltagere i et bestemt projekt
+    // returns list with members in a certain project
     public ArrayList<Member> listMembersInProject(int projectId){
         ArrayList<Member> projectMembers = new ArrayList<>();
 
@@ -226,7 +238,7 @@ public class ProjectRepo {
         return projectMembers;
     }
 
-    // knytter projektdeltager til bestemt projekt
+    // Assigns members to a project
     public void assignMemberToProject(int projectId, int memberId){
 
         try{
@@ -242,7 +254,7 @@ public class ProjectRepo {
         }
     }
 
-    // slet project
+    // delete project on projectid
     public void deleteProject(int projectId){
 
         try {
@@ -256,7 +268,7 @@ public class ProjectRepo {
 
     }
 
-    // returnerer liste med alle projekter
+    // Returns an arraylist with all projects
     public ArrayList<Project> fetchAllProjects(){
 
         ArrayList<Project> allProjects = new ArrayList<>();

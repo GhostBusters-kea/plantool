@@ -11,8 +11,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Author: Kevin Funch
+ *
+ * Member repository for data queries
+ */
+
 public class MemberRepo {
 
+    //Inserts members in database
     public void insertMemberToDB (Member member){
 
         try{
@@ -78,6 +85,7 @@ public class MemberRepo {
         return tmpMember;
     }
 
+    //Finds a single member on id
     public Member findMemberById (int id) throws SQLException {
         Member tmpMember = new Member(null,null, null, 0);
 
@@ -95,6 +103,7 @@ public class MemberRepo {
         return tmpMember;
     }
 
+    //Finds single member by name
     public Member findMemberByName (String name) throws SQLException {
 
         Member tmpMember = new Member(null,null, null, 0);
@@ -113,7 +122,7 @@ public class MemberRepo {
         return tmpMember;
     }
 
-
+    //Extract if a member is leader on String email
     public void isLeaderBoolean(boolean isLeader, String email){
         try{
             int leaderBoolean = isLeader ? 1 : 0;

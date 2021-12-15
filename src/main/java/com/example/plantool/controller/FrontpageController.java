@@ -8,11 +8,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
+/**
+ * Author: Michael Dyvad
+ *
+ * Controller for frontpage
+ */
+
 @Controller
 public class FrontpageController {
     SessionService sessionService = new SessionService();
 
-
+    //View frontpage for leader or member
     @GetMapping("/frontpage")
     public String index(HttpSession session, Model model) throws SQLException {
         String mappingLeader = sessionService.inSession(model, session, "indexleader");
@@ -25,6 +31,7 @@ public class FrontpageController {
         }
     }
 
+    //General / endpoint for anyone also non members/leaders
     @GetMapping("/")
     public String frontpage(){
         return "frontpage";

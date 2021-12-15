@@ -18,6 +18,12 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Author: Michael Dyvad
+ *
+ * Skill model class
+ */
+
 @Controller
 public class TaskController {
     MemberService memberService = new MemberService();
@@ -25,6 +31,7 @@ public class TaskController {
     SessionService sessionService = new SessionService();
     SubProjectService subProjectService = new SubProjectService();
 
+    //Endpoint to view a task
     @GetMapping("/viewtask")
     public String viewTask (Model model, HttpSession session) throws SQLException{
         String mappingLeader = sessionService.inSession(model, session, "viewtaskforleader");
@@ -48,6 +55,7 @@ public class TaskController {
         }
     }
 
+    //Post mapping for view task
     @PostMapping("/viewtask")
     public String postTask(WebRequest wr, HttpSession session) throws SQLException{
         int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
@@ -68,12 +76,13 @@ public class TaskController {
     }
 
 
+    //view endpoint for create task
     @GetMapping("/createtask")
     public String createTaskGet(HttpSession session){
         return "createtask";
     }
 
-
+    // Postmapping  for create task
     @PostMapping("/viewtask/create")
     public String createTaskPost(HttpSession session, WebRequest wr){
         int subprojectId = (Integer) session.getAttribute("subprojectId");
@@ -89,6 +98,7 @@ public class TaskController {
         return "redirect:/viewtask";
     }
 
+    //Postmapping for modify subproject
     @PostMapping("/viewtask/modify")
     public String modifySubproject(WebRequest wr, HttpSession session){
 
@@ -101,7 +111,7 @@ public class TaskController {
             subProjectService.updateProjectStartDate(subProjectId, LocalDate.parse(wr.getParameter("newsubprojectStartDate")));
         }
         if(wr.getParameter("newdeadline") != ""){
-            subProjectService.updateDeadline(subProjectId, LocalDate.parse(wr.getParameter("newsubprojectdeadline")));
+            subProjectService.updateSubDeadline(subProjectId, LocalDate.parse(wr.getParameter("newsubprojectdeadline")));
         }
         if(wr.getParameter("newhoursAllocated") != ""){
             subProjectService.updateHoursAllocated(subProjectId, Integer.parseInt(wr.getParameter("newsubprojecthoursAllocated")));
@@ -113,7 +123,7 @@ public class TaskController {
         return "redirect:/viewproject";
     }
 
-    //Delete wishes from wishlist
+    //Deletes a subproject
     @PostMapping("/viewtask/delete")
     public String deleteSubproject(WebRequest wr, HttpSession session) throws SQLException {
 

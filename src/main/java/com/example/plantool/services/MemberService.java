@@ -2,11 +2,14 @@ package com.example.plantool.services;
 
 import com.example.plantool.model.Member;
 import com.example.plantool.repository.MemberRepo;
-import org.springframework.ui.Model;
-
-import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+/**
+ * Author: Kevin Funch
+ *
+ * Member service for funktionality
+ */
 
 public class MemberService {
     MemberRepo memberRepo = new MemberRepo();
@@ -78,23 +81,28 @@ public class MemberService {
         return validLogin;
     }
 
+    // get all members
     public ArrayList<Member> getAllMembers(){
         ArrayList<Member> members = memberRepo.findAllMembers();
         return members;
     }
 
+    // finds member on email
     public Member findMember(String email) throws SQLException {
         return memberRepo.findMember(email);
     }
 
+    // Finds  member by id
     public Member memberById(int id) throws SQLException {
         return memberRepo.findMemberById(id);
     }
 
+    //Finds member by name
     public Member memberByName(String name) throws SQLException {
         return memberRepo.findMemberByName(name);
     }
 
+    //Extracts if member is leader
     public void isLeaderBoolean(boolean isLeader, String email){
         memberRepo.isLeaderBoolean(isLeader, email);
     }

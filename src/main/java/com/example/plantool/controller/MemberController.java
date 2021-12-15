@@ -14,11 +14,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Author: Kevin Funch
+ *
+ * Controller for members
+ */
+
 @Controller
 public class MemberController {
     MemberService memberService = new MemberService();
     SkillService skillService = new SkillService();
 
+    //Endpoint for create member
     @GetMapping("/createmember")
     public String createMemberGetMap(Model model) throws SQLException {
 
@@ -26,6 +33,8 @@ public class MemberController {
         model.addAttribute("skills", skilllist);
         return "createmember";
     }
+
+    // Postmapping for create member end point
     @PostMapping("/createmember")
     public String createMemberPostMap(WebRequest wr) throws SQLException, InterruptedException {
 
@@ -43,17 +52,20 @@ public class MemberController {
         return "redirect:/createmembersucces";
     }
 
+    //Used for redirection from the postmapping createmember
     @GetMapping("/createmembersucces")
     public String memberSuccess(){
         return "createmembersucces";
     }
 
+    // Endpoint for login
     @GetMapping("/login")
     public String login() throws SQLException {
 
         return "login";
     }
 
+    //Post mapping for login
     @PostMapping("/login")
     public String login(WebRequest wr, HttpSession session) throws SQLException {
 

@@ -19,6 +19,12 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Author: Lars Brogaard
+ *
+ * Controller for subtask
+ */
+
 @Controller
 public class SubTaskController {
     MemberService memberService = new MemberService();
@@ -26,6 +32,7 @@ public class SubTaskController {
     SessionService sessionService = new SessionService();
     TaskService taskService = new TaskService();
 
+    //Endpoint to view a subtask
     @GetMapping("/viewsubtask")
     public String viewSubTask (Model model, HttpSession session) throws SQLException {
         String mappingLeader = sessionService.inSession(model, session, "viewsubtaskforleader");
@@ -47,6 +54,7 @@ public class SubTaskController {
         }
     }
 
+    //Postmapping for viewsubtask
     @PostMapping("/viewsubtask")
     public String createTaskPost(HttpSession session, WebRequest wr){
         int taskId = (Integer) session.getAttribute("taskId");
@@ -62,6 +70,7 @@ public class SubTaskController {
         return "redirect:/viewsubtask";
     }
 
+    //Postmapping to modify task
     @PostMapping("/viewsubtask/modify")
     public String modifyTask(WebRequest wr, HttpSession session){
 
@@ -86,7 +95,7 @@ public class SubTaskController {
         return "redirect:/viewproject";
     }
 
-    //Delete wishes from wishlist
+    //Delete task
     @PostMapping("/viewsubtask/delete")
     public String deleteProject(WebRequest wr, HttpSession session) throws SQLException {
 

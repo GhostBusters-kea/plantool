@@ -15,6 +15,12 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Author: Jonas Munk
+ *
+ * Controller for subproject
+ */
+
 @Controller
 public class SubProjectController {
     ProjectService projectService = new ProjectService();
@@ -22,6 +28,7 @@ public class SubProjectController {
     SessionService sessionService = new SessionService();
 
 
+    // view end point for subproject
    @GetMapping("/viewsubproject")
     public String subProjectOverview(Model model, HttpSession session) throws SQLException {
        String mappingLeader = sessionService.inSession(model, session, "viewsubprojectleader");
@@ -45,6 +52,7 @@ public class SubProjectController {
         }
     }
 
+    // postmapping for viewsubproject
     @PostMapping("/viewsubproject")
     public String postSubProject(WebRequest wr, HttpSession session) {
         // int leaderId = Integer.parseInt(session.getAttribute("userid").toString());
@@ -68,6 +76,7 @@ public class SubProjectController {
         }
     }
 
+    //Postmapping to create a new subproject
     @PostMapping("/viewsubproject/create")
     public String createSubProject(WebRequest wr, HttpSession session){
 
@@ -85,6 +94,7 @@ public class SubProjectController {
         return "redirect:/viewsubproject";
     }
 
+    //Postmapping to modify project
     @PostMapping("/viewsubproject/modify")
     public String modifyProject(WebRequest wr, HttpSession session){
 
@@ -109,7 +119,7 @@ public class SubProjectController {
         return "redirect:/viewproject";
     }
 
-    //Delete wishes from wishlist
+    //Delete project
     @PostMapping("/viewsubproject/delete")
     public String deleteProject(WebRequest wr, HttpSession session) throws SQLException {
 
