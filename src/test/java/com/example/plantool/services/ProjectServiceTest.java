@@ -7,6 +7,9 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
+// Author Lars Brogaard
+
 class ProjectServiceTest {
     ProjectService service = new ProjectService();
     @Test
@@ -34,15 +37,11 @@ class ProjectServiceTest {
         project.setEndDate(LocalDate.of(2021,12,21));
 
         // Act
-        //float
+        float hours = service.calculateHoursPrDay(project,1);
 
-
-
-
+        // Assert
+        assertEquals(4,hours);
 
     }
 
-    @Test
-    void daysUntilDeadline() {
-    }
 }
