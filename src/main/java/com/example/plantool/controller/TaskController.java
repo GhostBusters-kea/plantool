@@ -5,6 +5,7 @@ import com.example.plantool.model.SubProject;
 import com.example.plantool.model.Task;
 import com.example.plantool.services.MemberService;
 import com.example.plantool.services.SessionService;
+import com.example.plantool.services.SubProjectService;
 import com.example.plantool.services.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ public class TaskController {
     MemberService memberService = new MemberService();
     TaskService taskService = new TaskService();
     SessionService sessionService = new SessionService();
+    SubProjectService subProjectService = new SubProjectService();
 
     @GetMapping("/viewtask")
     public String viewTask (Model model, HttpSession session) throws SQLException{
@@ -85,6 +87,44 @@ public class TaskController {
         taskService.addTaskToDb(task, subprojectId);
 
         return "redirect:/viewtask";
+    }
+
+    @PostMapping("/viewtask/modify")
+    public String modifyProject(WebRequest wr, HttpSession session){
+
+        int subProjectId = ((SubProject) session.getAttribute("currentSubproject")).getId();
+
+        if(wr.getParameter("newname") != ""){
+            subProjectService.updatesubProjectName(subProjectId, wr.getParameter("newsubprojectname"));
+        }
+        if(wr.getParameter("newstartDate") != ""){
+            subProjectService.updateProjectStartDate(subProjectId, LocalDate.parse(wr.getParameter("newsubprojectStartDate")));
+        }
+        if(wr.getParameter("newdeadline") != ""){
+            subProjectService.updateDeadline(subProjectId, LocalDate.parse(wr.getParameter("newsubprojectdeadline")));
+        }
+        if(wr.getParameter("newhoursAllocated") != ""){
+            subProjectService.updateHoursAllocated(subProjectId, Integer.parseInt(wr.getParameter("newsubprojecthoursAllocated")));
+        }
+        if(wr.getParameter("newdescription") != ""){
+            subProjectService.updatesubProjectDescription(subProjectId, wr.getParameter("newsubprojectdescription"));
+        }
+
+        return "redirect:/viewproject";
+    }
+
+    //Delete wishes from wishlist
+    @PostMapping("/viewtask/delete")
+    public String deleteProject(WebRequest wr, HttpSession session) throws SQLException {
+
+        if(session.getAttribute("currentSubproject")  != null){
+            int subprojectDeleteId = Integer.parseInt(wr.getParameter("deleteSubprojectId")); //todo id passer ikke
+            subProjectService.deletesubProject(subprojectDeleteId);
+            return "redirect:/viewsubproject";
+
+        }else{
+            return "redirect:/viewtask";
+        }
     }
 }
 
