@@ -8,8 +8,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Author: Kevin Funch
+ *
+ * Test if a password is valid
+ */
+
 class isPassValidTest {
-/*
+
+    //Testing a passwords validation / Successful test
     @Test
     void isPassValid() {
 
@@ -31,5 +38,4 @@ class isPassValidTest {
     }
 
 
- */
 }
