@@ -1,10 +1,8 @@
 package com.example.plantool.controller;
 
 
-import com.example.plantool.model.SubProject;
 import com.example.plantool.model.SubTask;
 import com.example.plantool.model.Task;
-import com.example.plantool.services.MemberService;
 import com.example.plantool.services.SessionService;
 import com.example.plantool.services.SubTaskService;
 import com.example.plantool.services.TaskService;
@@ -27,7 +25,6 @@ import java.util.ArrayList;
 
 @Controller
 public class SubTaskController {
-    MemberService memberService = new MemberService();
     SubTaskService subTaskService = new SubTaskService();
     SessionService sessionService = new SessionService();
     TaskService taskService = new TaskService();
