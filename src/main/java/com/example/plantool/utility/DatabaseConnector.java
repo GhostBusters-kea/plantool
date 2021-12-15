@@ -5,6 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
+/**
+ * Author: Michael Dyvad
+ *
+ * Database connector
+ */
+
 public class DatabaseConnector {
 
     private static String url;

@@ -6,10 +6,15 @@ import com.example.plantool.repository.SkillRepo;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Author: Jonas Munk
+ *
+ * Skill service for funktionality
+ */
 public class SkillService {
     SkillRepo skillRepo = new SkillRepo();
 
-    // checker om kompetencen allerede findes i databassen
+    // checks if the competence already exists in the database
     public boolean doesSkillExist(String skillName){
         for(int i = 0; i < skillRepo.findAllSkills().size(); i++){
             if(skillRepo.findAllSkills().get(i).getSkillName().equals(skillName)){
@@ -19,7 +24,7 @@ public class SkillService {
         return false;
     }
 
-    // checker om projektdeltager allerede har en bestemt kompetence
+    // checks if the project participant already has a certain competence
     public boolean memberHasSkill(int memberId, int skillId){
         for(int i = 0; i < skillRepo.findMemberSkills(memberId).size(); i++){
             if(skillRepo.findMemberSkills(memberId).get(i).getSkillId()==skillId){
@@ -29,7 +34,7 @@ public class SkillService {
         return false;
     }
 
-    // checker om et project allerede er tildelt en bestemt kompetence
+    // checks whether a project has already been assigned a specific competency
     public boolean projectHasSkill(int projectId, int skillId){
         for(int i = 0; i < skillRepo.findProjectSkills(projectId).size(); i++){
             if(skillRepo.findProjectSkills(projectId).get(i).getSkillId()==skillId){
@@ -43,7 +48,7 @@ public class SkillService {
         return skillRepo.findProjectSkills(projectId);
     }
 
-    // opret ny kompetence
+    // Create new skill
     public void createSkill(String skillName){
 
         if (doesSkillExist(skillName)){
@@ -54,7 +59,7 @@ public class SkillService {
         }
     }
 
-    // knytter kompetence til projektdeltager
+    // Assign skill to a member
     public void assignSkillToMember(int memberId, int skillId){
 
         if (memberHasSkill(memberId, skillId)){
@@ -67,7 +72,7 @@ public class SkillService {
     }
 
 
-    // knytter kompetence til project
+    // Assign skill to project
     public void assignSkillToProject(int projectId, int skillId){
         if (projectHasSkill(projectId, skillId)){
             System.out.println("Skill already exists");
@@ -78,17 +83,17 @@ public class SkillService {
         }
     }
 
-    // returnere en liste med alle kompetencer
+    // Returns a list with all skills
     public ArrayList<Skill> fetchAllSkills(){
         return skillRepo.findAllSkills();
     }
 
-    // returnere bestemt kompetence på navn
+    // Return skill on name
     public Skill fetchSkillByName(String skillName) {
         return skillRepo.findSkillByName(skillName);
     }
 
-    // returnere liste med kompetencerne på en bestemt projektdeltager
+    // return list of competencies of a particular project participant
     public ArrayList<Skill> fetchMemberSkills(int memberId) {
         ArrayList<Skill> memberSkills = skillRepo.findMemberSkills(memberId);
         return memberSkills;

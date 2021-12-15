@@ -7,9 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Author: Jonas Munk
+ *
+ * Skill repository data queries
+ */
+
 public class SkillRepo {
 
-    // opret kompetence
+    // Creates a skill
     public void insertSkillToDB (String skillName){
 
         try{
@@ -24,7 +30,7 @@ public class SkillRepo {
         }
     }
 
-    // knytter kompetence til projektdeltager
+    // Assigns a skill to a member
     public void assignSkillToMember(int memberId, int skillId){
 
         try{
@@ -41,7 +47,7 @@ public class SkillRepo {
         }
     }
 
-    // knytter kompetence til projekt
+    // Assign skill to a project
     public void assignSkillToProject(int projectId, int skillId){
 
         try{
@@ -58,7 +64,7 @@ public class SkillRepo {
         }
     }
 
-    // returnere liste med alle kompetencer
+    // Returns a list with all skills
     public ArrayList<Skill> findAllSkills (){
 
         ArrayList<Skill> skills = new ArrayList<>();
@@ -81,7 +87,7 @@ public class SkillRepo {
         return skills;
     }
 
-    // returnerer enkelt kompetence på ID
+    // Returns a single skill on skillid
     public Skill findSkillById(int skillId) {
         Skill skill = new Skill();
         try{
@@ -100,7 +106,7 @@ public class SkillRepo {
     }
 
 
-    // returnere enkelt kompetence på navn
+    // Returns a single skill on name
     public Skill findSkillByName(String skillName) {
         Skill skill = new Skill();
 
@@ -121,7 +127,7 @@ public class SkillRepo {
     }
 
 
-    // returnerer liste med kompetencer på en bestemt projektdeltager
+    // Returns list with skills on a certain project member
     public ArrayList<Skill> findMemberSkills(int memberId){
 
         ArrayList<Skill> memberSkills = new ArrayList<>();
@@ -146,7 +152,7 @@ public class SkillRepo {
         return memberSkills;
     }
 
-    // returnerer liste med kompetencer på et bestemt projekt
+    // Returns a list with skills on a certain project
     public ArrayList<Skill> findProjectSkills(int projectId){
 
         ArrayList<Skill> projectSkills = new ArrayList<>();

@@ -11,9 +11,15 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Author: Michael Dyvad
+ *
+ * Task repository data querie
+ */
+
 public class TaskRepo {
 
-    // opdater navn
+    // Update task name
     public void updateTaskName(int taskid, String taskname){
         try{
             PreparedStatement stmt =
@@ -27,7 +33,7 @@ public class TaskRepo {
         }
     }
 
-    // opdate startdato
+    // Update startdate
     public void updateTaskStartDate(int taskid, LocalDate startdate){
         try{
             PreparedStatement stmt =
@@ -41,7 +47,7 @@ public class TaskRepo {
         }
     }
 
-    // opdate slutdato
+    // Update end date
     public void updateTaskEndDate(int taskid, LocalDate enddate){
         try{
             PreparedStatement stmt =
@@ -55,7 +61,7 @@ public class TaskRepo {
         }
     }
 
-    // opdater deadline
+    // Update deadline
     public void updateTaskDeadline(int taskid, LocalDate deadline){
 
         try{
@@ -70,7 +76,7 @@ public class TaskRepo {
         }
     }
 
-    // opdater allokeret tid
+    // Update allocated hours
     public void updateHoursAllocated(int taskid, int hours){
 
         try{
@@ -84,7 +90,7 @@ public class TaskRepo {
         }
     }
 
-    // opdater tid brugt
+    // Update hours used
     public void updateHoursUsed(int taskid, int hours){
 
         try{
@@ -98,7 +104,7 @@ public class TaskRepo {
         }
     }
 
-    // opdater beskrivelse
+    // Update description
     public void updateDescription(int taskid, String description){
 
         try{
@@ -112,7 +118,7 @@ public class TaskRepo {
         }
     }
 
-
+    // Create task in database
     public void writeTaskToDB(Task task, int subprojectId){
         try{
             PreparedStatement stmt =
@@ -135,7 +141,7 @@ public class TaskRepo {
         }
     }
 
-    // hent enkelt task
+    // Fetch a single task
     public Task fetchSingleTask(int taskid){
         Task tmpTask = new Task();
         try{
@@ -162,7 +168,7 @@ public class TaskRepo {
         return tmpTask;
     }
 
-    // returnerer liste med deltagerid i en bestemt task
+    // retuns a list with members in a task
     public ArrayList<Integer> membersInTask(int taskId){
         ArrayList<Integer> taskMembers = new ArrayList<>();
 
@@ -180,7 +186,7 @@ public class TaskRepo {
         return taskMembers;
     }
 
-    // returnerer liste med deltagere i en bestemt task
+    //
     public ArrayList<Member> listMembersInTask(int taskId){
         ArrayList<Member> projectMembers = new ArrayList<>();
 
@@ -204,7 +210,7 @@ public class TaskRepo {
         return projectMembers;
     }
 
-    // knytter projektdeltager til bestemt task
+    // assign a member to a task
     public void assignMemberToTask(int taskId, int memberId){
 
         try{
@@ -220,7 +226,7 @@ public class TaskRepo {
         }
     }
 
-    // slet task
+    // Deletes a task
     public void deleteTask(int taskId){
 
         try {
@@ -234,7 +240,7 @@ public class TaskRepo {
 
     }
 
-    // returnerer liste med alle tasks
+    // Returns a list with all tasks
     public ArrayList<Task> fetchAllTasks(int subprojectId){
 
         ArrayList<Task> allTasks = new ArrayList<>();

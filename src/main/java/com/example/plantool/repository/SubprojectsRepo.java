@@ -11,9 +11,14 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Author: Lars Brogaard
+ *
+ * Subproject repository data querie
+ */
 public class SubprojectsRepo {
 
-    // opdater navn
+    // Update subproject name
     public void updateSubProjectName(int subprojectid, String subprojectname){
 
         try{
@@ -28,7 +33,7 @@ public class SubprojectsRepo {
         }
     }
 
-    // opdate startdato
+    // Update subproject start date
     public void updateSubProjectStartDate(int subprojectid, LocalDate startdate){
 
         try{
@@ -44,7 +49,7 @@ public class SubprojectsRepo {
 
     }
 
-    // opdate slutdato
+    // Update subproject end date
     public void updateSubProjectEndDate(int subprojectid, LocalDate enddate){
 
         try{
@@ -60,7 +65,7 @@ public class SubprojectsRepo {
 
     }
 
-    // opdater deadline
+    // Update subproject deadline
     public void updateSubProjectDeadline(int subprojectid, LocalDate deadline){
 
         try{
@@ -75,7 +80,7 @@ public class SubprojectsRepo {
         }
     }
 
-    // opdater allokeret tid
+    // Update subproject hours allocated
     public void updateHoursAllocated(int subprojectid, int hours){
 
         try{
@@ -90,7 +95,7 @@ public class SubprojectsRepo {
         }
     }
 
-    // opdater tid brugt
+    // Update hours used
     public void updateHoursUsed(int subprojectid, int hours){
 
         try{
@@ -105,7 +110,7 @@ public class SubprojectsRepo {
         }
     }
 
-    // opdater beskrivelse
+    // Update subproject description
     public void updateDescription(int subprojectid, String description){
 
         try{
@@ -122,7 +127,7 @@ public class SubprojectsRepo {
 
 
 
-    // opret underprojekt -
+    // Creates subproject in database
     public void writeSubProjectToDB(Project project, int projectid){
         try{
             PreparedStatement stmt =
@@ -145,7 +150,7 @@ public class SubprojectsRepo {
         }
     }
 
-    // hent enkelt projekt
+    // Fetch a single subproject
     public SubProject fetchSingleSubProject(int subprojectid){
         SubProject tmpProject = new SubProject();
         try{
@@ -174,7 +179,7 @@ public class SubprojectsRepo {
         return tmpProject;
     }
 
-        // returnerer liste med deltagerid i et bestemt underprojekt
+        // Returns a list with members in subproject
     public ArrayList<Integer> membersInSubProject(int subprojectId){
         ArrayList<Integer> projectMembers = new ArrayList<>();
 
@@ -192,7 +197,7 @@ public class SubprojectsRepo {
         return projectMembers;
     }
 
-    // returnerer liste med deltagere i et bestemt projekt
+    // Returns a list with members in subproject
     public ArrayList<Member> listMembersInSubProject(int subProjectId){
         ArrayList<Member> projectMembers = new ArrayList<>();
 
@@ -217,7 +222,7 @@ public class SubprojectsRepo {
     }
 
 
-    // knytter projektdeltager til bestemt underprojekt
+    // Assign a member to subproject
     public void assignMemberToSubProject(int subprojectId, int memberId){
 
         try{
@@ -234,7 +239,7 @@ public class SubprojectsRepo {
     }
 
 
-    // slet underproject
+    // Deletes subproject
     public void deleteSubProject(int subprojectId){
 
         try {
@@ -247,7 +252,7 @@ public class SubprojectsRepo {
         }
     }
 
-    // returnerer liste med et projekts underprojekter
+    // Returns a list with subprojects from project
     public ArrayList<SubProject> fetchSubProjectsFromProject(int projectid){
 
         ArrayList<SubProject> tmpsubprojects = new ArrayList<>();

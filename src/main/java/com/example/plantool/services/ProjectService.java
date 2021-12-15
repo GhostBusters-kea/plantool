@@ -4,7 +4,6 @@ import com.example.plantool.model.Member;
 import com.example.plantool.model.Project;
 import com.example.plantool.repository.ProjectRepo;
 
-import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.temporal.ChronoUnit;
 
@@ -14,26 +13,36 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * Author: Lars Brogaard
+ *
+ * Project service for funktionality
+ */
+
 public class ProjectService {
     ProjectRepo repo = new ProjectRepo();
 
-
+    //Update project name
     public void updateProjectName(int projectid, String name) {
         repo.updateProjectName(projectid, name);
     }
 
+    //Update project start date
     public void updateProjectStartDate(int projectid, LocalDate startdate) {
         repo.updateProjectStartDate(projectid, startdate);
     }
 
+    //Update project end date
     public void updateProjectsEndDate(int projectid, LocalDate enddate) {
         repo.updateProjectEndDate(projectid, enddate);
     }
 
+    //Update deadline
     public void updateDeadline(int projectid, LocalDate deadline) {
         repo.updateProjectDeadline(projectid, deadline);
     }
 
+    //Update hours allocated
     public void updateHoursAllocated(int projectid, int hours) {
         repo.updateHoursAllocated(projectid, hours);
 
@@ -43,11 +52,12 @@ public class ProjectService {
         repo.updateHoursUsed(projectid, hours);
     }
 
+    //update project description
     public void updateProjectDescription(int projectid, String description) {
         repo.updateDescription(projectid, description);
     }
 
-    // opret nyt projekt
+    // Create a new project
     public Project createNewProject(String projectName, LocalDate startDate, LocalDate endDate, LocalDate deadline,
                                     int hoursAllocated, int whoIsLeader, String description) {
         Project project = new Project();
@@ -63,30 +73,33 @@ public class ProjectService {
 
     }
 
+    //Deletes project
     public void deleteProject(int projectId){
         repo.deleteProject(projectId);
     }
 
+    //Add a project to database
     public void addProjectToDb(Project project) {
         repo.writeProjectToDB(project);
     }
 
-    // hent enkelt projekt
+    // Fetch single project
     public Project fetchSingleProject(int projectID) {
         return repo.fetchSingleProject(projectID);
     }
 
+    //Fetch single project on id
     public int fetchSingelProjectId(String projectName) {
         return repo.fetchSingleProjectId(projectName);
     }
 
-    // hent alle projekter
+    // fetch all projects
     public ArrayList<Project> fetchAllProjects() {
         return repo.fetchAllProjects();
     }
 
 
-    // knytter projektdeltager til bestemt project
+    // Assign member to project
     public void assignMemberToProject(int projectId, int memberId) {
 
         if (projectHasMember(projectId, memberId)) {
@@ -101,7 +114,7 @@ public class ProjectService {
     }
 
 
-    // checker om projektdeltager allerede er knyttet til projekt
+    // checks if project already have an instance of a member
     public boolean projectHasMember(int projectId, int memberId) {
 
         for (int i = 0; i < repo.membersInProject(projectId).size(); i++) {
@@ -112,7 +125,7 @@ public class ProjectService {
         return false;
     }
 
-    // metode til udregning af arbejdsdage
+    // Method to calculate business days
     public static long calculateBusinessDays(Project project) {
         int first = project.getStartDate().getDayOfWeek().getValue();
         int last = project.getEndDate().getDayOfWeek().getValue();
@@ -134,7 +147,7 @@ public class ProjectService {
         return result;
     }
 
-    // metode nummer 2  - kan ændres til at returnere en liste med alle dagene mellem start og end
+    // method number 2 - can be changed to return a list of all the days between start and end
     public int countBusinessDays(Project project) {
 
         Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY ||
@@ -155,7 +168,7 @@ public class ProjectService {
     }
 
 
-    // udregning af gennemsnitlig antal arbejdstimer pr dag
+    // calculation of average number of working hours per day
     public float calculateHoursPrDay(Project project, int numberOfMembers) {
         float days = 0;
         if (calculateBusinessDays(project) == 0) {
@@ -171,6 +184,7 @@ public class ProjectService {
         return (float) result / numberOfMembers;
     }
 
+    //Calculate days until deadline
     public int daysUntilDeadline(Project project) {
         Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY ||
                 date.getDayOfWeek() == DayOfWeek.SUNDAY;

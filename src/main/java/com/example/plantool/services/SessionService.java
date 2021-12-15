@@ -5,10 +5,16 @@ import org.springframework.ui.Model;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
+/**
+ * Author: Jonas Munk
+ *
+ * Session service for funktionality
+ */
+
 public class SessionService {
     MemberService memberService = new MemberService();
 
-    // TODO: Create session service
+    //Puts a member in session
     public String inSession(Model model, HttpSession session, String mapping) throws SQLException {
 
         if(session.getAttribute("userid") == null) {
@@ -28,6 +34,7 @@ public class SessionService {
         }
     }
 
+    // Finds out if member is leader
     public int isLeaderSession(HttpSession session){
         int isLeader;
 

@@ -14,11 +14,15 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
+/**
+ * Author: Kevin Funch
+ *
+ * Subtask repository data querie
+ */
 
 public class SubTaskRepo {
 
-    // opdater navn
+    // Update subtask name
     public void updateSubTaskName(int subtaskid, String subtaskname){
         try{
             PreparedStatement stmt =
@@ -32,7 +36,7 @@ public class SubTaskRepo {
         }
     }
 
-    // opdate startdato
+    // Update startdate
     public void updateSubTaskStartDate(int subtaskid, LocalDate startdate){
         try{
             PreparedStatement stmt =
@@ -46,7 +50,7 @@ public class SubTaskRepo {
         }
     }
 
-    // opdater slutdato
+    // Update end date
     public void updateSubTaskEndDate(int subtaskid, LocalDate enddate){
         try{
             PreparedStatement stmt =
@@ -61,7 +65,7 @@ public class SubTaskRepo {
     }
 
 
-    // opdater deadline
+    // Update deadline
     public void updateSubTaskDeadline(int subtaskid, LocalDate deadline){
 
         try{
@@ -76,7 +80,7 @@ public class SubTaskRepo {
         }
     }
 
-    // opdater allokeret tid
+    // Update hours allocated
     public void updateHoursAllocated(int subtaskid, int hours){
 
         try{
@@ -90,7 +94,7 @@ public class SubTaskRepo {
         }
     }
 
-    // opdater tid brugt
+    // Update hours used
     public void updateHoursUsed(int subtaskid, int hours){
 
         try{
@@ -104,7 +108,7 @@ public class SubTaskRepo {
         }
     }
 
-    // opdater beskrivelse
+    // Update description
     public void updateDescription(int subtaskid, String description){
         try{
             PreparedStatement stmt =
@@ -117,6 +121,7 @@ public class SubTaskRepo {
         }
     }
 
+    // Create subtask in database
     public void writeSubTaskToDB(SubTask subTask, int taskId){
 
         try{
@@ -141,6 +146,7 @@ public class SubTaskRepo {
         }
     }
 
+    // Fetch a single subtask
     public SubTask fetchSingleSubTask(int subtaskId){
 
         SubTask tmpSubTask = new SubTask();
@@ -174,6 +180,7 @@ public class SubTaskRepo {
         return tmpSubTask;
     }
 
+    //Return a list with members in subtask
     public ArrayList<Integer> membersInSubTask(int subtaskId){
         ArrayList<Integer> subTaskMembers = new ArrayList<>();
 
@@ -193,6 +200,7 @@ public class SubTaskRepo {
         return subTaskMembers;
     }
 
+    //Assign members to a subtask
     public void assignMemberToSubTask(int subTaskId, int memberId){
 
         try{
@@ -208,6 +216,7 @@ public class SubTaskRepo {
         }
     }
 
+    // Deletes a subtask
     public void deleteSubTask(int subTaskId){
 
         try {
@@ -221,6 +230,7 @@ public class SubTaskRepo {
 
     }
 
+    //Return a list with all sub task
     public ArrayList<SubTask> fetchAllSubTask(int taskid){
 
         ArrayList<SubTask> allSubTask = new ArrayList<>();
