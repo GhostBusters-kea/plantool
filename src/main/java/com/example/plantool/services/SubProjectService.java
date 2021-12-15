@@ -32,7 +32,7 @@ public class SubProjectService {
     }
 
     // Update subproject deadline
-    public void updateDeadline(int subprojectid, LocalDate deadline){
+    public void updateSubDeadline(int subprojectid, LocalDate deadline){
         repo.updateSubProjectDeadline(subprojectid,deadline);
     }
 

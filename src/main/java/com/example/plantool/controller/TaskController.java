@@ -111,7 +111,7 @@ public class TaskController {
             subProjectService.updateProjectStartDate(subProjectId, LocalDate.parse(wr.getParameter("newsubprojectStartDate")));
         }
         if(wr.getParameter("newdeadline") != ""){
-            subProjectService.updateDeadline(subProjectId, LocalDate.parse(wr.getParameter("newsubprojectdeadline")));
+            subProjectService.updateSubDeadline(subProjectId, LocalDate.parse(wr.getParameter("newsubprojectdeadline")));
         }
         if(wr.getParameter("newhoursAllocated") != ""){
             subProjectService.updateHoursAllocated(subProjectId, Integer.parseInt(wr.getParameter("newsubprojecthoursAllocated")));
