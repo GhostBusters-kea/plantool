@@ -27,7 +27,7 @@ public class TaskService {
         repo.updateTaskStartDate(taskid,startdate);
     }
 
-    //Update task end date
+    //Update task end date - not implementet
     public void updateTaskEndDate(int taskid,LocalDate enddate){
         repo.updateTaskEndDate(taskid,enddate);
     }
@@ -42,7 +42,7 @@ public class TaskService {
         repo.updateHoursAllocated(taskid,hours);
     }
 
-    //Update task update hours used
+    //Update task update hours used - not implementet
     public void updateHoursUsed(int taskid, int hours){
         repo.updateHoursUsed(taskid,hours);
     }
@@ -57,31 +57,12 @@ public class TaskService {
         repo.deleteTask(taskId);
     }
 
-    // Create a new task
-    public Task createNewTask(int subprojectId, String taskName, LocalDate startDate, LocalDate endDate, LocalDate deadline,
-                                    int hoursAllocated, String description){
-        Task task = new Task();
-        task.setSubprojectId(subprojectId);
-        task.setName(taskName);
-        task.setStartDate(startDate);
-        task.setStartDate(endDate);
-        task.setDeadline(deadline);
-        task.setHoursAllocated(hoursAllocated);
-        task.setProjectDescription(description);
-
-        return task;
-
-    }
 
     //Adds a task to database
     public void addTaskToDb(Task task, int subprojectId){
         repo.writeTaskToDB(task, subprojectId);
     }
 
-    // fetch single task
-    public Task fetchSingleTask(int taskId){
-        return repo.fetchSingleTask(taskId);
-    }
 
     // fetch all task
     public ArrayList<Task> fetchAllTasks(int subprojectId){
@@ -89,7 +70,7 @@ public class TaskService {
     }
 
 
-    // assign meber to task
+    // assign meber to task - not implementet
     public void assignMemberToTask(int taskId, int memberId){
 
         if (taskHasMember(taskId, memberId)){
@@ -100,6 +81,7 @@ public class TaskService {
         }
     }
 
+    // not implementet
     public ArrayList<Integer> membersInTask(int taskId){
         return repo.membersInTask(taskId);
     }
@@ -116,7 +98,7 @@ public class TaskService {
         return false;
     }
 
-    // Method to calculate business days
+    // Method to calculate business days - not implementet
     public static long calculateBusinessDays(Task task){
         int first = task.getStartDate().getDayOfWeek().getValue();
         int last = task.getEndDate().getDayOfWeek().getValue();

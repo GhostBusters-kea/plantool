@@ -47,7 +47,7 @@ public class ProjectService {
         repo.updateHoursAllocated(projectid, hours);
 
     }
-
+    // not implementet
     public void updateHoursUsed(int projectid, int hours) {
         repo.updateHoursUsed(projectid, hours);
     }
@@ -55,22 +55,6 @@ public class ProjectService {
     //update project description
     public void updateProjectDescription(int projectid, String description) {
         repo.updateDescription(projectid, description);
-    }
-
-    // Create a new project
-    public Project createNewProject(String projectName, LocalDate startDate, LocalDate endDate, LocalDate deadline,
-                                    int hoursAllocated, int whoIsLeader, String description) {
-        Project project = new Project();
-        project.setName(projectName);
-        project.setStartDate(startDate);
-        project.setStartDate(endDate);
-        project.setDeadline(deadline);
-        project.setHoursAllocated(hoursAllocated);
-        project.setWhoIsLeader(whoIsLeader);
-        project.setProjectDescription(description);
-
-        return project;
-
     }
 
     //Deletes project

@@ -87,7 +87,7 @@ public class SkillRepo {
         return skills;
     }
 
-    // Returns a single skill on skillid
+    // Returns a single skill on skillid - not implementet
     public Skill findSkillById(int skillId) {
         Skill skill = new Skill();
         try{
