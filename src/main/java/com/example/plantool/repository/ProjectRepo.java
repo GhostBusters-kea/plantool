@@ -153,7 +153,7 @@ public class ProjectRepo {
         int id = 0;
         try{
             PreparedStatement stmt = DatabaseConnector.getConnection().prepareStatement(
-                    "SELECT projectid FROM plantool.project WHERE projectname = '" + projectName + "'");
+                    "SELECT projectid FROM project WHERE projectname = '" + projectName + "'");
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()){
