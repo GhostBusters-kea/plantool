@@ -21,8 +21,8 @@ public class FrontpageController {
     //View frontpage for leader or member
     @GetMapping("/frontpage")
     public String index(HttpSession session, Model model) throws SQLException {
-        String mappingLeader = sessionService.inSession(model, session, "indexleader");
-        String mappingMember = sessionService.inSession(model, session, "indexmember");
+        String mappingLeader = sessionService.inSession(model, session, "indexLeader");
+        String mappingMember = sessionService.inSession(model, session, "indexMember");
         int isLeader = sessionService.isLeaderSession(session);
         if(isLeader == 1){
             return mappingLeader;
