@@ -31,7 +31,7 @@ in java 11 runtime environment and hosted with ClearDB on Heroku at https://plan
 
 ## Running Plantool
 
-To run Plantool, clone this repository into Intellij and run the `plantool_db.sql` script in MySQL Workbench. 
+To run Plantool, clone this repository into Intellij and run the [`plantool_db.sql`](https://github.com/jmunkc/plantool/blob/master/plantool_db.sql) script in MySQL Workbench. 
 Make sure to specify environmental variables values: `url`, `username` and `password` in Intellij
 
 ```
@@ -64,12 +64,12 @@ Go to `Settings` and pres `Reveal Config Vars`
 
 The `CLEARDB_DATABASE_URL` KEY will give you somthing like
 ```
-mysql://bd9542c743ac0a:8fvf2297@eu-cdbr-west-02.cleardb.net/heroku_4a8208a40a1afbc?reconnect=true
+mysql://bd95xxxxxxac0a:8fxxxx97@eu-cdbr-west-02.cleardb.net/heroku_4a8208a40a1afbc?reconnect=true
 ```
 Where
 
-* username = `bd9542c743ac0a`
-* password = `8fvf2297`
+* username = `bd95xxxxxxac0a`
+* password = `8fxxxx97`
 * url = `eu-cdbr-west-02.cleardb.net/`
 * database name = `heroku_4a8208a40a1afbc`
 
@@ -77,8 +77,17 @@ Open MySQL Workbench. Add a new connection and input your variables
 ![img_7.png](img_7.png)
 The database name will be set automatically.
 
-Open a new SQL queries tab and run the `plantool_db.sql`()
+Open a new SQL queries tab and run the [`plantool_db.sql`](https://github.com/jmunkc/plantool/blob/master/plantool_db.sql)
 
+Then go back to `Heruko > Settings > Reveal Config Vars` and paste in your variables.
+![img_8.png](img_8.png)
+
+Make sure that the url is appended with the prefix `jdbc:` the suffix with the database name and `&autoReconnect=true`
+It should look somthing like this
+```
+jdbc:mysql://eu-cdbr-west-02.cleardb.net/heroku_4a8208a40a1afbc?reconnect=true&autoReconnect=true
+```
+Finally, simply press the `Open app` button in the top right corner and enjoy planning online :)
 ## Contributing to Plantool
 
 To contribute to Plantool, follow these steps:
