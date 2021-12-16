@@ -47,7 +47,8 @@ public class MemberController {
         String[] skillsAllocated = wr.getParameterValues("skill");
 
         for(int i = 0; i < skillsAllocated.length; i++){
-            skillService.assignSkillToMember(memberService.findMember(wr.getParameter("input-email")).getMemberId(), skillService.fetchSkillByName(skillsAllocated[i]).getSkillId());
+            skillService.assignSkillToMember(memberService.findMember(wr.getParameter("input-email"))
+                    .getMemberId(), skillService.fetchSkillByName(skillsAllocated[i]).getSkillId());
         }
         return "redirect:/createmembersucces";
     }
