@@ -8,11 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
-
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+
 
 /**
  * Author: Kevin Funch
@@ -44,6 +43,7 @@ public class MemberController {
                 wr.getParameter("input-password"));
         memberService.isLeaderBoolean(Boolean.parseBoolean(checkForBoolean), wr.getParameter("input-email"));
 
+        // TODO: Handele empty parameters
         String[] skillsAllocated = wr.getParameterValues("skill");
 
         for(int i = 0; i < skillsAllocated.length; i++){
